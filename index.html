@@ -132,6 +132,74 @@
   .line.yes .glyph{background:var(--green);}
   .line.yes .t{color:var(--green);}
 
+  /* ---------- what you get (the trophy) ---------- */
+  .panel.tint{background:#FFFFFF;}
+  .panel.deep{background:#081120;}
+  .panel.deep::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(60% 50% at 62% 50%,rgba(31,191,110,.16),transparent 70%);
+  }
+  .panel.deep .wrap{position:relative;z-index:1;}
+
+  .trophy-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:3.5rem;align-items:center;}
+  @media(max-width:56rem){.trophy-grid{grid-template-columns:1fr;gap:2.5rem;}}
+
+  .gets{display:grid;gap:.875rem;margin-top:2rem;}
+  .get{display:grid;grid-template-columns:1.5rem 1fr;gap:.875rem;align-items:start;}
+  .get .n{font-family:"JetBrains Mono",monospace;font-size:.6875rem;
+    letter-spacing:.1em;color:var(--green-lift);padding-top:.375rem;}
+  .get h3{font-family:Archivo,sans-serif;font-weight:800;font-size:1.0625rem;
+    letter-spacing:-.025em;margin:0 0 .125rem;color:#EDF1F4;}
+  .get p{margin:0;font-size:.9375rem;color:var(--grey-dk);max-width:26rem;}
+
+  /* the credential */
+  .cred{
+    background:#FBFCFB;color:#0B1524;border-radius:8px;
+    padding:1.75rem 1.875rem 1.5rem;max-width:26rem;
+    transform:rotate(-1.2deg);
+    box-shadow:0 40px 80px -30px rgba(0,0,0,.8),
+               0 0 70px -18px rgba(31,191,110,.4);
+    transition:transform .45s cubic-bezier(.2,.6,.2,1);
+  }
+  .cred:hover{transform:rotate(0deg) translateY(-4px);}
+  .cred-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    padding-bottom:1.125rem;border-bottom:1px solid var(--rule);}
+  .cred-top .lbl{font-family:"JetBrains Mono",monospace;font-size:.625rem;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--green);font-weight:700;}
+  .cred-top .seal{width:1.5rem;height:1.5rem;border-radius:50%;background:var(--green);
+    display:grid;place-items:center;flex:none;}
+  .cred-top .seal svg{width:.75rem;height:.75rem;display:block;}
+  .cred .nm{font-family:Archivo,sans-serif;font-weight:900;letter-spacing:-.035em;
+    font-size:1.5rem;margin:1.125rem 0 .875rem;}
+  .cred .big{font-family:"JetBrains Mono",monospace;font-weight:700;
+    font-size:3rem;letter-spacing:-.05em;line-height:1;color:var(--green);}
+  .cred .big-k{font-family:"JetBrains Mono",monospace;font-size:.625rem;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--grey);margin-top:.375rem;}
+  .cred-rows{margin-top:1.375rem;padding-top:1.125rem;border-top:1px solid var(--rule);
+    display:grid;gap:.5rem;}
+  .cred-rows div{display:flex;justify-content:space-between;gap:1rem;
+    font-family:"JetBrains Mono",monospace;font-size:.6875rem;letter-spacing:.04em;}
+  .cred-rows dt{color:var(--grey);text-transform:uppercase;}
+  .cred-rows dd{margin:0;font-weight:700;}
+  .cred .url{margin-top:1.25rem;font-family:"JetBrains Mono",monospace;
+    font-size:.625rem;letter-spacing:.08em;color:var(--grey);}
+
+  .rank-note{display:flex;align-items:center;gap:.875rem;margin-top:2.25rem;
+    padding:1rem 1.25rem;border-radius:4px;max-width:30rem;
+    background:rgba(31,191,110,.1);border:1px solid rgba(31,191,110,.3);}
+  .rank-note .glyph{width:1.375rem;height:1.375rem;flex:none;border-radius:50%;
+    background:var(--green-lift);display:grid;place-items:center;}
+  .rank-note .glyph svg{width:.6875rem;height:.6875rem;display:block;}
+  .rank-note span{font-family:Archivo,sans-serif;font-weight:700;font-size:1rem;
+    letter-spacing:-.02em;color:var(--green-lift);}
+
+  .js .pop{opacity:0;transform:rotate(-1.2deg) scale(.94);}
+  .js .pop.in{opacity:1;transform:rotate(-1.2deg) scale(1);
+    transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1);}
+  @media(prefers-reduced-motion:reduce){
+    .js .pop{opacity:1;transform:rotate(-1.2deg);transition:none!important;}
+  }
+
   /* ---------- video ---------- */
   .video{position:relative;max-width:54rem;aspect-ratio:16/9;background:#0E1B2E;
     border:1px solid var(--rule-dk);border-radius:6px;display:grid;place-items:center;
@@ -180,7 +248,8 @@
 
 <nav class="dots" id="dots">
   <a href="#p1" data-i="0"></a><a href="#p2" data-i="1"></a>
-  <a href="#p3" data-i="2"></a><a href="#p4" data-i="3"></a><a href="#p5" data-i="4"></a>
+  <a href="#p3" data-i="2"></a><a href="#p4" data-i="3"></a>
+  <a href="#p5" data-i="4"></a><a href="#p6" data-i="5"></a>
 </nav>
 
 <!-- 01 -->
@@ -260,11 +329,72 @@
 </section>
 
 <!-- 04 -->
-<section class="panel dark" id="p4" data-theme="dark">
+<section class="panel deep" id="p4" data-theme="dark">
   <span class="idx">04</span>
   <div class="wrap">
+    <div class="trophy-grid">
+      <div>
+        <h2 class="rise" style="color:#EDF1F4">Everyone who finishes gets this.</h2>
+        <p class="lede muted rise" data-d="60" style="margin-top:0">
+          Five of them also get a rank. That is the only difference.
+        </p>
+
+        <div class="gets">
+          <div class="get rise" data-d="140">
+            <span class="n">01</span>
+            <div>
+              <h3>Six verified months</h3>
+              <p>Half a year of real trading, checked by Myfxbook and dated. Yours to send to anyone.</p>
+            </div>
+          </div>
+          <div class="get rise" data-d="200">
+            <span class="n">02</span>
+            <div>
+              <h3>Your name on the list</h3>
+              <p>Public proof you agreed to be checked. Not many will. That is the point of it.</p>
+            </div>
+          </div>
+          <div class="get rise" data-d="260">
+            <span class="n">03</span>
+            <div>
+              <h3>Your own page here</h3>
+              <p>Verified account, verified return, your links. It stays up after the contest ends.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="rank-note rise" data-d="340">
+          <span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="#081120" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>
+          <span>The top five are named, with their return.</span>
+        </div>
+      </div>
+
+      <div class="cred pop" data-d="220">
+        <div class="cred-top">
+          <span class="lbl">Verified Trader</span>
+          <span class="seal"><svg viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>
+        </div>
+        <div class="nm">Your name here</div>
+        <div class="big">+47.3%</div>
+        <div class="big-k">Net return &middot; six months</div>
+        <dl class="cred-rows">
+          <div><dt>Edition</dt><dd>One &middot; 2026</dd></div>
+          <div><dt>Account</dt><dd>Live MT5</dd></div>
+          <div><dt>Source</dt><dd>Myfxbook</dd></div>
+          <div><dt>Closed trades</dt><dd>134</dd></div>
+        </dl>
+        <div class="url">jibyourmentor.ma/your-name</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 -->
+<section class="panel tint" id="p5" data-theme="light">
+  <span class="idx">05</span>
+  <div class="wrap">
     <h2 class="rise">How it works</h2>
-    <p class="lede muted rise" data-d="60" style="margin-top:0">
+    <p class="lede rise" data-d="60" style="margin-top:0">
       Ninety seconds. The rules, the dates, and what happens to your numbers.
     </p>
     <div class="video rise" data-d="140">
@@ -276,9 +406,9 @@
   </div>
 </section>
 
-<!-- 05 -->
-<section class="panel" id="p5" data-theme="light">
-  <span class="idx">05</span>
+<!-- 06 -->
+<section class="panel" id="p6" data-theme="light">
+  <span class="idx">06</span>
   <div class="wrap">
     <h2 class="rise">In six months, this list will exist.</h2>
     <p class="lede rise" data-d="60" style="margin-top:0">
@@ -302,7 +432,7 @@
       io.unobserve(e.target);
     });
   },{threshold:.1,rootMargin:'0px 0px -5% 0px'});
-  document.querySelectorAll('.rise').forEach(el=>io.observe(el));
+  document.querySelectorAll('.rise,.pop').forEach(el=>io.observe(el));
 
   const panels = [...document.querySelectorAll('.panel')];
   const dots = [...document.querySelectorAll('.dots a')];
