@@ -3,379 +3,473 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>JibYourMentor — verified trading, Morocco</title>
+<title>JibYourMentor — the first public record of verified traders in Morocco</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#0B1524;
-    --paper:#F4F5F3;
-    --card:#FFFFFF;
-    --rule:#DADEDB;
-    --rule-dk:#1E2C42;
-    --green:#0E7A48;
-    --green-lift:#1FBF6E;
-    --grey:#8E969C;
-    --grey-dk:#8496AB;
+    --bg:#090C09;
+    --bg2:#0C100C;
+    --panel:#101510;
+    --panel2:#131913;
+    --line:#1F261E;
+    --line2:#2A3328;
+    --lime:#BFF549;
+    --lime-dim:#A5DC35;
+    --txt:#F2F5EF;
+    --mut:#8B948A;
     --measure:33rem;
+    --r:16px;
   }
   *{box-sizing:border-box;}
-  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;
-       scroll-snap-type:y proximity;}
-  body{margin:0;background:var(--paper);color:var(--ink);
-    font-family:"Source Serif 4",Georgia,serif;font-size:1.0625rem;
-    line-height:1.62;-webkit-font-smoothing:antialiased;}
-  .wrap{max-width:74rem;margin:0 auto;padding:0 2rem;width:100%;}
-  @media(max-width:38rem){.wrap{padding:0 1.375rem;}}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font-family:Inter,system-ui,sans-serif;font-size:1rem;line-height:1.65;
+    -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:76rem;margin:0 auto;padding:0 2rem;width:100%;}
+  @media(max-width:38rem){.wrap{padding:0 1.25rem;}}
+  section{padding:5.5rem 0;position:relative;}
+  @media(max-width:48rem){section{padding:3.5rem 0;}}
 
-  /* ---------- panels ---------- */
-  .panel{
-    min-height:100svh;display:flex;align-items:center;
-    scroll-snap-align:start;position:relative;
-    padding:6.5rem 0 5rem;
-  }
-  @media(max-width:48rem){.panel{padding:5.5rem 0 4rem;min-height:auto;}}
-  .panel.dark{background:var(--ink);color:#EDF1F4;}
-  .panel.dark .muted{color:var(--grey-dk);}
-  .muted{color:var(--grey);}
+  .display{font-family:"Archivo Black",Archivo,sans-serif;font-weight:400;
+    text-transform:uppercase;letter-spacing:-.015em;line-height:.96;}
+  .kicker{font-family:"JetBrains Mono",monospace;font-size:.6875rem;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--lime);
+    margin:0 0 1.25rem;display:flex;align-items:center;gap:.875rem;font-weight:500;}
+  .kicker::after{content:"";height:1px;flex:0 1 5rem;background:var(--line2);}
+  .sub{max-width:var(--measure);color:var(--mut);font-size:1.0625rem;}
+  .sub strong{color:var(--txt);font-weight:600;}
 
-  .idx{
-    position:absolute;top:5.5rem;left:2rem;
+  /* ---------- nav ---------- */
+  .nav{position:sticky;top:0;z-index:40;background:rgba(9,12,9,.82);
+    backdrop-filter:saturate(140%) blur(12px);
+    border-bottom:1px solid transparent;transition:border-color .3s ease;}
+  .nav.stuck{border-bottom-color:var(--line);}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;
+    gap:1.5rem;padding-top:1.0625rem;padding-bottom:1.0625rem;}
+  .mark{font-family:Inter,sans-serif;font-weight:700;letter-spacing:-.03em;
+    font-size:1.125rem;text-decoration:none;color:var(--txt);}
+  .mark b{color:var(--lime);font-weight:700;}
+  .nav-links{display:flex;gap:2rem;}
+  .nav-links a{font-family:"JetBrains Mono",monospace;font-size:.6875rem;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--mut);
+    text-decoration:none;transition:color .2s ease;}
+  .nav-links a:hover{color:var(--txt);}
+  @media(max-width:52rem){.nav-links{display:none;}}
+
+  .btn{display:inline-flex;align-items:center;gap:.625rem;
+    font-family:Inter,sans-serif;font-weight:700;font-size:.9375rem;
+    letter-spacing:-.01em;text-decoration:none;border-radius:12px;
+    padding:.875rem 1.5rem;transition:background .2s ease,transform .12s ease,border-color .2s ease,color .2s ease;}
+  .btn:active{transform:translateY(1px);}
+  .btn-lime{background:var(--lime);color:#0A0D08;}
+  .btn-lime:hover{background:var(--lime-dim);}
+  .btn-ghost{border:1px solid var(--line2);color:var(--txt);}
+  .btn-ghost:hover{border-color:var(--mut);}
+  .btn svg{width:.9375rem;height:.9375rem;}
+  .nav .btn{padding:.625rem 1.125rem;font-size:.8438rem;border-radius:10px;}
+
+  /* ---------- hero ---------- */
+  .hero{padding:5.5rem 0 7rem;overflow:hidden;}
+  @media(max-width:48rem){.hero{padding:3rem 0 4rem;}}
+  .hero .glow{position:absolute;top:8%;right:-6%;width:44rem;height:44rem;
+    pointer-events:none;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(191,245,73,.14),transparent 72%);}
+  .ridge{position:absolute;left:0;right:0;bottom:0;pointer-events:none;width:100%;}
+  .ridge svg{display:block;width:100%;height:auto;}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:4rem;
+    align-items:center;position:relative;}
+  @media(max-width:58rem){.hero-grid{grid-template-columns:1fr;gap:3rem;}}
+
+  h1.display{font-size:clamp(2.75rem,6.6vw,5.5rem);margin:0;max-width:13ch;}
+  h1 .lime{color:var(--lime);}
+  .hero .sub{margin:1.75rem 0 0;}
+
+  .chips{display:flex;flex-wrap:wrap;gap:1.25rem 1.75rem;margin-top:1.75rem;}
+  .chip{display:inline-flex;align-items:center;gap:.5625rem;
     font-family:"JetBrains Mono",monospace;font-size:.6875rem;
-    letter-spacing:.16em;color:var(--grey);
-  }
-  .panel.dark .idx{color:var(--grey-dk);}
-  @media(max-width:38rem){.idx{left:1.375rem;top:4.75rem;}}
+    letter-spacing:.14em;text-transform:uppercase;color:var(--txt);}
+  .chip .c{width:1.0625rem;height:1.0625rem;flex:none;border-radius:50%;
+    border:1.25px solid var(--lime);display:grid;place-items:center;color:var(--lime);}
+  .chip .c svg{width:.5625rem;height:.5625rem;}
+  .hero-ctas{display:flex;gap:.875rem;flex-wrap:wrap;margin-top:2.25rem;}
 
-  /* ---------- masthead ---------- */
-  .masthead{position:fixed;top:0;left:0;right:0;z-index:30;
-    transition:background .4s ease,border-color .4s ease;
-    border-bottom:1px solid transparent;}
-  .masthead .wrap{display:flex;align-items:center;justify-content:space-between;
-    padding-top:1.0625rem;padding-bottom:1.0625rem;}
-  .masthead.on-light{background:rgba(244,245,243,.9);backdrop-filter:saturate(160%) blur(10px);}
-  .masthead.on-light.scrolled{border-bottom-color:var(--rule);}
-  .masthead.on-dark{background:rgba(11,21,36,.86);backdrop-filter:saturate(160%) blur(10px);color:#EDF1F4;}
-  .mark{font-family:Archivo,sans-serif;font-weight:800;letter-spacing:-.035em;font-size:1.0625rem;}
-  .mark span{color:var(--green);}
-  .masthead.on-dark .mark span{color:var(--green-lift);}
-  .edition{font-family:"JetBrains Mono",monospace;font-size:.6875rem;
-    letter-spacing:.15em;text-transform:uppercase;color:var(--grey);}
-  .masthead.on-dark .edition{color:var(--grey-dk);}
-  @media(max-width:30rem){.edition{display:none;}}
+  /* verification card */
+  .vcard{background:linear-gradient(160deg,var(--panel2),var(--panel));
+    border:1px solid var(--line2);border-radius:var(--r);
+    padding:1.625rem 1.75rem 1.5rem;width:min(24.5rem,100%);
+    box-shadow:0 40px 80px -40px rgba(0,0,0,.9),0 0 80px -30px rgba(191,245,73,.28);
+    justify-self:end;position:relative;}
+  @media(max-width:58rem){.vcard{justify-self:start;}}
+  .vlbl{font-family:"JetBrains Mono",monospace;font-size:.6563rem;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--lime);font-weight:500;}
+  .vrows{margin:1.25rem 0 0;display:grid;gap:1.0625rem;}
+  .vrow{display:flex;align-items:center;gap:.9375rem;
+    font-weight:600;font-size:.9688rem;letter-spacing:-.01em;}
+  .vrow svg{width:1.125rem;height:1.125rem;flex:none;color:var(--lime);}
+  .vdiv{height:1px;background:var(--line);margin:1.5rem 0 1.375rem;}
+  .vnum{font-family:"Archivo Black",sans-serif;font-size:2.75rem;
+    letter-spacing:-.02em;line-height:1;}
+  .vnum small{color:var(--mut);font-family:"JetBrains Mono",monospace;
+    font-size:.6563rem;letter-spacing:.22em;display:block;margin-top:.4375rem;
+    font-weight:500;}
+  .track{height:4px;background:var(--line);border-radius:999px;margin-top:1.125rem;
+    overflow:hidden;}
+  .track i{display:block;height:100%;width:2%;background:var(--lime);border-radius:999px;}
+  .vfoot{font-family:"JetBrains Mono",monospace;font-size:.6563rem;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin-top:1.125rem;}
 
-  /* ---------- dot nav ---------- */
-  .dots{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);z-index:25;
-    display:flex;flex-direction:column;gap:.75rem;}
-  @media(max-width:48rem){.dots{display:none;}}
-  .dots a{width:.5rem;height:.5rem;border-radius:50%;
-    border:1px solid var(--grey);opacity:.5;transition:all .3s ease;}
-  .dots a.on{background:var(--green);border-color:var(--green);opacity:1;transform:scale(1.25);}
-  .dots.inv a{border-color:var(--grey-dk);}
-  .dots.inv a.on{background:var(--green-lift);border-color:var(--green-lift);}
+  .cue{position:absolute;left:50%;transform:translateX(-50%);bottom:1.25rem;
+    display:flex;flex-direction:column;align-items:center;gap:.625rem;
+    font-family:"JetBrains Mono",monospace;font-size:.625rem;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--mut);z-index:2;}
+  .cue i{width:1px;height:2.25rem;background:var(--line2);position:relative;overflow:hidden;}
+  .cue i::after{content:"";position:absolute;top:-30%;left:0;width:100%;height:30%;
+    background:var(--lime);animation:drip 2.2s ease-in-out infinite;}
+  @keyframes drip{60%,100%{top:110%;}}
+  @media(max-width:48rem){.cue{display:none;}}
 
-  /* ---------- type ---------- */
-  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:.6875rem;
-    letter-spacing:.17em;text-transform:uppercase;color:var(--green);
-    margin:0 0 2rem;display:flex;align-items:center;gap:.75rem;}
-  .panel.dark .eyebrow{color:var(--green-lift);}
-  .eyebrow .dot{width:.4375rem;height:.4375rem;border-radius:50%;background:currentColor;
-    flex:none;box-shadow:0 0 0 0 rgba(14,122,72,.4);animation:pulse 2.6s ease-out infinite;}
-  @keyframes pulse{70%{box-shadow:0 0 0 .5rem rgba(14,122,72,0);}100%{box-shadow:0 0 0 0 rgba(14,122,72,0);}}
-  .eyebrow::after{content:"";height:1px;flex:1;max-width:5rem;background:var(--rule);}
-  .panel.dark .eyebrow::after{background:var(--rule-dk);}
+  /* ---------- mission ---------- */
+  .mission{border-top:1px solid var(--line);background:var(--bg2);}
+  .m-grid{display:grid;grid-template-columns:1.05fr 1fr .8fr;gap:3.5rem;align-items:center;}
+  @media(max-width:58rem){.m-grid{grid-template-columns:1fr;gap:2.5rem;}}
+  .m-grid h2{font-size:clamp(1.875rem,3.6vw,2.875rem);margin:0;}
+  .m-grid h2 .lime{color:var(--lime);}
+  .m-kick{font-family:"JetBrains Mono",monospace;font-size:.6875rem;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--mut);margin:0 0 1rem;}
+  .m-copy{color:var(--mut);font-size:1.0625rem;margin:0;}
+  .m-copy strong{color:var(--txt);}
+  .m-stats{display:grid;gap:0;border-left:1px solid var(--line);}
+  .m-stat{padding:1rem 0 1rem 1.75rem;border-bottom:1px solid var(--line);}
+  .m-stat:last-child{border-bottom:0;}
+  .m-stat .n{font-family:"Archivo Black",sans-serif;font-size:2.25rem;line-height:1;}
+  .m-stat .k{font-family:"JetBrains Mono",monospace;font-size:.6563rem;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-top:.375rem;}
 
-  h1{font-family:Archivo,sans-serif;font-weight:900;
-    font-size:clamp(2.75rem,8.4vw,7rem);line-height:.95;letter-spacing:-.05em;
-    margin:0;max-width:14ch;}
-  h1 .fade{color:var(--grey);}
-  h2{font-family:Archivo,sans-serif;font-weight:900;
-    font-size:clamp(2rem,5.4vw,4rem);letter-spacing:-.045em;line-height:1;
-    margin:0 0 1.5rem;max-width:15ch;}
-  .lede{max-width:var(--measure);margin:2rem 0 0;font-size:1.1875rem;line-height:1.6;}
-  .lede strong{font-weight:600;}
-
-  /* ---------- proof cards ---------- */
-  .compare{display:grid;grid-template-columns:1fr 1fr;gap:1rem;
-    margin-top:3rem;max-width:42rem;}
-  @media(max-width:34rem){.compare{grid-template-columns:1fr;}}
-  .rec{background:rgba(255,255,255,.03);border:1px solid var(--rule-dk);
-    border-radius:5px;padding:1.5rem 1.625rem 1.375rem;}
-  .rec .who{font-family:Archivo,sans-serif;font-weight:700;font-size:.875rem;}
+  /* ---------- compare ---------- */
+  .cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.125rem;margin-top:2.75rem;max-width:46rem;}
+  @media(max-width:34rem){.cmp-grid{grid-template-columns:1fr;}}
+  h2.display{font-size:clamp(1.875rem,3.8vw,3rem);margin:0;}
+  .rec{background:var(--panel);border:1px solid var(--line2);border-radius:var(--r);
+    padding:1.5rem 1.625rem 1.375rem;}
+  .rec .who{font-weight:700;font-size:.875rem;letter-spacing:-.01em;}
   .rec .num{font-family:"JetBrains Mono",monospace;font-weight:700;
-    font-size:clamp(2rem,4.4vw,2.75rem);letter-spacing:-.045em;
-    margin:1rem 0 .25rem;line-height:1;}
+    font-size:clamp(2rem,4vw,2.5rem);letter-spacing:-.045em;margin:1rem 0 .25rem;line-height:1;}
   .rec .metric{font-family:"JetBrains Mono",monospace;font-size:.6875rem;
-    letter-spacing:.05em;color:var(--grey-dk);}
-  .rec .src{margin-top:1.375rem;padding-top:1rem;border-top:1px solid var(--rule-dk);
-    font-family:"JetBrains Mono",monospace;font-size:.6875rem;letter-spacing:.07em;
-    text-transform:uppercase;display:flex;align-items:center;gap:.5rem;color:var(--grey-dk);}
-  .rec.is-verified{border-color:var(--green-lift);background:rgba(31,191,110,.05);
-    box-shadow:0 0 40px -14px rgba(31,191,110,.55);}
-  .rec.is-verified .num,.rec.is-verified .src{color:var(--green-lift);}
-  .rec.is-claim .num{color:var(--grey-dk);}
+    letter-spacing:.08em;color:var(--mut);}
+  .rec .src{margin-top:1.375rem;padding-top:1rem;border-top:1px solid var(--line);
+    font-family:"JetBrains Mono",monospace;font-size:.6875rem;letter-spacing:.1em;
+    text-transform:uppercase;display:flex;align-items:center;gap:.5625rem;color:var(--mut);}
+  .rec.is-claim .num{color:var(--mut);}
+  .rec.is-verified{border-color:rgba(191,245,73,.5);
+    box-shadow:0 0 50px -16px rgba(191,245,73,.4);}
+  .rec.is-verified .num,.rec.is-verified .src{color:var(--lime);}
   .tick{width:.9375rem;height:.9375rem;flex:none;border-radius:50%;display:grid;place-items:center;}
-  .is-verified .tick{background:var(--green-lift);}
-  .is-claim .tick{background:var(--grey-dk);}
-  .tick svg{width:.5625rem;height:.5625rem;display:block;}
+  .is-verified .tick{background:var(--lime);color:#0A0D08;}
+  .is-claim .tick{background:var(--mut);color:#0A0D08;}
+  .tick svg{width:.5625rem;height:.5625rem;}
 
-  /* ---------- promise lines ---------- */
-  .lines{max-width:46rem;border-top:1px solid var(--rule);margin-top:2.5rem;}
-  .line{display:flex;align-items:center;gap:1.125rem;
-    padding:1.0625rem .25rem;border-bottom:1px solid var(--rule);}
-  .line .glyph{width:1.375rem;height:1.375rem;flex:none;border-radius:50%;
-    display:grid;place-items:center;background:var(--grey);}
-  .line .glyph svg{width:.6875rem;height:.6875rem;display:block;}
-  .line .t{font-family:Archivo,sans-serif;font-weight:700;
-    font-size:clamp(1.125rem,2.8vw,1.625rem);letter-spacing:-.03em;}
-  .line.yes .glyph{background:var(--green);}
-  .line.yes .t{color:var(--green);}
+  /* ---------- integrity ---------- */
+  .integrity{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .cost-grid{display:grid;grid-template-columns:1fr .9fr;gap:4rem;align-items:center;}
+  @media(max-width:56rem){.cost-grid{grid-template-columns:1fr;gap:2.5rem;}}
+  .price-card{background:var(--panel);border:1px solid var(--line2);border-radius:var(--r);
+    padding:2rem 2rem 1.625rem;max-width:26rem;
+    box-shadow:0 40px 80px -44px rgba(0,0,0,.9);}
+  .plan{font-family:"JetBrains Mono",monospace;font-size:.6563rem;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--mut);}
+  .price{display:flex;align-items:baseline;gap:.625rem;margin:.875rem 0 .25rem;}
+  .price .n{font-family:"Archivo Black",sans-serif;font-size:4rem;line-height:1;color:var(--lime);}
+  .price .cur{font-family:"JetBrains Mono",monospace;font-size:1rem;color:var(--mut);}
+  .price-note{font-size:.9375rem;color:var(--mut);margin:0 0 1.375rem;}
+  .cost-list{border-top:1px solid var(--line);margin:0;padding:0;list-style:none;}
+  .cost-list li{display:flex;align-items:center;gap:.9375rem;
+    padding:.8438rem 0;border-bottom:1px solid var(--line);
+    font-weight:600;font-size:.9688rem;letter-spacing:-.01em;color:var(--mut);}
+  .glyph{width:1.25rem;height:1.25rem;flex:none;border-radius:50%;
+    display:grid;place-items:center;background:var(--line2);color:var(--bg);}
+  .glyph svg{width:.625rem;height:.625rem;}
+  .cost-list li.yes{color:var(--lime);}
+  .cost-list li.yes .glyph{background:var(--lime);}
 
-  /* ---------- what you get (the trophy) ---------- */
-  .panel.tint{background:#FFFFFF;}
-  .panel.deep{background:#081120;}
-  .panel.deep::before{
-    content:"";position:absolute;inset:0;pointer-events:none;
-    background:radial-gradient(60% 50% at 62% 50%,rgba(31,191,110,.16),transparent 70%);
-  }
-  .panel.deep .wrap{position:relative;z-index:1;}
-
-  .trophy-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:3.5rem;align-items:center;}
-  @media(max-width:56rem){.trophy-grid{grid-template-columns:1fr;gap:2.5rem;}}
-
-  .gets{display:grid;gap:.875rem;margin-top:2rem;}
-  .get{display:grid;grid-template-columns:1.5rem 1fr;gap:.875rem;align-items:start;}
+  /* ---------- record / gets ---------- */
+  .rec-grid{display:grid;grid-template-columns:1fr .95fr;gap:4rem;align-items:center;margin-top:2.75rem;}
+  @media(max-width:58rem){.rec-grid{grid-template-columns:1fr;gap:3rem;}}
+  .gets{display:grid;gap:1.5rem;}
+  .get{display:grid;grid-template-columns:1.75rem 1fr;gap:1rem;align-items:start;}
   .get .n{font-family:"JetBrains Mono",monospace;font-size:.6875rem;
-    letter-spacing:.1em;color:var(--green-lift);padding-top:.375rem;}
-  .get h3{font-family:Archivo,sans-serif;font-weight:800;font-size:1.0625rem;
-    letter-spacing:-.025em;margin:0 0 .125rem;color:#EDF1F4;}
-  .get p{margin:0;font-size:.9375rem;color:var(--grey-dk);max-width:26rem;}
+    letter-spacing:.12em;color:var(--lime);font-weight:700;padding-top:.3125rem;}
+  .get h3{font-weight:700;font-size:1.125rem;letter-spacing:-.02em;margin:0 0 .25rem;}
+  .get p{margin:0;color:var(--mut);font-size:.9688rem;max-width:26rem;}
+  .note{display:inline-flex;align-items:center;gap:.75rem;margin-top:2rem;
+    padding:.9375rem 1.25rem;border-radius:12px;
+    background:rgba(191,245,73,.08);border:1px solid rgba(191,245,73,.28);}
+  .note .glyph{background:var(--lime);}
+  .note span{font-weight:700;font-size:.9688rem;letter-spacing:-.01em;color:var(--lime);}
 
-  /* the credential */
-  .cred{
-    background:#FBFCFB;color:#0B1524;border-radius:8px;
-    padding:1.75rem 1.875rem 1.5rem;max-width:26rem;
-    transform:rotate(-1.2deg);
-    box-shadow:0 40px 80px -30px rgba(0,0,0,.8),
-               0 0 70px -18px rgba(31,191,110,.4);
-    transition:transform .45s cubic-bezier(.2,.6,.2,1);
-  }
-  .cred:hover{transform:rotate(0deg) translateY(-4px);}
+  /* light credential artifact */
+  .cred{position:relative;overflow:hidden;background:#FBFCF8;color:#101510;
+    border-radius:var(--r);padding:1.75rem 1.875rem 1.5rem;width:min(24rem,100%);
+    transform:rotate(-1.4deg);justify-self:center;
+    box-shadow:0 40px 80px -30px rgba(0,0,0,.85),0 0 70px -20px rgba(191,245,73,.4);
+    transition:transform .45s cubic-bezier(.2,.6,.2,1);}
+  .cred:hover{transform:rotate(0) translateY(-4px);}
+  .cred::after{content:"";position:absolute;top:0;bottom:0;width:45%;left:-60%;
+    pointer-events:none;transform:skewX(-14deg);
+    background:linear-gradient(100deg,transparent,rgba(165,220,53,.35),transparent);}
+  .cred.sweep::after{animation:sweep 1.15s cubic-bezier(.3,.5,.2,1) .35s 1;}
+  @keyframes sweep{to{left:130%;}}
   .cred-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;
-    padding-bottom:1.125rem;border-bottom:1px solid var(--rule);}
+    padding-bottom:1.125rem;border-bottom:1px solid #E2E6DC;}
   .cred-top .lbl{font-family:"JetBrains Mono",monospace;font-size:.625rem;
-    letter-spacing:.16em;text-transform:uppercase;color:var(--green);font-weight:700;}
-  .cred-top .seal{width:1.5rem;height:1.5rem;border-radius:50%;background:var(--green);
-    display:grid;place-items:center;flex:none;}
-  .cred-top .seal svg{width:.75rem;height:.75rem;display:block;}
-  .cred .nm{font-family:Archivo,sans-serif;font-weight:900;letter-spacing:-.035em;
-    font-size:1.5rem;margin:1.125rem 0 .875rem;}
+    letter-spacing:.16em;text-transform:uppercase;color:#3E7A1F;font-weight:700;}
+  .seal{width:1.5rem;height:1.5rem;border-radius:50%;background:#3E7A1F;
+    display:grid;place-items:center;flex:none;color:#fff;
+    transform:scale(2.4) rotate(-16deg);opacity:0;}
+  .cred.issued .seal{animation:stamp .42s cubic-bezier(.2,1.5,.3,1) .28s forwards;}
+  @keyframes stamp{0%{transform:scale(2.4) rotate(-16deg);opacity:0;}
+    60%{opacity:1;}100%{transform:scale(1) rotate(0);opacity:1;}}
+  .seal svg{width:.75rem;height:.75rem;}
+  .cred .nm{font-family:Inter,sans-serif;font-weight:700;letter-spacing:-.03em;
+    font-size:1.4375rem;margin:1.125rem 0 .875rem;}
   .cred .big{font-family:"JetBrains Mono",monospace;font-weight:700;
-    font-size:3rem;letter-spacing:-.05em;line-height:1;color:var(--green);}
+    font-size:2.875rem;letter-spacing:-.05em;line-height:1;color:#3E7A1F;}
   .cred .big-k{font-family:"JetBrains Mono",monospace;font-size:.625rem;
-    letter-spacing:.14em;text-transform:uppercase;color:var(--grey);margin-top:.375rem;}
-  .cred-rows{margin-top:1.375rem;padding-top:1.125rem;border-top:1px solid var(--rule);
+    letter-spacing:.14em;text-transform:uppercase;color:#8B948A;margin-top:.375rem;}
+  .cred-rows{margin:1.375rem 0 0;padding-top:1.125rem;border-top:1px solid #E2E6DC;
     display:grid;gap:.5rem;}
   .cred-rows div{display:flex;justify-content:space-between;gap:1rem;
-    font-family:"JetBrains Mono",monospace;font-size:.6875rem;letter-spacing:.04em;}
-  .cred-rows dt{color:var(--grey);text-transform:uppercase;}
+    font-family:"JetBrains Mono",monospace;font-size:.6875rem;letter-spacing:.04em;
+    opacity:0;transform:translateY(5px);}
+  .cred.issued .cred-rows div{animation:rowin .4s ease forwards;}
+  .cred.issued .cred-rows div:nth-child(1){animation-delay:.62s;}
+  .cred.issued .cred-rows div:nth-child(2){animation-delay:.70s;}
+  .cred.issued .cred-rows div:nth-child(3){animation-delay:.78s;}
+  .cred.issued .cred-rows div:nth-child(4){animation-delay:.86s;}
+  @keyframes rowin{to{opacity:1;transform:none;}}
+  .cred-rows dt{color:#8B948A;text-transform:uppercase;}
   .cred-rows dd{margin:0;font-weight:700;}
   .cred .url{margin-top:1.25rem;font-family:"JetBrains Mono",monospace;
-    font-size:.625rem;letter-spacing:.08em;color:var(--grey);}
+    font-size:.625rem;letter-spacing:.08em;color:#8B948A;opacity:0;}
+  .cred.issued .url{animation:rowin .45s ease .98s forwards;}
 
-  .rank-note{display:flex;align-items:center;gap:.875rem;margin-top:2.25rem;
-    padding:1rem 1.25rem;border-radius:4px;max-width:30rem;
-    background:rgba(31,191,110,.1);border:1px solid rgba(31,191,110,.3);}
-  .rank-note .glyph{width:1.375rem;height:1.375rem;flex:none;border-radius:50%;
-    background:var(--green-lift);display:grid;place-items:center;}
-  .rank-note .glyph svg{width:.6875rem;height:.6875rem;display:block;}
-  .rank-note span{font-family:Archivo,sans-serif;font-weight:700;font-size:1rem;
-    letter-spacing:-.02em;color:var(--green-lift);}
-
-  .js .pop{opacity:0;transform:rotate(-1.2deg) scale(.94);}
-  .js .pop.in{opacity:1;transform:rotate(-1.2deg) scale(1);
-    transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1);}
-  @media(prefers-reduced-motion:reduce){
-    .js .pop{opacity:1;transform:rotate(-1.2deg);transition:none!important;}
-  }
-
-  /* ---------- video ---------- */
-  .video{position:relative;max-width:54rem;aspect-ratio:16/9;background:#0E1B2E;
-    border:1px solid var(--rule-dk);border-radius:6px;display:grid;place-items:center;
-    cursor:pointer;transition:border-color .3s ease;margin-top:2rem;}
-  .video:hover{border-color:#31456A;}
-  .video-inner{text-align:center;}
-  .play{display:grid;place-items:center;width:4.5rem;height:4.5rem;border-radius:50%;
-    border:1.5px solid #31456A;color:#EDF1F4;margin:0 auto;
-    transition:border-color .3s ease,transform .3s ease,background .3s ease;}
-  .video:hover .play{border-color:var(--green-lift);background:rgba(31,191,110,.1);transform:scale(1.06);}
-  .play svg{width:1.5rem;height:1.5rem;margin-left:.2rem;}
-  .video-label{font-family:"JetBrains Mono",monospace;font-size:.6875rem;
-    letter-spacing:.14em;text-transform:uppercase;color:var(--grey-dk);margin:1.125rem 0 0;}
+  /* ---------- faq ---------- */
+  .faq{max-width:46rem;margin-top:2.25rem;}
+  details{border-bottom:1px solid var(--line);}
+  summary{list-style:none;cursor:pointer;display:flex;align-items:center;
+    justify-content:space-between;gap:1.5rem;padding:1.25rem .25rem;
+    font-weight:700;font-size:1.0313rem;letter-spacing:-.015em;}
+  summary::-webkit-details-marker{display:none;}
+  summary .pm{width:1.375rem;height:1.375rem;flex:none;border-radius:50%;
+    border:1px solid var(--line2);display:grid;place-items:center;color:var(--mut);
+    transition:transform .3s ease,background .3s ease,border-color .3s ease,color .3s ease;}
+  summary .pm svg{width:.6875rem;height:.6875rem;}
+  details[open] summary .pm{transform:rotate(45deg);background:var(--lime);
+    border-color:var(--lime);color:#0A0D08;}
+  details .a{padding:0 2.5rem 1.375rem .25rem;max-width:40rem;color:var(--mut);font-size:.9688rem;}
 
   /* ---------- cta ---------- */
-  .cta{display:inline-flex;align-items:center;gap:.75rem;
-    font-family:Archivo,sans-serif;font-weight:700;font-size:.9375rem;letter-spacing:-.01em;
-    background:var(--ink);color:#fff;text-decoration:none;
-    padding:1rem 1.625rem;border-radius:3px;margin-top:2.25rem;
-    transition:background .25s ease,transform .12s ease;}
-  .cta:hover{background:#16233A;}
-  .cta:active{transform:translateY(1px);}
-  .cta svg{width:.875rem;height:.875rem;}
-  .fine{font-family:"JetBrains Mono",monospace;font-size:.6875rem;
-    letter-spacing:.08em;text-transform:uppercase;color:var(--grey);margin:1.5rem 0 0;}
+  .cta-band{background:var(--panel);border:1px solid var(--line2);
+    border-radius:calc(var(--r) + 8px);padding:4rem 3rem;position:relative;overflow:hidden;}
+  @media(max-width:44rem){.cta-band{padding:2.75rem 1.5rem;}}
+  .cta-band::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(50% 70% at 82% 20%,rgba(191,245,73,.16),transparent 70%);}
+  .cta-band>*{position:relative;}
+  .cta-band .sub{margin:1.25rem 0 0;}
+  .cta-band .btn{margin-top:2rem;}
+  .fine{font-family:"JetBrains Mono",monospace;font-size:.6563rem;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin:1.25rem 0 0;}
+
+  footer{border-top:1px solid var(--line);}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:.75rem 2rem;justify-content:space-between;
+    padding-top:1.75rem;padding-bottom:2.25rem;font-family:"JetBrains Mono",monospace;
+    font-size:.6563rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);}
 
   /* reveal */
-  .js .rise{opacity:0;transform:translateY(16px);}
+  .js .rise{opacity:0;transform:translateY(14px);}
   .js .rise.in{opacity:1;transform:none;
+    transition:opacity .65s cubic-bezier(.2,.6,.2,1),transform .65s cubic-bezier(.2,.6,.2,1);}
+  .js .pop{opacity:0;transform:rotate(-1.4deg) scale(.94);}
+  .js .pop.in{opacity:1;transform:rotate(-1.4deg) scale(1);
     transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1);}
   @media(prefers-reduced-motion:reduce){
-    .js .rise{opacity:1;transform:none;transition:none!important;}
-    .eyebrow .dot{animation:none;}
-    html{scroll-snap-type:none;}
+    .js .rise,.js .pop{opacity:1;transform:none;transition:none!important;}
+    .cue i::after{animation:none;}
+    .cred::after{display:none;}
+    .seal{transform:none;opacity:1;}
+    .cred-rows div,.cred .url{opacity:1;transform:none;animation:none!important;}
   }
 </style>
 </head>
 <body>
 
-<header class="masthead on-light" id="mast">
+<nav class="nav" id="nav">
   <div class="wrap">
-    <div class="mark">Jib<span>Your</span>Mentor</div>
-    <div class="edition">Morocco &middot; Edition One</div>
+    <a class="mark" href="#top">Jib<b>Your</b>Mentor</a>
+    <div class="nav-links">
+      <a href="#mission">Mission</a>
+      <a href="#integrity">Integrity</a>
+      <a href="#record">The Record</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a class="btn btn-lime" href="#cta">Apply Now</a>
   </div>
-</header>
-
-<nav class="dots" id="dots">
-  <a href="#p1" data-i="0"></a><a href="#p2" data-i="1"></a>
-  <a href="#p3" data-i="2"></a><a href="#p4" data-i="3"></a>
-  <a href="#p5" data-i="4"></a><a href="#p6" data-i="5"></a>
 </nav>
 
-<!-- 01 -->
-<section class="panel" id="p1" data-theme="light">
-  <span class="idx">01</span>
-  <div class="wrap">
-    <p class="eyebrow rise"><span class="dot"></span> Registration open</p>
-    <h1 class="rise" data-d="60">A real trader and a good screenshot <span class="fade">look the same.</span></h1>
-    <p class="lede rise" data-d="160">
-      Anyone can claim a number. Nobody can prove one.
+<section class="hero" id="top">
+  <div class="glow"></div>
+  <div class="ridge" aria-hidden="true">
+    <svg viewBox="0 0 1440 240" preserveAspectRatio="none">
+      <path d="M0 190 L140 120 L260 170 L420 80 L560 150 L720 60 L880 140 L1040 90 L1200 160 L1320 110 L1440 150 L1440 240 L0 240Z" fill="#0C110C"/>
+      <path d="M0 220 L180 170 L340 205 L520 150 L700 195 L900 140 L1080 190 L1260 155 L1440 200 L1440 240 L0 240Z" fill="#0F140F"/>
+    </svg>
+  </div>
+
+  <div class="wrap hero-grid">
+    <div>
+      <p class="kicker rise">Edition One</p>
+      <h1 class="display rise" data-d="60">The first public <span class="lime">record</span> of verified traders in Morocco<span class="lime">.</span></h1>
+      <p class="sub rise" data-d="140">
+        This is not just a trading competition. It is a public record built on
+        <strong>proof, transparency, and verified results.</strong>
+      </p>
+      <div class="chips rise" data-d="200">
+        <span class="chip"><span class="c"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>No screenshots</span>
+        <span class="chip"><span class="c"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>No entry fee</span>
+        <span class="chip"><span class="c"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>Only proof</span>
+      </div>
+      <div class="hero-ctas rise" data-d="260">
+        <a class="btn btn-lime" href="#cta">Become One of the Thirty
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        <a class="btn btn-ghost" href="#record">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M6.5 5.5l4 2.5-4 2.5z"/></svg>
+          Watch Episode Zero</a>
+      </div>
+    </div>
+
+    <aside class="vcard pop" data-d="300">
+      <div class="vlbl">Verification</div>
+      <div class="vrows">
+        <div class="vrow"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 1.5l6 2.5v4c0 3.6-2.5 6.4-6 8-3.5-1.6-6-4.4-6-8v-4z"/><path d="M6.4 9l1.8 1.8L11.8 7"/></svg>Myfxbook verified</div>
+        <div class="vrow"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="8" width="11" height="7.5" rx="1.5"/><path d="M6 8V5.5a3 3 0 0 1 6 0V8"/></svg>Rules locked before start</div>
+        <div class="vrow"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="6" r="3"/><path d="M3 15.5c.8-3 3-4.5 6-4.5s5.2 1.5 6 4.5"/></svg>Self-funded live accounts</div>
+        <div class="vrow"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2l2 4.2 4.5.5-3.4 3 1 4.5L9 11.9l-4.1 2.3 1-4.5-3.4-3 4.5-.5z"/></svg>Top five published</div>
+        <div class="vrow"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9s2.5-4.5 7-4.5S16 9 16 9s-2.5 4.5-7 4.5S2 9 2 9z"/><path d="M2.5 15.5l13-13"/></svg>Nothing below five named</div>
+      </div>
+      <div class="vdiv"></div>
+      <div class="vlbl">Applications open</div>
+      <div class="vnum" style="margin-top:.875rem">0 / 30<small>Selected</small></div>
+      <div class="track"><i></i></div>
+      <div class="vfoot">30 traders &middot; 6 months &middot; 1 record</div>
+    </aside>
+  </div>
+
+  <div class="cue"><span>Scroll to explore</span><i></i></div>
+</section>
+
+<section class="mission" id="mission">
+  <div class="wrap m-grid">
+    <div>
+      <p class="m-kick rise">Everyone can claim.</p>
+      <h2 class="display rise" data-d="40">Very few<br>can <span class="lime">prove.</span></h2>
+    </div>
+    <p class="m-copy rise" data-d="100">
+      The internet is full of traders. But most of them are selling a dream, not
+      living a result. <strong>We are here to change that.</strong>
     </p>
+    <div class="m-stats rise" data-d="160">
+      <div class="m-stat"><div class="n">30</div><div class="k">Traders</div></div>
+      <div class="m-stat"><div class="n">6</div><div class="k">Months</div></div>
+      <div class="m-stat"><div class="n">1</div><div class="k">Record</div></div>
+    </div>
   </div>
 </section>
 
-<!-- 02 -->
-<section class="panel dark" id="p2" data-theme="dark">
-  <span class="idx">02</span>
+<section>
   <div class="wrap">
-    <h2 class="rise">Same number. One of them can be checked.</h2>
-    <p class="lede muted rise" data-d="60" style="margin-top:0">
-      For six months, a small group of Moroccan traders will trade a live account they
-      already own. The results come <strong>straight from Myfxbook</strong> — not from
-      them, and not from us.
+    <p class="kicker rise">The problem</p>
+    <h2 class="display rise" data-d="40">Same number.<br>One can be checked<span style="color:var(--lime)">.</span></h2>
+    <p class="sub rise" data-d="100" style="margin-top:1.375rem">
+      Anyone can claim a number. Nobody can prove one. The results here come straight
+      from Myfxbook — not from the trader, and not from us.
     </p>
-    <div class="compare">
-      <article class="rec is-claim rise" data-d="140">
+    <div class="cmp-grid">
+      <article class="rec is-claim rise" data-d="160">
         <div class="who">Trader A</div>
         <div class="num">+94.2%</div>
         <div class="metric">six months</div>
-        <div class="src">
-          <span class="tick"><svg viewBox="0 0 10 10" fill="none" stroke="#0B1524" stroke-width="2" stroke-linecap="round"><path d="M2.4 2.4l5.2 5.2M7.6 2.4l-5.2 5.2"/></svg></span>
-          Screenshot
-        </div>
+        <div class="src"><span class="tick"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.4 2.4l5.2 5.2M7.6 2.4l-5.2 5.2"/></svg></span>Screenshot</div>
       </article>
       <article class="rec is-verified rise" data-d="260">
         <div class="who">Trader B</div>
         <div class="num">+94.2%</div>
         <div class="metric">six months</div>
-        <div class="src">
-          <span class="tick"><svg viewBox="0 0 10 10" fill="none" stroke="#0B1524" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>
-          Verified
-        </div>
+        <div class="src"><span class="tick"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>Verified</div>
       </article>
     </div>
   </div>
 </section>
 
-<!-- 03 -->
-<section class="panel" id="p3" data-theme="light">
-  <span class="idx">03</span>
-  <div class="wrap">
-    <h2 class="rise">We take nothing from you.</h2>
-    <p class="lede rise" data-d="60" style="margin-top:0">
-      You have been sold to many times this year. This is not that.
-    </p>
-    <div class="lines">
-      <div class="line rise" data-d="120">
-        <span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><path d="M2.4 2.4l5.2 5.2M7.6 2.4l-5.2 5.2"/></svg></span>
-        <span class="t">No entry fee</span></div>
-      <div class="line rise" data-d="180">
-        <span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><path d="M2.4 2.4l5.2 5.2M7.6 2.4l-5.2 5.2"/></svg></span>
-        <span class="t">No prize money</span></div>
-      <div class="line rise" data-d="240">
-        <span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><path d="M2.4 2.4l5.2 5.2M7.6 2.4l-5.2 5.2"/></svg></span>
-        <span class="t">No sponsor</span></div>
-      <div class="line rise" data-d="300">
-        <span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><path d="M2.4 2.4l5.2 5.2M7.6 2.4l-5.2 5.2"/></svg></span>
-        <span class="t">No broker pays us</span></div>
-      <div class="line rise" data-d="360">
-        <span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><path d="M2.4 2.4l5.2 5.2M7.6 2.4l-5.2 5.2"/></svg></span>
-        <span class="t">Nothing to buy</span></div>
-      <div class="line yes rise" data-d="440">
-        <span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>
-        <span class="t">Only your results</span></div>
+<section class="integrity" id="integrity">
+  <div class="wrap cost-grid">
+    <div>
+      <p class="kicker rise">Integrity</p>
+      <h2 class="display rise" data-d="40">We take nothing<br>from you<span style="color:var(--lime)">.</span></h2>
+      <p class="sub rise" data-d="100" style="margin-top:1.375rem">
+        You have been sold to many times this year. This is not that. If money came
+        from brokers, the ranking would be worth nothing — so it does not.
+      </p>
+    </div>
+    <div class="price-card rise" data-d="160">
+      <div class="plan">Every entrant &middot; Edition One</div>
+      <div class="price"><span class="n">0</span><span class="cur">DH</span></div>
+      <p class="price-note">Now and at the end. Nothing is sold on this site.</p>
+      <ul class="cost-list">
+        <li><span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M2.4 2.4l5.2 5.2M7.6 2.4l-5.2 5.2"/></svg></span>No entry fee</li>
+        <li><span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M2.4 2.4l5.2 5.2M7.6 2.4l-5.2 5.2"/></svg></span>No prize money</li>
+        <li><span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M2.4 2.4l5.2 5.2M7.6 2.4l-5.2 5.2"/></svg></span>No sponsor</li>
+        <li><span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M2.4 2.4l5.2 5.2M7.6 2.4l-5.2 5.2"/></svg></span>No broker pays us</li>
+        <li class="yes"><span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>Only your results</li>
+      </ul>
     </div>
   </div>
 </section>
 
-<!-- 04 -->
-<section class="panel deep" id="p4" data-theme="dark">
-  <span class="idx">04</span>
+<section id="record">
   <div class="wrap">
-    <div class="trophy-grid">
-      <div>
-        <h2 class="rise" style="color:#EDF1F4">Everyone who finishes gets this.</h2>
-        <p class="lede muted rise" data-d="60" style="margin-top:0">
-          Five of them also get a rank. That is the only difference.
-        </p>
-
-        <div class="gets">
-          <div class="get rise" data-d="140">
-            <span class="n">01</span>
-            <div>
-              <h3>Six verified months</h3>
-              <p>Half a year of real trading, checked by Myfxbook and dated. Yours to send to anyone.</p>
-            </div>
-          </div>
-          <div class="get rise" data-d="200">
-            <span class="n">02</span>
-            <div>
-              <h3>Your name on the list</h3>
-              <p>Public proof you agreed to be checked. Not many will. That is the point of it.</p>
-            </div>
-          </div>
-          <div class="get rise" data-d="260">
-            <span class="n">03</span>
-            <div>
-              <h3>Your own page here</h3>
-              <p>Verified account, verified return, your links. It stays up after the contest ends.</p>
-            </div>
-          </div>
+    <p class="kicker rise">The record</p>
+    <h2 class="display rise" data-d="40">Thirty enter.<br>Everyone keeps proof<span style="color:var(--lime)">.</span></h2>
+    <div class="rec-grid">
+      <div class="gets">
+        <div class="get rise" data-d="100">
+          <span class="n">01</span>
+          <div><h3>Six verified months</h3>
+          <p>Half a year of real trading, checked by Myfxbook and dated. Yours to send to anyone.</p></div>
         </div>
-
-        <div class="rank-note rise" data-d="340">
-          <span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="#081120" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>
+        <div class="get rise" data-d="170">
+          <span class="n">02</span>
+          <div><h3>Your name on the list</h3>
+          <p>Public proof you agreed to be checked. Not many will. That is the point of it.</p></div>
+        </div>
+        <div class="get rise" data-d="240">
+          <span class="n">03</span>
+          <div><h3>Your own page here</h3>
+          <p>Verified account, verified return, your links. It stays up after the contest ends.</p></div>
+        </div>
+        <div class="note rise" data-d="320">
+          <span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="#0A0D08" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>
           <span>The top five are named, with their return.</span>
         </div>
       </div>
 
-      <div class="cred pop" data-d="220">
+      <div class="cred pop" data-d="200" id="cred">
         <div class="cred-top">
           <span class="lbl">Verified Trader</span>
-          <span class="seal"><svg viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>
+          <span class="seal"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>
         </div>
         <div class="nm">Your name here</div>
-        <div class="big">+47.3%</div>
+        <div class="big" id="cnt" data-to="47.3">+0.0%</div>
         <div class="big-k">Net return &middot; six months</div>
         <dl class="cred-rows">
           <div><dt>Edition</dt><dd>One &middot; 2026</dd></div>
@@ -389,38 +483,57 @@
   </div>
 </section>
 
-<!-- 05 -->
-<section class="panel tint" id="p5" data-theme="light">
-  <span class="idx">05</span>
+<section id="faq" style="padding-top:0">
   <div class="wrap">
-    <h2 class="rise">How it works</h2>
-    <p class="lede rise" data-d="60" style="margin-top:0">
-      Ninety seconds. The rules, the dates, and what happens to your numbers.
-    </p>
-    <div class="video rise" data-d="140">
-      <div class="video-inner">
-        <span class="play"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8z"/></svg></span>
-        <p class="video-label">Watch</p>
-      </div>
+    <p class="kicker rise">FAQ</p>
+    <h2 class="display rise" data-d="40">The questions traders ask<span style="color:var(--lime)">.</span></h2>
+    <div class="faq rise" data-d="100">
+      <details>
+        <summary>Can you see my password or my trades?
+          <span class="pm"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 1.5v7M1.5 5h7"/></svg></span></summary>
+        <div class="a">No. You connect your account to Myfxbook yourself, with read-only access. Your password never comes to us. We read the same public page anyone can read.</div>
+      </details>
+      <details>
+        <summary>What if my six months are weak?
+          <span class="pm"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 1.5v7M1.5 5h7"/></svg></span></summary>
+        <div class="a">We publish nothing. Only the top five are named with their return. Your name on the entrant list shows one thing — that you agreed to be checked.</div>
+      </details>
+      <details>
+        <summary>Why is it free? What do you get?
+          <span class="pm"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 1.5v7M1.5 5h7"/></svg></span></summary>
+        <div class="a">Edition one makes no money. No fee, no sponsor, no broker pays us. If money came from brokers, the ranking would be worth nothing — so it does not.</div>
+      </details>
+      <details>
+        <summary>Who can enter?
+          <span class="pm"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 1.5v7M1.5 5h7"/></svg></span></summary>
+        <div class="a">A live MT4 or MT5 account at a regulated broker. At least $2,000 in it. At least 10 closed trades over the six months. One account, declared before the start. Thirty places, selected — not first come.</div>
+      </details>
     </div>
   </div>
 </section>
 
-<!-- 06 -->
-<section class="panel" id="p6" data-theme="light">
-  <span class="idx">06</span>
+<section id="cta" style="padding-top:0">
   <div class="wrap">
-    <h2 class="rise">In six months, this list will exist.</h2>
-    <p class="lede rise" data-d="60" style="margin-top:0">
-      Short. Public. Dated. The traders on it will never have to prove their numbers again.
-    </p>
-    <a class="cta rise" data-d="140" href="#">
-      Request a place
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-    </a>
-    <p class="fine rise" data-d="200">Edition one is by invitation</p>
+    <div class="cta-band">
+      <p class="kicker rise" style="margin-bottom:.75rem">Edition One</p>
+      <h2 class="display rise" data-d="40">In six months,<br>this record exists<span style="color:var(--lime)">.</span></h2>
+      <p class="sub rise" data-d="100">
+        Thirty names entered. Five named at the end. None of them arguing about
+        their numbers again.
+      </p>
+      <a class="btn btn-lime rise" data-d="160" href="#">Become One of the Thirty
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      <p class="fine rise" data-d="220">30 traders &middot; 6 months &middot; 1 record</p>
+    </div>
   </div>
 </section>
+
+<footer>
+  <div class="wrap">
+    <span>JibYourMentor &middot; Morocco</span>
+    <span>Results verified via Myfxbook</span>
+  </div>
+</footer>
 
 <script>
   document.documentElement.classList.add('js');
@@ -434,27 +547,29 @@
   },{threshold:.1,rootMargin:'0px 0px -5% 0px'});
   document.querySelectorAll('.rise,.pop').forEach(el=>io.observe(el));
 
-  const panels = [...document.querySelectorAll('.panel')];
-  const dots = [...document.querySelectorAll('.dots a')];
-  const mast = document.getElementById('mast');
-  const dotNav = document.getElementById('dots');
+  const nav = document.getElementById('nav');
+  addEventListener('scroll',()=>{nav.classList.toggle('stuck',scrollY>8);},{passive:true});
 
-  const track = new IntersectionObserver((es)=>{
+  const cred = document.getElementById('cred');
+  const cnt  = document.getElementById('cnt');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const issue = new IntersectionObserver((es)=>{
     es.forEach(e=>{
       if(!e.isIntersecting) return;
-      const i = panels.indexOf(e.target);
-      dots.forEach((d,n)=>d.classList.toggle('on', n===i));
-      const dark = e.target.dataset.theme === 'dark';
-      mast.classList.toggle('on-dark', dark);
-      mast.classList.toggle('on-light', !dark);
-      dotNav.classList.toggle('inv', dark);
+      issue.unobserve(e.target);
+      if(reduce){cnt.textContent='+47.3%';cred.classList.add('issued');return;}
+      setTimeout(()=>{
+        cred.classList.add('issued','sweep');
+        const to=parseFloat(cnt.dataset.to),t0=performance.now(),dur=1100;
+        (function tick(now){
+          const p=Math.min((now-t0)/dur,1),e2=1-Math.pow(1-p,3);
+          cnt.textContent='+'+(to*e2).toFixed(1)+'%';
+          if(p<1)requestAnimationFrame(tick);
+        })(t0);
+      },350);
     });
   },{threshold:.5});
-  panels.forEach(p=>track.observe(p));
-
-  addEventListener('scroll',()=>{
-    mast.classList.toggle('scrolled', scrollY>8);
-  },{passive:true});
+  issue.observe(cred);
 </script>
 </body>
 </html>
