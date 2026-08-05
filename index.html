@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JibYourMentor — verified trading, Morocco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B1524;
+    --paper:#F4F5F3;
+    --card:#FFFFFF;
+    --rule:#DADEDB;
+    --rule-dk:#1E2C42;
+    --green:#0E7A48;
+    --green-lift:#1FBF6E;
+    --grey:#8E969C;
+    --grey-dk:#8496AB;
+    --measure:33rem;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;
+       scroll-snap-type:y proximity;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Source Serif 4",Georgia,serif;font-size:1.0625rem;
+    line-height:1.62;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:74rem;margin:0 auto;padding:0 2rem;width:100%;}
+  @media(max-width:38rem){.wrap{padding:0 1.375rem;}}
+
+  /* ---------- panels ---------- */
+  .panel{
+    min-height:100svh;display:flex;align-items:center;
+    scroll-snap-align:start;position:relative;
+    padding:6.5rem 0 5rem;
+  }
+  @media(max-width:48rem){.panel{padding:5.5rem 0 4rem;min-height:auto;}}
+  .panel.dark{background:var(--ink);color:#EDF1F4;}
+  .panel.dark .muted{color:var(--grey-dk);}
+  .muted{color:var(--grey);}
+
+  .idx{
+    position:absolute;top:5.5rem;left:2rem;
+    font-family:"JetBrains Mono",monospace;font-size:.6875rem;
+    letter-spacing:.16em;color:var(--grey);
+  }
+  .panel.dark .idx{color:var(--grey-dk);}
+  @media(max-width:38rem){.idx{left:1.375rem;top:4.75rem;}}
+
+  /* ---------- masthead ---------- */
+  .masthead{position:fixed;top:0;left:0;right:0;z-index:30;
+    transition:background .4s ease,border-color .4s ease;
+    border-bottom:1px solid transparent;}
+  .masthead .wrap{display:flex;align-items:center;justify-content:space-between;
+    padding-top:1.0625rem;padding-bottom:1.0625rem;}
+  .masthead.on-light{background:rgba(244,245,243,.9);backdrop-filter:saturate(160%) blur(10px);}
+  .masthead.on-light.scrolled{border-bottom-color:var(--rule);}
+  .masthead.on-dark{background:rgba(11,21,36,.86);backdrop-filter:saturate(160%) blur(10px);color:#EDF1F4;}
+  .mark{font-family:Archivo,sans-serif;font-weight:800;letter-spacing:-.035em;font-size:1.0625rem;}
+  .mark span{color:var(--green);}
+  .masthead.on-dark .mark span{color:var(--green-lift);}
+  .edition{font-family:"JetBrains Mono",monospace;font-size:.6875rem;
+    letter-spacing:.15em;text-transform:uppercase;color:var(--grey);}
+  .masthead.on-dark .edition{color:var(--grey-dk);}
+  @media(max-width:30rem){.edition{display:none;}}
+
+  /* ---------- dot nav ---------- */
+  .dots{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);z-index:25;
+    display:flex;flex-direction:column;gap:.75rem;}
+  @media(max-width:48rem){.dots{display:none;}}
+  .dots a{width:.5rem;height:.5rem;border-radius:50%;
+    border:1px solid var(--grey);opacity:.5;transition:all .3s ease;}
+  .dots a.on{background:var(--green);border-color:var(--green);opacity:1;transform:scale(1.25);}
+  .dots.inv a{border-color:var(--grey-dk);}
+  .dots.inv a.on{background:var(--green-lift);border-color:var(--green-lift);}
+
+  /* ---------- type ---------- */
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:.6875rem;
+    letter-spacing:.17em;text-transform:uppercase;color:var(--green);
+    margin:0 0 2rem;display:flex;align-items:center;gap:.75rem;}
+  .panel.dark .eyebrow{color:var(--green-lift);}
+  .eyebrow .dot{width:.4375rem;height:.4375rem;border-radius:50%;background:currentColor;
+    flex:none;box-shadow:0 0 0 0 rgba(14,122,72,.4);animation:pulse 2.6s ease-out infinite;}
+  @keyframes pulse{70%{box-shadow:0 0 0 .5rem rgba(14,122,72,0);}100%{box-shadow:0 0 0 0 rgba(14,122,72,0);}}
+  .eyebrow::after{content:"";height:1px;flex:1;max-width:5rem;background:var(--rule);}
+  .panel.dark .eyebrow::after{background:var(--rule-dk);}
+
+  h1{font-family:Archivo,sans-serif;font-weight:900;
+    font-size:clamp(2.75rem,8.4vw,7rem);line-height:.95;letter-spacing:-.05em;
+    margin:0;max-width:14ch;}
+  h1 .fade{color:var(--grey);}
+  h2{font-family:Archivo,sans-serif;font-weight:900;
+    font-size:clamp(2rem,5.4vw,4rem);letter-spacing:-.045em;line-height:1;
+    margin:0 0 1.5rem;max-width:15ch;}
+  .lede{max-width:var(--measure);margin:2rem 0 0;font-size:1.1875rem;line-height:1.6;}
+  .lede strong{font-weight:600;}
+
+  /* ---------- proof cards ---------- */
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:1rem;
+    margin-top:3rem;max-width:42rem;}
+  @media(max-width:34rem){.compare{grid-template-columns:1fr;}}
+  .rec{background:rgba(255,255,255,.03);border:1px solid var(--rule-dk);
+    border-radius:5px;padding:1.5rem 1.625rem 1.375rem;}
+  .rec .who{font-family:Archivo,sans-serif;font-weight:700;font-size:.875rem;}
+  .rec .num{font-family:"JetBrains Mono",monospace;font-weight:700;
+    font-size:clamp(2rem,4.4vw,2.75rem);letter-spacing:-.045em;
+    margin:1rem 0 .25rem;line-height:1;}
+  .rec .metric{font-family:"JetBrains Mono",monospace;font-size:.6875rem;
+    letter-spacing:.05em;color:var(--grey-dk);}
+  .rec .src{margin-top:1.375rem;padding-top:1rem;border-top:1px solid var(--rule-dk);
+    font-family:"JetBrains Mono",monospace;font-size:.6875rem;letter-spacing:.07em;
+    text-transform:uppercase;display:flex;align-items:center;gap:.5rem;color:var(--grey-dk);}
+  .rec.is-verified{border-color:var(--green-lift);background:rgba(31,191,110,.05);
+    box-shadow:0 0 40px -14px rgba(31,191,110,.55);}
+  .rec.is-verified .num,.rec.is-verified .src{color:var(--green-lift);}
+  .rec.is-claim .num{color:var(--grey-dk);}
+  .tick{width:.9375rem;height:.9375rem;flex:none;border-radius:50%;display:grid;place-items:center;}
+  .is-verified .tick{background:var(--green-lift);}
+  .is-claim .tick{background:var(--grey-dk);}
+  .tick svg{width:.5625rem;height:.5625rem;display:block;}
+
+  /* ---------- promise lines ---------- */
+  .lines{max-width:46rem;border-top:1px solid var(--rule);margin-top:2.5rem;}
+  .line{display:flex;align-items:center;gap:1.125rem;
+    padding:1.0625rem .25rem;border-bottom:1px solid var(--rule);}
+  .line .glyph{width:1.375rem;height:1.375rem;flex:none;border-radius:50%;
+    display:grid;place-items:center;background:var(--grey);}
+  .line .glyph svg{width:.6875rem;height:.6875rem;display:block;}
+  .line .t{font-family:Archivo,sans-serif;font-weight:700;
+    font-size:clamp(1.125rem,2.8vw,1.625rem);letter-spacing:-.03em;}
+  .line.yes .glyph{background:var(--green);}
+  .line.yes .t{color:var(--green);}
+
+  /* ---------- video ---------- */
+  .video{position:relative;max-width:54rem;aspect-ratio:16/9;background:#0E1B2E;
+    border:1px solid var(--rule-dk);border-radius:6px;display:grid;place-items:center;
+    cursor:pointer;transition:border-color .3s ease;margin-top:2rem;}
+  .video:hover{border-color:#31456A;}
+  .video-inner{text-align:center;}
+  .play{display:grid;place-items:center;width:4.5rem;height:4.5rem;border-radius:50%;
+    border:1.5px solid #31456A;color:#EDF1F4;margin:0 auto;
+    transition:border-color .3s ease,transform .3s ease,background .3s ease;}
+  .video:hover .play{border-color:var(--green-lift);background:rgba(31,191,110,.1);transform:scale(1.06);}
+  .play svg{width:1.5rem;height:1.5rem;margin-left:.2rem;}
+  .video-label{font-family:"JetBrains Mono",monospace;font-size:.6875rem;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--grey-dk);margin:1.125rem 0 0;}
+
+  /* ---------- cta ---------- */
+  .cta{display:inline-flex;align-items:center;gap:.75rem;
+    font-family:Archivo,sans-serif;font-weight:700;font-size:.9375rem;letter-spacing:-.01em;
+    background:var(--ink);color:#fff;text-decoration:none;
+    padding:1rem 1.625rem;border-radius:3px;margin-top:2.25rem;
+    transition:background .25s ease,transform .12s ease;}
+  .cta:hover{background:#16233A;}
+  .cta:active{transform:translateY(1px);}
+  .cta svg{width:.875rem;height:.875rem;}
+  .fine{font-family:"JetBrains Mono",monospace;font-size:.6875rem;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--grey);margin:1.5rem 0 0;}
+
+  /* reveal */
+  .js .rise{opacity:0;transform:translateY(16px);}
+  .js .rise.in{opacity:1;transform:none;
+    transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1);}
+  @media(prefers-reduced-motion:reduce){
+    .js .rise{opacity:1;transform:none;transition:none!important;}
+    .eyebrow .dot{animation:none;}
+    html{scroll-snap-type:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead on-light" id="mast">
+  <div class="wrap">
+    <div class="mark">Jib<span>Your</span>Mentor</div>
+    <div class="edition">Morocco &middot; Edition One</div>
+  </div>
+</header>
+
+<nav class="dots" id="dots">
+  <a href="#p1" data-i="0"></a><a href="#p2" data-i="1"></a>
+  <a href="#p3" data-i="2"></a><a href="#p4" data-i="3"></a><a href="#p5" data-i="4"></a>
+</nav>
+
+<!-- 01 -->
+<section class="panel" id="p1" data-theme="light">
+  <span class="idx">01</span>
+  <div class="wrap">
+    <p class="eyebrow rise"><span class="dot"></span> Registration open</p>
+    <h1 class="rise" data-d="60">A real trader and a good screenshot <span class="fade">look the same.</span></h1>
+    <p class="lede rise" data-d="160">
+      Anyone can claim a number. Nobody can prove one.
+    </p>
+  </div>
+</section>
+
+<!-- 02 -->
+<section class="panel dark" id="p2" data-theme="dark">
+  <span class="idx">02</span>
+  <div class="wrap">
+    <h2 class="rise">Same number. One of them can be checked.</h2>
+    <p class="lede muted rise" data-d="60" style="margin-top:0">
+      For six months, a small group of Moroccan traders will trade a live account they
+      already own. The results come <strong>straight from Myfxbook</strong> — not from
+      them, and not from us.
+    </p>
+    <div class="compare">
+      <article class="rec is-claim rise" data-d="140">
+        <div class="who">Trader A</div>
+        <div class="num">+94.2%</div>
+        <div class="metric">six months</div>
+        <div class="src">
+          <span class="tick"><svg viewBox="0 0 10 10" fill="none" stroke="#0B1524" stroke-width="2" stroke-linecap="round"><path d="M2.4 2.4l5.2 5.2M7.6 2.4l-5.2 5.2"/></svg></span>
+          Screenshot
+        </div>
+      </article>
+      <article class="rec is-verified rise" data-d="260">
+        <div class="who">Trader B</div>
+        <div class="num">+94.2%</div>
+        <div class="metric">six months</div>
+        <div class="src">
+          <span class="tick"><svg viewBox="0 0 10 10" fill="none" stroke="#0B1524" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>
+          Verified
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section class="panel" id="p3" data-theme="light">
+  <span class="idx">03</span>
+  <div class="wrap">
+    <h2 class="rise">We take nothing from you.</h2>
+    <p class="lede rise" data-d="60" style="margin-top:0">
+      You have been sold to many times this year. This is not that.
+    </p>
+    <div class="lines">
+      <div class="line rise" data-d="120">
+        <span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><path d="M2.4 2.4l5.2 5.2M7.6 2.4l-5.2 5.2"/></svg></span>
+        <span class="t">No entry fee</span></div>
+      <div class="line rise" data-d="180">
+        <span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><path d="M2.4 2.4l5.2 5.2M7.6 2.4l-5.2 5.2"/></svg></span>
+        <span class="t">No prize money</span></div>
+      <div class="line rise" data-d="240">
+        <span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><path d="M2.4 2.4l5.2 5.2M7.6 2.4l-5.2 5.2"/></svg></span>
+        <span class="t">No sponsor</span></div>
+      <div class="line rise" data-d="300">
+        <span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><path d="M2.4 2.4l5.2 5.2M7.6 2.4l-5.2 5.2"/></svg></span>
+        <span class="t">No broker pays us</span></div>
+      <div class="line rise" data-d="360">
+        <span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><path d="M2.4 2.4l5.2 5.2M7.6 2.4l-5.2 5.2"/></svg></span>
+        <span class="t">Nothing to buy</span></div>
+      <div class="line yes rise" data-d="440">
+        <span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>
+        <span class="t">Only your results</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 -->
+<section class="panel dark" id="p4" data-theme="dark">
+  <span class="idx">04</span>
+  <div class="wrap">
+    <h2 class="rise">How it works</h2>
+    <p class="lede muted rise" data-d="60" style="margin-top:0">
+      Ninety seconds. The rules, the dates, and what happens to your numbers.
+    </p>
+    <div class="video rise" data-d="140">
+      <div class="video-inner">
+        <span class="play"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8z"/></svg></span>
+        <p class="video-label">Watch</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 -->
+<section class="panel" id="p5" data-theme="light">
+  <span class="idx">05</span>
+  <div class="wrap">
+    <h2 class="rise">In six months, this list will exist.</h2>
+    <p class="lede rise" data-d="60" style="margin-top:0">
+      Short. Public. Dated. The traders on it will never have to prove their numbers again.
+    </p>
+    <a class="cta rise" data-d="140" href="#">
+      Request a place
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </a>
+    <p class="fine rise" data-d="200">Edition one is by invitation</p>
+  </div>
+</section>
+
+<script>
+  document.documentElement.classList.add('js');
+
+  const io = new IntersectionObserver((es)=>{
+    es.forEach(e=>{
+      if(!e.isIntersecting) return;
+      setTimeout(()=>e.target.classList.add('in'), Number(e.target.dataset.d||0));
+      io.unobserve(e.target);
+    });
+  },{threshold:.1,rootMargin:'0px 0px -5% 0px'});
+  document.querySelectorAll('.rise').forEach(el=>io.observe(el));
+
+  const panels = [...document.querySelectorAll('.panel')];
+  const dots = [...document.querySelectorAll('.dots a')];
+  const mast = document.getElementById('mast');
+  const dotNav = document.getElementById('dots');
+
+  const track = new IntersectionObserver((es)=>{
+    es.forEach(e=>{
+      if(!e.isIntersecting) return;
+      const i = panels.indexOf(e.target);
+      dots.forEach((d,n)=>d.classList.toggle('on', n===i));
+      const dark = e.target.dataset.theme === 'dark';
+      mast.classList.toggle('on-dark', dark);
+      mast.classList.toggle('on-light', !dark);
+      dotNav.classList.toggle('inv', dark);
+    });
+  },{threshold:.5});
+  panels.forEach(p=>track.observe(p));
+
+  addEventListener('scroll',()=>{
+    mast.classList.toggle('scrolled', scrollY>8);
+  },{passive:true});
+</script>
+</body>
+</html>
