@@ -389,6 +389,44 @@
   footer .wrap{display:flex;flex-wrap:wrap;gap:.75rem 2rem;justify-content:space-between;
     padding-top:1.75rem;padding-bottom:2.25rem;font-family:"JetBrains Mono",monospace;
     font-size:.6563rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);}
+  /* ---------- ask modal ---------- */
+  .ask-back[hidden]{display:none;}
+  .ask-back{position:fixed;inset:0;z-index:150;background:rgba(3,5,3,.82);
+    backdrop-filter:blur(6px);display:grid;place-items:center;padding:1.25rem;
+    animation:introFade .25s ease;}
+  .ask{position:relative;width:min(30rem,100%);background:var(--panel);
+    border:1px solid var(--line2);border-radius:var(--r);padding:2rem 1.875rem 1.75rem;
+    box-shadow:0 50px 90px -40px rgba(0,0,0,.9);max-height:90svh;overflow:auto;}
+  .ask h3{font-family:"Archivo Black",sans-serif;font-weight:400;
+    text-transform:uppercase;letter-spacing:-.02em;font-size:1.5rem;margin:0 0 1.5rem;}
+  .ask-x{position:absolute;top:1rem;right:1rem;width:2rem;height:2rem;border-radius:50%;
+    background:transparent;border:1px solid var(--line2);color:var(--mut);
+    display:grid;place-items:center;cursor:pointer;transition:color .2s,border-color .2s;}
+  .ask-x:hover{color:var(--txt);border-color:var(--mut);}
+  .ask-x svg{width:.75rem;height:.75rem;}
+  .ask-choice{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:1.5rem;}
+  .pick{font-family:Inter,sans-serif;font-weight:700;font-size:.9375rem;
+    padding:.8125rem .5rem;border-radius:10px;cursor:pointer;
+    background:transparent;border:1px solid var(--line2);color:var(--txt);
+    transition:background .2s,border-color .2s,color .2s;}
+  .pick:hover{border-color:var(--mut);}
+  .pick.on{background:var(--lime);border-color:var(--lime);color:#0A0D08;}
+  .ask-l{display:block;font-family:"JetBrains Mono",monospace;font-size:.625rem;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin:0 0 .5rem;}
+  .ask-l span{color:var(--line2);}
+  .ask textarea,.ask input{width:100%;background:#0A0D0A;color:var(--txt);
+    border:1px solid var(--line2);border-radius:10px;padding:.75rem .875rem;
+    font-family:Inter,sans-serif;font-size:.9375rem;margin-bottom:1.25rem;
+    resize:vertical;transition:border-color .2s;}
+  .ask textarea:focus,.ask input:focus{outline:none;border-color:rgba(191,245,73,.5);}
+  .ask textarea::placeholder,.ask input::placeholder{color:#4A524A;}
+  .ask-send{width:100%;justify-content:center;}
+  .ask-err{color:var(--red);font-size:.875rem;margin:.875rem 0 0;}
+  .ask-tick{width:2.75rem;height:2.75rem;border-radius:50%;background:var(--lime);
+    color:#0A0D08;display:grid;place-items:center;margin-bottom:1.25rem;}
+  .ask-tick svg{width:1.25rem;height:1.25rem;}
+  #askDone p{color:var(--mut);margin:0;}
+
   .js .rise{opacity:0;transform:translateY(14px);}
   .js .rise.in{opacity:1;transform:none;
     transition:opacity .65s cubic-bezier(.2,.6,.2,1),transform .65s cubic-bezier(.2,.6,.2,1);}
@@ -402,6 +440,66 @@
     .seal{transform:none;opacity:1;}
     .cred-rows div,.cred .url{opacity:1;transform:none;animation:none!important;}
   }
+
+  /* ============================================================
+     MANIFESTO / REQUIREMENTS / WHY
+     ============================================================ */
+  .manifesto{background:var(--bg2);border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);}
+  .man-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:4rem;align-items:center;}
+  @media(max-width:58rem){.man-grid{grid-template-columns:1fr;gap:2.5rem;}}
+  .man-lines{display:grid;gap:0;border-top:1px solid var(--line);}
+  .man-lines p{margin:0;padding:1.0625rem .25rem;border-bottom:1px solid var(--line);
+    font-family:"Archivo Black",sans-serif;font-weight:400;text-transform:uppercase;
+    letter-spacing:-.015em;font-size:clamp(1.125rem,2.4vw,1.625rem);}
+  .man-lines p.dim{color:var(--mut);}
+  .man-lines p .lime{color:var(--lime);}
+  .man-note{margin-top:1.75rem;color:var(--mut);font-size:1.0625rem;max-width:30rem;}
+
+  .proof-line{font-family:"Archivo Black",sans-serif;text-transform:uppercase;
+    letter-spacing:-.02em;line-height:1.08;font-size:clamp(1.5rem,3.4vw,2.5rem);
+    margin:0 0 2.75rem;max-width:20ch;}
+  .proof-line .lime{color:var(--lime);}
+
+  .reqs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:52rem;}
+  @media(max-width:44rem){.reqs{grid-template-columns:1fr;}}
+  .req{display:flex;align-items:flex-start;gap:.9375rem;
+    background:var(--panel);border:1px solid var(--line2);border-radius:12px;
+    padding:1.125rem 1.25rem;}
+  .req .c{width:1.25rem;height:1.25rem;flex:none;border-radius:50%;margin-top:.1875rem;
+    background:var(--lime);color:#0A0D08;display:grid;place-items:center;}
+  .req .c svg{width:.625rem;height:.625rem;}
+  .req b{display:block;font-weight:700;font-size:1rem;letter-spacing:-.015em;}
+  .req span{display:block;color:var(--mut);font-size:.9063rem;margin-top:.125rem;}
+  .req.no .c{background:var(--line2);color:var(--mut);}
+  .reqs-foot{margin-top:1.5rem;font-family:"JetBrains Mono",monospace;
+    font-size:.6875rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);}
+
+  .why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;
+    max-width:52rem;margin-top:2.75rem;}
+  @media(max-width:44rem){.why-grid{grid-template-columns:1fr;}}
+  .why{background:var(--panel);border:1px solid var(--line2);border-radius:var(--r);
+    padding:1.625rem 1.625rem 1.5rem;
+    transition:border-color .3s ease,transform .3s ease;}
+  .why:hover{border-color:rgba(191,245,73,.4);transform:translateY(-3px);}
+  .why .n{font-family:"JetBrains Mono",monospace;font-size:.6875rem;
+    letter-spacing:.14em;color:var(--lime);font-weight:700;}
+  .why h3{font-family:"Archivo Black",sans-serif;font-weight:400;
+    text-transform:uppercase;letter-spacing:-.015em;font-size:1.25rem;
+    margin:.875rem 0 .5rem;}
+  .why p{margin:0;color:var(--mut);font-size:.9688rem;}
+  .why.is-key{border-color:rgba(191,245,73,.45);
+    background:linear-gradient(165deg,rgba(191,245,73,.07),transparent 60%);}
+  .why.is-key h3{color:var(--lime);}
+  .why.is-maybe{border-style:dashed;border-color:var(--line2);}
+  .why.is-maybe h3{color:var(--mut);}
+  .why .tag{display:inline-block;margin-top:.875rem;
+    font-family:"JetBrains Mono",monospace;font-size:.625rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--mut);
+    border:1px solid var(--line2);border-radius:999px;padding:.25rem .625rem;}
+  .why-foot{margin-top:2rem;font-family:"Archivo Black",sans-serif;
+    text-transform:uppercase;letter-spacing:-.015em;font-size:clamp(1.125rem,2.2vw,1.5rem);}
+  .why-foot .lime{color:var(--lime);}
 </style>
 </head>
 <body>
@@ -417,12 +515,12 @@
   <div class="wrap">
     <a class="mark" href="#top">Jib<b>Your</b>Mentor</a>
     <div class="nav-links">
-      <a href="#mission">Mission</a>
-      <a href="#integrity">Integrity</a>
-      <a href="#record">The Record</a>
+      <a href="#what">What is JYM</a>
+      <a href="#enter">Who can enter</a>
+      <a href="#why">Why join</a>
       <a href="#faq">FAQ</a>
     </div>
-    <a class="btn btn-lime" href="#cta">Apply Now</a>
+    <a class="btn btn-lime" href="#cta">Would you join?</a>
   </div>
 </nav>
 
@@ -437,22 +535,23 @@
   <div class="wrap hero-grid">
     <div>
       <p class="kicker rise">Edition One</p>
-      <h1 class="display rise" data-d="60">The first public <span class="lime">record</span> of verified traders in Morocco<span class="lime">.</span></h1>
+      <h1 class="display rise" data-d="60">Trading is full of claims. JYM is about <span class="lime">proof.</span></h1>
       <p class="sub rise" data-d="140">
-        This is not just a trading competition. It is a public record built on
-        <strong>proof, transparency, and verified results.</strong>
+        A free trading competition for Moroccan traders. Same rules, your own live
+        account, and results read by an <strong>independent, trusted third party</strong> —
+        not by you, and not by us.
       </p>
       <div class="chips rise" data-d="200">
         <span class="chip"><span class="c"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>No screenshots</span>
         <span class="chip"><span class="c"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>No entry fee</span>
-        <span class="chip"><span class="c"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>Only proof</span>
+        <span class="chip"><span class="c"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>Nothing published unless you place</span>
       </div>
       <div class="hero-ctas rise" data-d="260">
-        <a class="btn btn-lime" href="#cta">Become One of the Thirty
+        <a class="btn btn-lime" href="#cta">Would you join?
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
-        <a class="btn btn-ghost" href="#record">
+        <a class="btn btn-ghost" href="#enter">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M6.5 5.5l4 2.5-4 2.5z"/></svg>
-          Watch Episode Zero</a>
+          See the requirements</a>
       </div>
     </div>
     <aside class="vcard pop" data-d="300">
@@ -491,7 +590,7 @@
         <div class="reality-grid">
           <div id="claimBlock">
             <p class="kicker is-red">The reality</p>
-            <h2 class="display claim-h" id="mission">
+            <h2 class="display claim-h">
               Everyone<br>can claim.<br>
               <span class="lime">Very few<br>can prove.</span>
             </h2>
@@ -552,14 +651,115 @@
   </div>
 </div>
 
+<!-- ==================== 1. WHAT IS JYM ==================== -->
+<section class="manifesto" id="what">
+  <div class="wrap man-grid">
+    <div>
+      <p class="kicker rise">What is JYM</p>
+      <h2 class="display rise" data-d="40">We don't decide<br>who is legitimate<span style="color:var(--lime)">.</span></h2>
+      <p class="man-note rise" data-d="100" style="color:var(--txt)">
+        We build the record. Nothing else.
+      </p>
+    </div>
+    <div class="man-lines rise" data-d="120">
+      <p>We provide the arena.</p>
+      <p class="dim">You trade.</p>
+      <p class="dim">The data speaks.</p>
+      <p><span class="lime">People decide.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 2. WHO CAN ENTER ==================== -->
+<section id="enter">
+  <div class="wrap">
+    <p class="kicker rise">Who can enter</p>
+    <h2 class="display proof-line rise" data-d="40">
+      No screenshots. No claims.<br><span class="lime">Your trading account is the proof.</span>
+    </h2>
+
+    <div class="reqs">
+      <div class="req rise" data-d="80">
+        <span class="c"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>
+        <div><b>A live MT4 or MT5 account</b><span>At a regulated broker. One you already trade.</span></div>
+      </div>
+      <div class="req rise" data-d="130">
+        <span class="c"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>
+        <div><b>Minimum $1,000</b><span>Real money. No demo accounts, no prop firm accounts.</span></div>
+      </div>
+      <div class="req rise" data-d="180">
+        <span class="c"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>
+        <div><b>Verified through Myfxbook</b><span>You connect it yourself. Your password never comes to us.</span></div>
+      </div>
+      <div class="req rise" data-d="230">
+        <span class="c"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>
+        <div><b>Agree to the rules</b><span>One account, declared before the start. At least 10 closed trades.</span></div>
+      </div>
+      <div class="req no rise" data-d="280">
+        <span class="c"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.4 2.4l5.2 5.2M7.6 2.4l-5.2 5.2"/></svg></span>
+        <div><b>No entry fee</b><span>Nothing to pay, now or at the end.</span></div>
+      </div>
+      <div class="req no rise" data-d="330">
+        <span class="c"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.4 2.4l5.2 5.2M7.6 2.4l-5.2 5.2"/></svg></span>
+        <div><b>Nothing to send us</b><span>No screenshots, no weekly reports, no updates.</span></div>
+      </div>
+    </div>
+
+    <p class="reqs-foot rise" data-d="380">Six months &middot; 30 places &middot; selected, not first come</p>
+  </div>
+</section>
+
+<!-- ==================== 3. WHY JOIN ==================== -->
+<section id="why" style="padding-top:0">
+  <div class="wrap">
+    <p class="kicker rise">Why join</p>
+    <h2 class="display rise" data-d="40">Come and prove<br>yourself<span style="color:var(--lime)">.</span></h2>
+
+    <div class="why-grid">
+      <article class="why rise" data-d="90">
+        <span class="n">01</span>
+        <h3>Prove yourself</h3>
+        <p>Compete against other serious traders under the same rules, over the same window, with your performance checked independently.</p>
+      </article>
+      <article class="why rise" data-d="150">
+        <span class="n">02</span>
+        <h3>Enter the record</h3>
+        <p>The top five are published permanently with their verified return, and can show their own links on the page. Nobody else is named, ever.</p>
+      </article>
+      <article class="why is-key rise" data-d="210">
+        <span class="n">03</span>
+        <h3>Nothing to lose</h3>
+        <p>If you don't place in the top five, nothing is published. No result, no rank, no number. A weak six months stays yours alone.</p>
+      </article>
+      <article class="why rise" data-d="270">
+        <span class="n">04</span>
+        <h3>Be part of Edition One</h3>
+        <p>Thirty places. The first verified record JYM ever publishes, and the names on it were the ones willing to be checked first.</p>
+      </article>
+      <article class="why is-maybe rise" data-d="330">
+        <span class="n">05</span>
+        <h3>Possibly an interview</h3>
+        <p>We are trying to arrange an interview for the top five with a known creator. It is not confirmed, and we will not pretend it is until it is signed.</p>
+        <span class="tag">Not confirmed</span>
+      </article>
+    </div>
+
+
+  </div>
+</section>
+
+<!-- ==================== INTEGRITY ==================== -->
 <section class="integrity" id="integrity">
   <div class="wrap cost-grid">
     <div>
       <p class="kicker rise">Integrity</p>
       <h2 class="display rise" data-d="40">We take nothing<br>from you<span style="color:var(--lime)">.</span></h2>
       <p class="sub rise" data-d="100" style="margin-top:1.375rem">
-        You have been sold to many times this year. This is not that. If money came
-        from brokers, the ranking would be worth nothing — so it does not.
+        Free usually means you are the product. Not here — and the reason is selfish.
+      </p>
+      <p class="sub rise" data-d="140" style="margin-top:1rem;color:var(--txt)">
+        The day a broker pays us, every result on this site becomes worthless.
+        Trust is the only thing JYM owns. We are not selling it for a sponsorship.
       </p>
     </div>
     <div class="price-card rise" data-d="160">
@@ -577,35 +777,36 @@
   </div>
 </section>
 
+<!-- ==================== THE RECORD ==================== -->
 <section id="record">
   <div class="wrap">
     <p class="kicker rise">The record</p>
-    <h2 class="display rise" data-d="40">Thirty enter.<br>Everyone keeps proof<span style="color:var(--lime)">.</span></h2>
+    <h2 class="display rise" data-d="40">Thirty enter.<br>Five are named<span style="color:var(--lime)">.</span></h2>
     <div class="rec-grid">
       <div class="gets">
         <div class="get rise" data-d="100">
           <span class="n">01</span>
-          <div><h3>Six verified months</h3>
-          <p>Half a year of real trading, checked by Myfxbook and dated. Yours to send to anyone.</p></div>
+          <div><h3>Verified return</h3>
+          <p>Six months of real trading, read from Myfxbook and dated. Nobody can edit it.</p></div>
         </div>
         <div class="get rise" data-d="170">
           <span class="n">02</span>
-          <div><h3>Your name on the list</h3>
-          <p>Public proof you agreed to be checked. Not many will. That is the point of it.</p></div>
+          <div><h3>Your links on the page</h3>
+          <p>The top five can show their own social links. People will be watching that page.</p></div>
         </div>
         <div class="get rise" data-d="240">
           <span class="n">03</span>
-          <div><h3>Your own page here</h3>
-          <p>Verified account, verified return, your links. It stays up after the contest ends.</p></div>
+          <div><h3>Permanent</h3>
+          <p>Edition One's record stays online. It does not expire and it cannot be bought.</p></div>
         </div>
         <div class="note rise" data-d="320">
           <span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="#0A0D08" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>
-          <span>The top five are named, with their return.</span>
+          <span>Everyone else stays private. Always.</span>
         </div>
       </div>
       <div class="cred pop" data-d="200" id="cred">
         <div class="cred-top">
-          <span class="lbl">Verified Trader</span>
+          <span class="lbl">Edition One &middot; Top Five</span>
           <span class="seal"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>
         </div>
         <div class="nm">Your name here</div>
@@ -617,53 +818,65 @@
           <div><dt>Source</dt><dd>Myfxbook</dd></div>
           <div><dt>Closed trades</dt><dd>134</dd></div>
         </dl>
-        <div class="url">jibyourmentor.ma/your-name</div>
+        <div class="url">jibyourmentor.ma/edition-one</div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ==================== FAQ ==================== -->
 <section id="faq" style="padding-top:0">
   <div class="wrap">
     <p class="kicker rise">FAQ</p>
     <h2 class="display rise" data-d="40">The questions traders ask<span style="color:var(--lime)">.</span></h2>
     <div class="faq rise" data-d="100">
       <details>
+        <summary>What if my six months are weak?
+          <span class="pm"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 1.5v7M1.5 5h7"/></svg></span></summary>
+        <div class="a">Nothing is published. Only the top five are named, with their return. If you don't place, no result, no rank and no number ever appears.</div>
+      </details>
+      <details>
         <summary>Can you see my password or my trades?
           <span class="pm"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 1.5v7M1.5 5h7"/></svg></span></summary>
         <div class="a">No. You connect your account to Myfxbook yourself, with read-only access. Your password never comes to us. We read the same public page anyone can read.</div>
       </details>
       <details>
-        <summary>What if my six months are weak?
+        <summary>Does JYM say I am a good trader?
           <span class="pm"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 1.5v7M1.5 5h7"/></svg></span></summary>
-        <div class="a">We publish nothing. Only the top five are named with their return. Your name on the entrant list shows one thing — that you agreed to be checked.</div>
+        <div class="a">No. A placement means one thing: you finished in the top five of this edition, over this window, with numbers nobody could edit. We don't vouch for anyone and we don't tell anyone who to follow.</div>
+      </details>
+      <details>
+        <summary>Do I have to promote JYM to my audience?
+          <span class="pm"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 1.5v7M1.5 5h7"/></svg></span></summary>
+        <div class="a">No — please don't. If you want to mention it, state the facts only: that you entered, the date it starts, and the date results are published. Nothing more.</div>
+      </details>
+      <details>
+        <summary>Is the interview guaranteed?
+          <span class="pm"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 1.5v7M1.5 5h7"/></svg></span></summary>
+        <div class="a">No. We are trying to arrange one for the top five and nothing is signed. Enter for the verified record, not for this. If it does not happen, we will say so.</div>
       </details>
       <details>
         <summary>Why is it free? What do you get?
           <span class="pm"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 1.5v7M1.5 5h7"/></svg></span></summary>
-        <div class="a">Edition one makes no money. No fee, no sponsor, no broker pays us. If money came from brokers, the ranking would be worth nothing — so it does not.</div>
-      </details>
-      <details>
-        <summary>Who can enter?
-          <span class="pm"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 1.5v7M1.5 5h7"/></svg></span></summary>
-        <div class="a">A live MT4 or MT5 account at a regulated broker. At least $2,000 in it. At least 10 closed trades over the six months. One account, declared before the start. Thirty places, selected — not first come.</div>
+        <div class="a">Edition One makes no money. No fee, no sponsor, no broker pays us. If money came from brokers, the ranking would be worth nothing — so it does not.</div>
       </details>
     </div>
   </div>
 </section>
 
+<!-- ==================== CTA ==================== -->
 <section id="cta" style="padding-top:0">
   <div class="wrap">
     <div class="cta-band">
-      <p class="kicker rise" style="margin-bottom:.75rem">Edition One</p>
-      <h2 class="display rise" data-d="40">In six months,<br>this record exists<span style="color:var(--lime)">.</span></h2>
+      <p class="kicker rise" style="margin-bottom:.75rem">Before we open</p>
+      <h2 class="display rise" data-d="40">Would you join<span style="color:var(--lime)">?</span></h2>
       <p class="sub rise" data-d="100">
-        Thirty names entered. Five named at the end. None of them arguing about
-        their numbers again.
+        Edition One is not open yet. Right now one thing matters — whether traders
+        like you would enter. Tell me yes or no, and why.
       </p>
-      <a class="btn btn-lime rise" data-d="160" href="#">Become One of the Thirty
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
-      <p class="fine rise" data-d="220">30 traders &middot; 6 months &middot; 1 record</p>
+      <button class="btn btn-lime rise" data-d="160" id="openAsk" type="button">Answer in one minute
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+      <p class="fine rise" data-d="220">Takes one minute &middot; no commitment</p>
     </div>
   </div>
 </section>
@@ -674,6 +887,41 @@
     <span>Results verified via Myfxbook</span>
   </div>
 </footer>
+
+
+<div class="ask-back" id="askBack" hidden>
+  <div class="ask" role="dialog" aria-modal="true" aria-labelledby="askTitle">
+    <button class="ask-x" id="askClose" type="button" aria-label="Close">
+      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+    </button>
+
+    <div id="askForm">
+      <p class="kicker">Edition One</p>
+      <h3 id="askTitle">Would you enter this?</h3>
+
+      <div class="ask-choice">
+        <button type="button" class="pick" data-v="yes">Yes</button>
+        <button type="button" class="pick" data-v="maybe">Maybe</button>
+        <button type="button" class="pick" data-v="no">No</button>
+      </div>
+
+      <label class="ask-l" for="askWhy">Why? One line is enough.</label>
+      <textarea id="askWhy" rows="3" placeholder="The honest answer is the useful one."></textarea>
+
+      <label class="ask-l" for="askWho">Your name or handle <span>(optional)</span></label>
+      <input id="askWho" type="text" placeholder="@handle">
+
+      <button class="btn btn-lime ask-send" id="askSend" type="button">Send</button>
+      <p class="ask-err" id="askErr" hidden>Something went wrong. Try again in a moment.</p>
+    </div>
+
+    <div id="askDone" hidden>
+      <div class="ask-tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.6 6.4l2.4 2.4L9.4 3.6"/></svg></div>
+      <h3>Thank you.</h3>
+      <p>That is genuinely useful — a no with a reason more than a yes.</p>
+    </div>
+  </div>
+</div>
 
 <script>
   document.documentElement.classList.add('js');
@@ -817,6 +1065,71 @@
       });
     },{threshold:.5});
     issue.observe(cred);
+  })();
+
+  /* ---------- ask modal -> supabase ---------- */
+  (function(){
+    /* Project Settings -> API. The anon key is meant to be public;
+       the insert-only RLS policy is what protects the table. */
+    const SUPABASE_URL = 'https://YOUR_PROJECT.supabase.co';
+    const SUPABASE_KEY = 'YOUR_ANON_KEY';
+    const TABLE = 'responses';
+
+    const back  = document.getElementById('askBack');
+    const open  = document.getElementById('openAsk');
+    const close = document.getElementById('askClose');
+    const send  = document.getElementById('askSend');
+    const err   = document.getElementById('askErr');
+    const form  = document.getElementById('askForm');
+    const done  = document.getElementById('askDone');
+    if(!back || !open) return;
+
+    let choice = '';
+    document.querySelectorAll('.pick').forEach(b=>{
+      b.addEventListener('click',()=>{
+        document.querySelectorAll('.pick').forEach(x=>x.classList.remove('on'));
+        b.classList.add('on');
+        choice = b.dataset.v;
+      });
+    });
+
+    const show = ()=>{ back.hidden = false; document.body.style.overflow='hidden'; };
+    const hide = ()=>{ back.hidden = true;  document.body.style.overflow=''; };
+
+    open.addEventListener('click', show);
+    close.addEventListener('click', hide);
+    back.addEventListener('click', e=>{ if(e.target === back) hide(); });
+    addEventListener('keydown', e=>{ if(e.key === 'Escape' && !back.hidden) hide(); });
+
+    send.addEventListener('click', async ()=>{
+      err.hidden = true;
+      send.disabled = true;
+      send.textContent = 'Sending…';
+      try{
+        const r = await fetch(SUPABASE_URL + '/rest/v1/' + TABLE, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY,
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({
+            answer:  choice || 'not stated',
+            why:     document.getElementById('askWhy').value,
+            who:     document.getElementById('askWho').value,
+            referrer: document.referrer || null
+          })
+        });
+        if(!r.ok) throw new Error(await r.text());
+        form.hidden = true; done.hidden = false;
+      }catch(e){
+        console.error('submit failed:', e);
+        err.hidden = false;
+        send.disabled = false;
+        send.textContent = 'Send';
+      }
+    });
   })();
 </script>
 </body>
