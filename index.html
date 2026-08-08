@@ -237,9 +237,9 @@
   .answer-inner{text-align:center;}
   .answer-inner .kicker{justify-content:center;color:var(--lime);letter-spacing:.24em;}
   .answer-inner .kicker::after{display:none;}
-  .answer-h{font-size:clamp(2rem,5.2vw,4.25rem);color:var(--lime);margin:0 0 3.5rem;
+  .answer-h{font-size:clamp(2rem,5.2vw,4.25rem);color:var(--lime);margin:0 0 5.5rem;
     text-shadow:0 0 60px rgba(191,245,73,.3);will-change:opacity;}
-  @media(max-width:52rem){.answer-h{margin-bottom:2.5rem;}}
+  @media(max-width:52rem){.answer-h{margin-bottom:3.25rem;}}
   .floor{position:absolute;left:0;right:0;bottom:0;height:20rem;pointer-events:none;
     perspective:340px;overflow:hidden;will-change:opacity;}
   .floor .g{position:absolute;left:-25%;right:-25%;bottom:-6rem;height:26rem;
@@ -544,7 +544,7 @@
       <div class="chips rise" data-d="200">
         <span class="chip"><span class="c"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>No screenshots</span>
         <span class="chip"><span class="c"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>No entry fee</span>
-        <span class="chip"><span class="c"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>Only TOP 5 published</span>
+        <span class="chip"><span class="c"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>Only the top 5 published</span>
       </div>
       <div class="hero-ctas rise" data-d="260">
         <a class="btn btn-lime" href="#cta">Would you join?
@@ -555,19 +555,17 @@
       </div>
     </div>
     <aside class="vcard pop" data-d="300">
-      <div class="vlbl">Verification</div>
+      <div class="vlbl">How it works</div>
       <div class="vrows">
-        <div class="vrow"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 1.5l6 2.5v4c0 3.6-2.5 6.4-6 8-3.5-1.6-6-4.4-6-8v-4z"/><path d="M6.4 9l1.8 1.8L11.8 7"/></svg>Myfxbook verified</div>
-        <div class="vrow"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="8" width="11" height="7.5" rx="1.5"/><path d="M6 8V5.5a3 3 0 0 1 6 0V8"/></svg>Rules locked before start</div>
-        <div class="vrow"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="6" r="3"/><path d="M3 15.5c.8-3 3-4.5 6-4.5s5.2 1.5 6 4.5"/></svg>Self-funded live accounts</div>
-        <div class="vrow"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2l2 4.2 4.5.5-3.4 3 1 4.5L9 11.9l-4.1 2.3 1-4.5-3.4-3 4.5-.5z"/></svg>Top five published</div>
-        <div class="vrow"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9s2.5-4.5 7-4.5S16 9 16 9s-2.5 4.5-7 4.5S2 9 2 9z"/><path d="M2.5 15.5l13-13"/></svg>Nothing below five named</div>
+        <div class="vrow"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 1.5l6 2.5v4c0 3.6-2.5 6.4-6 8-3.5-1.6-6-4.4-6-8v-4z"/><path d="M6.4 9l1.8 1.8L11.8 7"/></svg>You trade your own live account</div>
+        <div class="vrow"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="8" width="11" height="7.5" rx="1.5"/><path d="M6 8V5.5a3 3 0 0 1 6 0V8"/></svg>Myfxbook reads the results, not us</div>
+        <div class="vrow"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2l2 4.2 4.5.5-3.4 3 1 4.5L9 11.9l-4.1 2.3 1-4.5-3.4-3 4.5-.5z"/></svg>Only the top five are ever named</div>
       </div>
       <div class="vdiv"></div>
       <div class="vlbl">Applications open</div>
-      <div class="vnum" style="margin-top:.875rem">0 / 30<small>Selected</small></div>
+      <div class="vnum" style="margin-top:.875rem">0 / 30<small>Places taken</small></div>
       <div class="track"><i></i></div>
-      <div class="vfoot">30 traders &middot; 6 months &middot; 1 record</div>
+      <div class="vfoot">30 traders &middot; 3 months &middot; 1 record</div>
     </aside>
   </div>
   <div class="cue"><span>Scroll to explore</span><i></i></div>
@@ -598,15 +596,15 @@
           <div class="fail-rows">
             <div class="frow">
               <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A2.5 2.5 0 0 1 5.5 6h1.9l1.2-2h6.8l1.2 2h1.9A2.5 2.5 0 0 1 21 8.5v9A2.5 2.5 0 0 1 18.5 20h-13A2.5 2.5 0 0 1 3 17.5z"/><circle cx="12" cy="13" r="3.6"/></svg></span>
-              <span class="vr"></span><h3>Screenshots</h3><p>Easy to fake.</p>
+              <span class="vr"></span><h3>Screenshots</h3><p>Real or not,<br>nobody can tell.</p>
             </div>
             <div class="frow">
               <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5H17a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3z"/><path d="M3 8.5h13"/><circle cx="16.5" cy="13.5" r="1.3"/></svg></span>
-              <span class="vr"></span><h3>Withdrawals</h3><p>One payout<br>isn't a record.</p>
+              <span class="vr"></span><h3>Withdrawals</h3><p>One payout<br>is not a record.</p>
             </div>
             <div class="frow">
               <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c4.6 0 8 3.1 8 7.3 0 3.5-2.2 5.7-4.5 6.8-.9.4-1.3 1.3-1.1 2.2H9.6c.2-.9-.2-1.8-1.1-2.2C6.2 16 4 13.8 4 10.3 4 6.1 7.4 3 12 3z"/><ellipse cx="9" cy="11" rx="1.7" ry="2.2" fill="currentColor" stroke="none"/><ellipse cx="15" cy="11" rx="1.7" ry="2.2" fill="currentColor" stroke="none"/></svg></span>
-              <span class="vr"></span><h3>Gurus</h3><p>Claims<br>without proof.</p>
+              <span class="vr"></span><h3>Reputation</h3><p>Built on marketing,<br>not evidence.</p>
             </div>
           </div>
         </div>
@@ -705,7 +703,7 @@
       </div>
     </div>
 
-    <p class="reqs-foot rise" data-d="380">Six months &middot; 30 places &middot; selected, not first come</p>
+    <p class="reqs-foot rise" data-d="380">Three months &middot; 30 places</p>
   </div>
 </section>
 
@@ -729,7 +727,7 @@
       <article class="why is-key rise" data-d="210">
         <span class="n">03</span>
         <h3>Nothing to lose</h3>
-        <p>If you don't place in the top five, nothing is published. No result, no rank, no number. A weak six months stays yours alone.</p>
+        <p>If you don't place in the top five, nothing is published. No result, no rank, no number. A weak quarter stays yours alone.</p>
       </article>
       <article class="why rise" data-d="270">
         <span class="n">04</span>
@@ -754,12 +752,12 @@
     <div>
       <p class="kicker rise">Integrity</p>
       <h2 class="display rise" data-d="40">We take nothing<br>from you<span style="color:var(--lime)">.</span></h2>
-      <p class="sub rise" data-d="100" style="margin-top:1.375rem">
-        Free usually means you are the product. Not here — and the reason is selfish.
+      <p class="sub rise" data-d="100" style="margin-top:1.375rem;color:var(--txt)">
+        JYM takes money from nobody. Not from traders, not from brokers, not from sponsors.
       </p>
-      <p class="sub rise" data-d="140" style="margin-top:1rem;color:var(--txt)">
-        The day a broker pays us, every result on this site becomes worthless.
-        Trust is the only thing JYM owns. We are not selling it for a sponsorship.
+      <p class="sub rise" data-d="140" style="margin-top:1rem">
+        We are building one thing: trust. If it is worth something one day, it will be
+        because nobody could buy their way onto this list.
       </p>
     </div>
     <div class="price-card rise" data-d="160">
@@ -787,7 +785,7 @@
         <div class="get rise" data-d="100">
           <span class="n">01</span>
           <div><h3>Verified return</h3>
-          <p>Six months of real trading, read from Myfxbook and dated. Nobody can edit it.</p></div>
+          <p>Three months of real trading, read from Myfxbook and dated. Nobody can edit it.</p></div>
         </div>
         <div class="get rise" data-d="170">
           <span class="n">02</span>
@@ -811,7 +809,7 @@
         </div>
         <div class="nm">Your name here</div>
         <div class="big" id="cnt" data-to="47.3">+0.0%</div>
-        <div class="big-k">Net return &middot; six months</div>
+        <div class="big-k">Net return &middot; three months</div>
         <dl class="cred-rows">
           <div><dt>Edition</dt><dd>One &middot; 2026</dd></div>
           <div><dt>Account</dt><dd>Live MT5</dd></div>
@@ -830,8 +828,13 @@
     <p class="kicker rise">FAQ</p>
     <h2 class="display rise" data-d="40">The questions traders ask<span style="color:var(--lime)">.</span></h2>
     <div class="faq rise" data-d="100">
+      <details open>
+        <summary>Why would I join?
+          <span class="pm"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 1.5v7M1.5 5h7"/></svg></span></summary>
+        <div class="a">Because right now you have no way to prove your trading is real that a stranger will believe. Everyone has screenshots. Everyone has a good month to show. A verified placement is the one thing about your trading that cannot be manufactured — and it costs you nothing, changes nothing about how you trade, and stays private if it goes badly.</div>
+      </details>
       <details>
-        <summary>What if my six months are weak?
+        <summary>What if my three months go badly?
           <span class="pm"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 1.5v7M1.5 5h7"/></svg></span></summary>
         <div class="a">Nothing is published. Only the top five are named, with their return. If you don't place, no result, no rank and no number ever appears.</div>
       </details>
@@ -1071,8 +1074,8 @@
   (function(){
     /* Project Settings -> API. The anon key is meant to be public;
        the insert-only RLS policy is what protects the table. */
-    const SUPABASE_URL = 'https://ztpmxjxtxtplvbrptpjv.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp0cG14anh0eHRwbHZicnB0cGp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYxMjM2NDQsImV4cCI6MjEwMTY5OTY0NH0.aBlahSgt9fT0AANWcvAuMh6uFPw_KAbV0oy7OVaz8_s';
+    const SUPABASE_URL = 'https://YOUR_PROJECT.supabase.co';
+    const SUPABASE_KEY = 'YOUR_ANON_KEY';
     const TABLE = 'responses';
 
     const back  = document.getElementById('askBack');
