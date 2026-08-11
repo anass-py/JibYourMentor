@@ -66,31 +66,66 @@
   html.intro-active body>*:not(#intro){opacity:0;transition:opacity 1.5s ease;}
   html.intro-done body>*:not(#intro){opacity:1;}
   #intro{position:fixed;inset:0;z-index:200;background:var(--bg);
-    display:grid;place-items:center;text-align:center;padding:0 1.5rem;cursor:pointer;}
-  #intro .halo{position:absolute;left:50%;top:50%;width:min(46rem,92vw);
-    height:min(46rem,92vw);transform:translate(-50%,-50%);border-radius:50%;
+    display:grid;place-items:center;text-align:center;padding:0 1.5rem;cursor:pointer;
+    overflow:hidden;}
+  #intro .halo{position:absolute;left:50%;top:50%;width:min(48rem,94vw);
+    height:min(48rem,94vw);transform:translate(-50%,-50%);border-radius:50%;
     pointer-events:none;opacity:0;
-    background:radial-gradient(closest-side,rgba(191,245,73,.16),transparent 70%);}
-  #intro .line{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-    width:100%;padding:0 1.5rem;opacity:0;
+    background:radial-gradient(closest-side,rgba(191,245,73,.16),transparent 70%);
+    animation:introFade 2s ease .4s forwards;}
+
+  #intro .bars{position:absolute;inset:0;pointer-events:none;display:flex;
+    justify-content:space-between;padding:0 6vw;}
+  #intro .bars i{display:block;width:2px;height:100%;
+    background:linear-gradient(180deg,transparent,rgba(191,245,73,.5),transparent);
+    transform:translateY(-110%);opacity:0;}
+  #intro.beat .bars i{animation:barSweep 1s cubic-bezier(.3,.7,.2,1) forwards;}
+  #intro.beat .bars i:nth-child(1){animation-delay:0s}
+  #intro.beat .bars i:nth-child(2){animation-delay:.06s}
+  #intro.beat .bars i:nth-child(3){animation-delay:.12s}
+  #intro.beat .bars i:nth-child(4){animation-delay:.18s}
+  #intro.beat .bars i:nth-child(5){animation-delay:.24s}
+  #intro.beat .bars i:nth-child(6){animation-delay:.3s}
+  #intro.beat .bars i:nth-child(7){animation-delay:.36s}
+  @keyframes barSweep{
+    0%{transform:translateY(-110%);opacity:0}
+    25%{opacity:1}
+    100%{transform:translateY(110%);opacity:0}}
+
+  /* the stack */
+  #intro .stack{position:relative;display:flex;flex-direction:column;
+    align-items:center;gap:.625rem;}
+  html.intro-active #intro .stack{
+    animation:introRise 1.3s cubic-bezier(.4,0,.2,1) 6.1s forwards;}
+  #intro .line{opacity:0;
     font-family:"Archivo Black",Archivo,sans-serif;font-weight:400;
-    text-transform:uppercase;letter-spacing:-.025em;line-height:1.02;
-    font-size:clamp(2rem,6.6vw,5rem);color:var(--txt);}
+    text-transform:uppercase;letter-spacing:-.03em;line-height:1.04;
+    font-size:clamp(1.75rem,5.4vw,4rem);color:var(--txt);}
   #intro .line .lime{color:var(--lime);}
+
+  #intro #l1{letter-spacing:.42em;margin-bottom:1rem;
+    font-size:clamp(1rem,2.4vw,1.5rem);color:var(--lime);}
+  html.intro-active #intro #l1{animation:l1In 1.6s cubic-bezier(.2,.7,.2,1) .5s forwards;}
+  @keyframes l1In{0%{opacity:0;letter-spacing:1em}100%{opacity:1;letter-spacing:.34em}}
+
+  html.intro-active #intro #l2{animation:l2In 1s cubic-bezier(.2,.7,.2,1) 2.2s forwards;}
+  @keyframes l2In{0%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:none}}
+
+  html.intro-active #intro #l3{animation:l3In 1s cubic-bezier(.16,1.05,.3,1) 4.2s forwards;}
+  @keyframes l3In{
+    0%{opacity:0;transform:scale(1.35)}
+    55%{opacity:1}
+    100%{opacity:1;transform:scale(1)}}
+
   #intro .skip{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
     font-family:"JetBrains Mono",monospace;font-size:.625rem;letter-spacing:.22em;
     text-transform:uppercase;color:#4A524A;opacity:0;
-    animation:introFade 1s ease 3.2s forwards;}
+    animation:introFade 1s ease 2.2s forwards;}
   @keyframes introFade{from{opacity:0}to{opacity:1}}
   @keyframes introOut{from{opacity:1}to{opacity:0}}
-  @keyframes introRise{from{opacity:1;transform:translate(-50%,-50%)}
-                       to{opacity:0;transform:translate(-50%,calc(-50% - 30px))}}
-  html.intro-active #intro .halo{animation:introFade 1.9s cubic-bezier(.4,0,.2,1) 1.5s forwards;}
-  html.intro-active #intro #lineA{animation:introFade 1.5s cubic-bezier(.4,0,.2,1) forwards,
-              introOut 1.5s cubic-bezier(.4,0,.2,1) 1.5s forwards;}
-  html.intro-active #intro #lineB{animation:introFade 1.7s cubic-bezier(.4,0,.2,1) 1.6s forwards,
-              introRise 1.3s cubic-bezier(.4,0,.2,1) 4.5s forwards;}
-  html.intro-active #intro{animation:introOut 1.4s ease 4.7s forwards;}
+  @keyframes introRise{from{opacity:1;transform:translateY(0)}
+                       to{opacity:0;transform:translateY(-36px)}}
+  html.intro-active #intro{animation:introOut 1.1s ease 6.4s forwards;}
   html.intro-skip #intro{display:none;}
 
   /* ============================================================
@@ -483,8 +518,8 @@
   .reqs-foot{margin-top:1.5rem;font-family:"JetBrains Mono",monospace;
     font-size:.6875rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);}
 
-  .why-layout{display:grid;grid-template-columns:1fr auto;gap:4rem;
-    align-items:center;margin-top:3rem;}
+  .why-layout{display:grid;grid-template-columns:1fr auto;gap:3.5rem;
+    align-items:center;margin-top:2.25rem;}
   @media(max-width:64rem){.why-layout{grid-template-columns:1fr;gap:2.5rem;}}
   .card-show{position:relative;display:grid;place-items:center;}
   .card-show:before{content:"";position:absolute;width:30rem;height:30rem;
@@ -520,9 +555,12 @@
 
 <div id="intro" aria-hidden="true">
   <div class="halo"></div>
-  <div class="line" id="lineA">Claims fade.</div>
-  <canvas id="dust"></canvas>
-  <div class="line" id="lineB"><span class="lime">Proof</span> remains.</div>
+  <div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="stack" id="stack">
+    <div class="line" id="l1">Edition One</div>
+    <div class="line" id="l2"><span id="cnt30">1</span> Traders</div>
+    <div class="line" id="l3">One <span class="lime">Leaderboard.</span></div>
+  </div>
   <div class="skip">Click to skip</div>
 </div>
 
@@ -644,7 +682,7 @@
       </div>
       <div class="req rise" data-d="230">
         <span class="c"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>
-        <div><b>Agree to the rules</b><span>One account, named before the start. At least 5 closed trades. Withdraw any time.</span></div>
+        <div><b>Agree to the rules</b><span>One account, named before the start. At least 5 closed trades.</span></div>
       </div>
       <div class="req no rise" data-d="280">
         <span class="c"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.4 2.4l5.2 5.2M7.6 2.4l-5.2 5.2"/></svg></span>
@@ -665,11 +703,6 @@
   <div class="wrap">
     <p class="kicker rise">Why join</p>
     <h2 class="display rise" data-d="40">Your name<br>goes here<span style="color:var(--lime)">.</span></h2>
-    <p class="sub rise" data-d="80" style="margin-top:1.375rem">
-      Five cards. Three months from now they exist, five names on them.
-      This is what one looks like.
-    </p>
-
     <div class="why-layout">
       <div class="why-grid">
         <article class="why rise" data-d="90">
@@ -680,12 +713,12 @@
         <article class="why is-key rise" data-d="150">
           <span class="n">02</span>
           <h3>Nothing to lose</h3>
-          <p>Finish outside top five, nothing is published. Reach it and change your mind, we remove your name. Permanently.</p>
+          <p>Finish outside top five, nothing is published. Finish inside it and you can still ask us not to publish your name.</p>
         </article>
         <article class="why rise" data-d="210">
           <span class="n">03</span>
           <h3>Share it as it happens</h3>
-          <p>Board is public, updates in real time. Reach top five at any point, share it straight away.</p>
+          <p>Board is public through the quarter. Reach top five at any point and you can share it, before results are final.</p>
         </article>
         <article class="why rise" data-d="270">
           <span class="n">04</span>
@@ -782,17 +815,17 @@
       <details>
         <summary>Do I have to wait three months to show anything?
           <span class="pm"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 1.5v7M1.5 5h7"/></svg></span></summary>
-        <div class="a">No. The top five board is live the whole quarter. Reach it and anyone can see you there.<br><br>Every month we also send you your own numbers — return and drawdown, dated and verified. Post them or keep them. If you drop off the board, nothing is announced.</div>
+        <div class="a">No. The top five board is public through the quarter, so if you reach it, anyone can see you there before the end.<br><br>If you drop off it, nothing is announced.</div>
       </details>
       <details>
         <summary>What do I actually get?
           <span class="pm"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 1.5v7M1.5 5h7"/></svg></span></summary>
-        <div class="a">A verified result. Your own numbers every month.<br><br>Finish in the top five and your name goes on the record with your own links on it. What you do with that is yours. We do not promise you an audience — we give you something checkable to point at.</div>
+        <div class="a">A verified record of three months of your trading.<br><br>Finish in the top five and your name stays permanently attached to that record, with your own links on it. First place also gets a physical trophy.<br><br>That is the whole of it. We do not promise you an audience.</div>
       </details>
       <details>
         <summary>What if my three months go badly?
           <span class="pm"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 1.5v7M1.5 5h7"/></svg></span></summary>
-        <div class="a">Nothing is published. Only the top five are named. If you don't place, no result, no rank and no number ever appears.<br><br>And if you do place but would rather not be named, tell us and we take your name off the record permanently. Nobody is published against their will.</div>
+        <div class="a">Nothing is published. Only the top five are named. If you don't place, no result, no rank and no number ever appears.<br><br>If you do place and would rather not be named, just tell us and we leave your name off. Nobody is published against their will.</div>
       </details>
       <details>
         <summary>Which brokers are allowed?
@@ -931,98 +964,34 @@
         root.classList.remove('intro-active','intro-done','intro-skip');
       }, instant ? 60 : 1500);
     }
-    /* ---- particle dissolve, telegram-style ---- */
-    function dissolve(el){
-      const cv = document.getElementById('dust');
-      if(!cv || !el) { el && (el.style.opacity = 0); return; }
-
-      const r  = el.getBoundingClientRect();
-      const cs = getComputedStyle(el);
-      const dpr = Math.min(devicePixelRatio || 1, 2);
-      const PAD = 40;                                  // room for drift
-
-      cv.style.left = (r.left - PAD) + 'px';
-      cv.style.top  = (r.top  - PAD) + 'px';
-      cv.style.width  = (r.width  + PAD * 2) + 'px';
-      cv.style.height = (r.height + PAD * 2) + 'px';
-      cv.width  = Math.ceil((r.width  + PAD * 2) * dpr);
-      cv.height = Math.ceil((r.height + PAD * 2) * dpr);
-
-      const ctx = cv.getContext('2d');
-      ctx.scale(dpr, dpr);
-      ctx.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
-      ctx.fillStyle = cs.color;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(el.textContent.toUpperCase(),
-                   r.width / 2 + PAD, r.height / 2 + PAD);
-
-      const img = ctx.getImageData(0, 0, cv.width, cv.height).data;
-      const W = cv.width, H = cv.height;
-      const parts = [];
-      const STEP = Math.max(2, Math.round(2 * dpr));
-
-      for(let y = 0; y < H; y += STEP){
-        for(let x = 0; x < W; x += STEP){
-          if(img[(y * W + x) * 4 + 3] > 140){
-            const px = x / dpr, py = y / dpr;
-            parts.push({
-              x: px, y: py,
-              // dust lifts and drifts right, faster the further right it starts
-              vx: (Math.random() - .35) * .9 + (px / r.width) * .5,
-              vy: -(Math.random() * .85 + .18),
-              a: 1,
-              d: .012 + Math.random() * .016,          // per-frame decay
-              w: Math.random() < .18 ? 1.6 : 1,
-              // stagger: left edge starts crumbling first
-              delay: (px / (r.width + PAD * 2)) * 16 + Math.random() * 10
-            });
-          }
-        }
-      }
-
-      el.style.opacity = 0;
-      const colour = cs.color;
-      let frame = 0;
-
-      (function tick(){
-        ctx.clearRect(0, 0, W, H);
-        let alive = false;
-        for(let i = 0; i < parts.length; i++){
-          const p = parts[i];
-          if(frame < p.delay){
-            alive = true;
-            ctx.globalAlpha = 1;
-            ctx.fillStyle = colour;
-            ctx.fillRect(p.x, p.y, p.w, p.w);
-            continue;
-          }
-          if(p.a <= 0) continue;
-          alive = true;
-          p.x += p.vx;
-          p.y += p.vy;
-          p.vy -= .006;                                 // keeps floating up
-          p.vx *= .995;
-          p.a  -= p.d;
-          ctx.globalAlpha = p.a < 0 ? 0 : p.a;
-          ctx.fillStyle = colour;
-          ctx.fillRect(p.x, p.y, p.w, p.w);
-        }
-        frame++;
-        if(alive) requestAnimationFrame(tick);
-        else ctx.clearRect(0, 0, W, H);
-      })();
+    function beat(){
+      intro.classList.remove('beat');
+      void intro.offsetWidth;
+      intro.classList.add('beat');
     }
 
-    if(document.fonts && document.fonts.ready){
-      document.fonts.ready.then(() => {
-        setTimeout(() => dissolve(document.getElementById('lineA')), 1500);
-      });
-    } else {
-      setTimeout(() => dissolve(document.getElementById('lineA')), 1500);
+    function countTo30(){
+      const el = document.getElementById('cnt30');
+      if(!el) return;
+      const t0 = performance.now(), dur = 1100;
+      (function tick(now){
+        const p = Math.min((now - t0)/dur, 1), e = 1 - Math.pow(1-p,3);
+        el.textContent = Math.max(1, Math.round(30 * e));
+        if(p < 1) requestAnimationFrame(tick);
+      })(t0);
     }
 
-    setTimeout(()=>end(false), 4700);
+    function run(){
+      setTimeout(beat,        2000);   // bars with "30 traders"
+      setTimeout(countTo30,   2300);
+      setTimeout(beat,        4100);   // bars with the slam
+
+    }
+
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(run);
+    else run();
+
+    setTimeout(()=>end(false), 7500);
     intro.addEventListener('click', ()=>end(true));
     addEventListener('keydown', e=>{ if(e.key==='Escape') end(true); });
   })();
