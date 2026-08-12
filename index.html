@@ -472,6 +472,51 @@
   .ask-tick svg{width:1.25rem;height:1.25rem;}
   #askDone p{color:var(--mut);margin:0;}
 
+  /* ============================================================
+     MOTION
+     ============================================================ */
+
+  /* floating cards — hero + integrity */
+  @keyframes floatSlow{
+    0%,100%{transform:translateY(0) rotate(0deg)}
+    28%    {transform:translateY(-11px) rotate(-.5deg)}
+    62%    {transform:translateY(5px)   rotate(.35deg)}
+  }
+  .floaty{animation:floatSlow 6.5s ease-in-out infinite;will-change:transform;}
+  .floaty.slow{animation-duration:8s;animation-delay:1.2s;}
+
+  /* requirement cards — quick lift, snap back */
+  .js .req.rise.in,
+  .req{transition:transform .16s cubic-bezier(.2,1.6,.4,1),
+                  border-color .2s ease, background .2s ease;}
+  .js .req.rise.in:hover,
+  .req:hover{transform:translateY(-6px) scale(1.02);
+    border-color:rgba(191,245,73,.55);background:rgba(191,245,73,.05);}
+  .req .c{transition:transform .18s cubic-bezier(.2,2,.4,1);}
+  .req:hover .c{transform:scale(1.25) rotate(-8deg);}
+
+  /* why boxes — lift with a small kick */
+  .js .why.rise.in,
+  .why{transition:transform .18s cubic-bezier(.2,1.7,.4,1),
+                  border-color .2s ease, box-shadow .2s ease;}
+  .js .why.rise.in:hover,
+  .why:hover{transform:translateY(-8px) scale(1.015);
+    border-color:rgba(191,245,73,.6);
+    box-shadow:0 20px 44px -20px rgba(0,0,0,.9),
+               0 0 40px -14px rgba(191,245,73,.65);}
+  .why .n{display:inline-block;
+    transition:transform .18s cubic-bezier(.2,2,.4,1), color .2s ease;}
+  .why:hover .n{transform:translateX(6px) scale(1.1);}
+  .why h3{transition:color .2s ease;}
+  .why:hover h3{color:var(--lime);}
+  .why.is-key:hover{box-shadow:0 20px 44px -20px rgba(0,0,0,.9),
+                               0 0 54px -12px rgba(191,245,73,.8);}
+
+  @media(prefers-reduced-motion:reduce){
+    .floaty{animation:none;}
+    .req:hover,.why:hover{transform:none;}
+  }
+
   .js .rise{opacity:0;transform:translateY(14px);}
   .js .rise.in{opacity:1;transform:none;
     transition:opacity .65s cubic-bezier(.2,.6,.2,1),transform .65s cubic-bezier(.2,.6,.2,1);}
@@ -600,6 +645,7 @@
           See the requirements</a>
       </div>
     </div>
+    <div class="floaty">
     <aside class="vcard pop" data-d="300">
       <div class="vlbl">What you hand over</div>
       <div class="vrows">
@@ -613,6 +659,7 @@
       <div class="track"><i></i></div>
       <div class="vfoot">3 months &middot; 30 traders &middot; 1 record</div>
     </aside>
+    </div>
   </div>
   <div class="cue" aria-hidden="true">
     <span class="lbl">What JYM is</span>
@@ -786,6 +833,7 @@
         There is no business here yet. Edition One makes nothing, and that is fine.
       </p>
     </div>
+    <div class="floaty slow">
     <div class="price-card rise" data-d="160">
       <div class="plan">Every entrant &middot; Edition One</div>
       <div class="price"><span class="n">0</span><span class="cur">DH</span></div>
@@ -797,6 +845,7 @@
         <li><span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M2.4 2.4l5.2 5.2M7.6 2.4l-5.2 5.2"/></svg></span>No broker pays us</li>
         <li class="yes"><span class="glyph"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>Only your results</li>
       </ul>
+    </div>
     </div>
   </div>
 </section>
