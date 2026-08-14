@@ -401,10 +401,20 @@
   .ask-back[hidden]{display:none;}
   .ask-back{position:fixed;inset:0;z-index:150;background:rgba(3,5,3,.82);
     backdrop-filter:blur(6px);display:grid;place-items:center;padding:1.25rem;
-    animation:introFade .25s ease;}
+    animation:askBackIn .3s cubic-bezier(.2,.9,.3,1);
+    transition:opacity .3s ease;}
+  .ask-back.closing{opacity:0;}
+  @keyframes askBackIn{from{opacity:0}to{opacity:1}}
   .ask{position:relative;width:min(30rem,100%);background:var(--panel);
     border:1px solid var(--line2);border-radius:var(--r);padding:2rem 1.875rem 1.75rem;
-    box-shadow:0 50px 90px -40px rgba(0,0,0,.9);max-height:90svh;overflow:auto;}
+    box-shadow:0 50px 90px -40px rgba(0,0,0,.9);max-height:90svh;overflow:auto;
+    animation:askCardIn .38s cubic-bezier(.2,1.1,.3,1);
+    transition:opacity .3s ease,transform .3s ease;}
+  .ask-back.closing .ask{opacity:0;transform:scale(.95) translateY(6px);}
+  @keyframes askCardIn{
+    from{opacity:0;transform:scale(.94) translateY(10px);}
+    to{opacity:1;transform:scale(1) translateY(0);}
+  }
   .ask h3{font-family:"Archivo Black",sans-serif;font-weight:400;
     text-transform:uppercase;letter-spacing:-.02em;font-size:1.5rem;margin:0 0 1.5rem;}
   .ask-x{position:absolute;top:1rem;right:1rem;width:2rem;height:2rem;border-radius:50%;
@@ -412,65 +422,88 @@
     display:grid;place-items:center;cursor:pointer;transition:color .2s,border-color .2s;}
   .ask-x:hover{color:var(--txt);border-color:var(--mut);}
   .ask-x svg{width:.75rem;height:.75rem;}
-  .ask-choice{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:1.5rem;}
-  .pick{font-family:Inter,sans-serif;font-weight:700;font-size:.9375rem;
-    padding:.8125rem .5rem;border-radius:10px;cursor:pointer;
-    background:transparent;border:1px solid var(--line2);color:var(--txt);
-    transition:background .2s,border-color .2s,color .2s;}
-  .pick:hover{border-color:var(--mut);}
-  .pick.on{background:var(--lime);border-color:var(--lime);color:#0A0D08;}
   .ask-l{display:block;font-family:"JetBrains Mono",monospace;font-size:.625rem;
     letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin:0 0 .5rem;}
-  .ask-l span{color:var(--line2);}
-  .ask textarea,.ask input{width:100%;background:#0A0D0A;color:var(--txt);
+  .ask-l em{font-style:normal;color:var(--line2);}
+  .ask-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  @media(max-width:26rem){.ask-row{grid-template-columns:1fr;}}
+  .ask-field{margin-bottom:1.25rem;}
+  .ask textarea,.ask input,.ask select{width:100%;background:#0A0D0A;color:var(--txt);
     border:1px solid var(--line2);border-radius:10px;padding:.75rem .875rem;
-    font-family:Inter,sans-serif;font-size:.9375rem;margin-bottom:1.25rem;
+    font-family:Inter,sans-serif;font-size:.9375rem;
     resize:vertical;transition:border-color .2s;}
-  .ask textarea:focus,.ask input:focus{outline:none;border-color:rgba(191,245,73,.5);}
+  .ask select{appearance:none;cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%238B948A' stroke-width='1.6'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.25rem;}
+  .ask textarea:focus,.ask input:focus,.ask select:focus{outline:none;border-color:rgba(191,245,73,.5);}
   .ask textarea::placeholder,.ask input::placeholder{color:#4A524A;}
   .ask-send{width:100%;justify-content:center;}
-  .ask-err{color:var(--red);font-size:.875rem;margin:.875rem 0 0;}
   .ask-tick{width:2.75rem;height:2.75rem;border-radius:50%;background:var(--lime);
     color:#0A0D08;display:grid;place-items:center;margin-bottom:1.25rem;}
   .ask-tick svg{width:1.25rem;height:1.25rem;}
-  #askDone p{color:var(--mut);margin:0;}
+  .ask-hint{font-size:.8125rem;color:var(--mut);margin:.5rem 0 0;}
+  .ask-hint a{color:var(--lime);text-decoration:none;border-bottom:1px solid rgba(191,245,73,.35);}
+  .ask-field.bad input{border-color:var(--red);}
+  .ask-field .ask-field-err{display:none;color:var(--red);font-size:.8125rem;margin:.5rem 0 0;}
+  .ask-field.bad .ask-field-err{display:block;}
+  .ask-err{color:var(--red);font-size:.875rem;margin:.875rem 0 0;}
+  .ask-agree{display:flex;gap:.75rem;align-items:flex-start;
+    background:rgba(191,245,73,.045);border:1px solid rgba(191,245,73,.22);
+    border-radius:12px;padding:.9375rem 1rem;margin:1.75rem 0 1.5rem;cursor:pointer;}
+  .ask-agree input{width:1.0625rem;height:1.0625rem;flex:none;margin-top:.1875rem;
+    accent-color:var(--lime);cursor:pointer;}
+  .ask-agree span{font-size:.875rem;color:var(--mut);line-height:1.5;}
+  .ask-agree b{color:var(--txt);font-weight:600;}
+  .ask-send:disabled{opacity:.45;cursor:not-allowed;}
 
-  /* ---------- ask modal ---------- */
-  .ask-back[hidden]{display:none;}
-  .ask-back{position:fixed;inset:0;z-index:150;background:rgba(3,5,3,.82);
-    backdrop-filter:blur(6px);display:grid;place-items:center;padding:1.25rem;}
-  .ask{position:relative;width:min(30rem,100%);background:var(--panel);
-    border:1px solid var(--line2);border-radius:var(--r);padding:2rem 1.875rem 1.75rem;
-    box-shadow:0 50px 90px -40px rgba(0,0,0,.9);max-height:90svh;overflow:auto;}
-  .ask h3{font-family:"Archivo Black",sans-serif;font-weight:400;
-    text-transform:uppercase;letter-spacing:-.02em;font-size:1.5rem;margin:0 0 1.5rem;}
-  .ask-x{position:absolute;top:1rem;right:1rem;width:2rem;height:2rem;border-radius:50%;
-    background:transparent;border:1px solid var(--line2);color:var(--mut);
-    display:grid;place-items:center;cursor:pointer;transition:color .2s,border-color .2s;}
-  .ask-x:hover{color:var(--txt);border-color:var(--mut);}
-  .ask-x svg{width:.75rem;height:.75rem;}
-  .ask-choice{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:1.5rem;}
-  .pick{font-family:Inter,sans-serif;font-weight:700;font-size:.9375rem;
-    padding:.8125rem .5rem;border-radius:10px;cursor:pointer;
-    background:transparent;border:1px solid var(--line2);color:var(--txt);
-    transition:background .2s,border-color .2s,color .2s;}
-  .pick:hover{border-color:var(--mut);}
-  .pick.on{background:var(--lime);border-color:var(--lime);color:#0A0D08;}
-  .ask-l{display:block;font-family:"JetBrains Mono",monospace;font-size:.625rem;
-    letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin:0 0 .5rem;}
-  .ask-l span{color:var(--line2);}
-  .ask textarea,.ask input{width:100%;background:#0A0D0A;color:var(--txt);
-    border:1px solid var(--line2);border-radius:10px;padding:.75rem .875rem;
-    font-family:Inter,sans-serif;font-size:.9375rem;margin-bottom:1.25rem;
-    resize:vertical;transition:border-color .2s;}
-  .ask textarea:focus,.ask input:focus{outline:none;border-color:rgba(191,245,73,.5);}
-  .ask textarea::placeholder,.ask input::placeholder{color:#4A524A;}
-  .ask-send{width:100%;justify-content:center;}
-  .ask-err{color:var(--red);font-size:.875rem;margin:.875rem 0 0;}
-  .ask-tick{width:2.75rem;height:2.75rem;border-radius:50%;background:var(--lime);
-    color:#0A0D08;display:grid;place-items:center;margin-bottom:1.25rem;}
-  .ask-tick svg{width:1.25rem;height:1.25rem;}
+  /* ---------- success sequence ---------- */
+  #askForm{transition:opacity .25s ease,transform .25s ease;}
+  #askForm.leaving{opacity:0;transform:translateY(-8px) scale(.98);}
+
   #askDone p{color:var(--mut);margin:0;}
+  #askDone .ask-tick,#askDone h3,#askDone p,#askDone .ask-progress-wrap{
+    opacity:0;}
+
+  .ask-tick{width:3.25rem;height:3.25rem;border-radius:50%;background:var(--lime);
+    color:#0A0D08;display:grid;place-items:center;margin-bottom:1.375rem;position:relative;
+    transform:scale(0) rotate(-16deg);}
+  .ask-tick::after{content:"";position:absolute;inset:-7px;border-radius:50%;
+    border:1.5px solid var(--lime);opacity:0;pointer-events:none;}
+  .ask-tick svg{width:1.375rem;height:1.375rem;position:relative;z-index:1;}
+  .ask-tick svg path{stroke-dasharray:20;stroke-dashoffset:20;}
+
+  #askDone.showing .ask-tick{animation:tickPop .5s cubic-bezier(.2,1.7,.3,1) .05s forwards;}
+  #askDone.showing .ask-tick::after{animation:tickPing .85s ease-out .32s forwards;}
+  #askDone.showing .ask-tick svg path{animation:tickDraw .3s ease .38s forwards;}
+  #askDone.showing h3{animation:doneRise .45s ease .3s forwards;}
+  #askDone.showing p{animation:doneRise .45s ease .42s forwards;}
+  #askDone.showing .ask-progress-wrap{animation:doneRise .45s ease .56s forwards;}
+
+  @keyframes tickPop{
+    0%{transform:scale(0) rotate(-16deg);opacity:0;}
+    65%{transform:scale(1.14) rotate(3deg);opacity:1;}
+    100%{transform:scale(1) rotate(0);opacity:1;}
+  }
+  @keyframes tickPing{
+    0%{opacity:.6;transform:scale(.7);}
+    100%{opacity:0;transform:scale(1.85);}
+  }
+  @keyframes tickDraw{to{stroke-dashoffset:0;}}
+  @keyframes doneRise{
+    from{opacity:0;transform:translateY(9px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+
+  .ask-progress-wrap{margin-top:1.625rem;}
+  .ask-progress{height:2px;border-radius:2px;background:var(--line2);overflow:hidden;}
+  .ask-progress i{display:block;height:100%;width:100%;background:var(--lime);
+    transform-origin:left;transform:scaleX(1);}
+  #askDone.showing .ask-progress i{animation:progressShrink linear .7s forwards;}
+  @keyframes progressShrink{to{transform:scaleX(0);}}
+  .ask-status-link{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:.6875rem;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--lime);margin:.9375rem 0 0;
+    text-decoration:none;border-bottom:1px solid rgba(191,245,73,.35);transition:color .2s,border-color .2s;}
+  .ask-status-link:hover{color:var(--lime-dim);border-color:rgba(191,245,73,.6);}
 
   /* ============================================================
      MOTION
@@ -618,7 +651,7 @@
       <a href="#why">Why join</a>
       <a href="#faq">FAQ</a>
     </div>
-    <a class="btn btn-lime" href="#cta">Would you join?</a>
+    <a class="btn btn-lime" href="#cta">Apply now</a>
   </div>
 </nav>
 
@@ -638,7 +671,7 @@
         <span class="chip"><span class="c"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>Top 5 published</span>
       </div>
       <div class="hero-ctas rise" data-d="260">
-        <a class="btn btn-lime" href="#cta">Would you join?
+        <a class="btn btn-lime" href="#cta">Apply now
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
         <a class="btn btn-ghost" href="#enter">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M6.5 5.5l4 2.5-4 2.5z"/></svg>
@@ -909,15 +942,15 @@
 <section id="cta" style="padding-top:0">
   <div class="wrap">
     <div class="cta-band">
-      <p class="kicker rise" style="margin-bottom:.75rem">Before we open</p>
-      <h2 class="display rise" data-d="40">Would you join<span style="color:var(--lime)">?</span></h2>
+      <p class="kicker rise" style="margin-bottom:.75rem">Edition One</p>
+      <h2 class="display rise" data-d="40">Apply for one of<span style="color:var(--lime)"> thirty places.</span></h2>
       <p class="sub rise" data-d="100">
-        Edition One is not open yet. One thing matters right now: would traders like you
-        enter? Tell me yes or no, and why.
+        We read your results from Myfxbook. You never send us a password.
+        Everything we ask for is public information or a way to reach you.
       </p>
-      <button class="btn btn-lime rise" data-d="160" id="openAsk" type="button">Answer in one minute
+      <button class="btn btn-lime rise" data-d="160" id="openAsk" type="button">Apply now
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
-      <p class="fine rise" data-d="220">Takes one minute &middot; no commitment</p>
+      <p class="fine rise" data-d="220">No fee &middot; no payment details &middot; no password</p>
     </div>
   </div>
 </section>
@@ -938,56 +971,81 @@
 
     <div id="askForm">
       <p class="kicker">Edition One</p>
-      <h3 id="askTitle">Would you enter this?</h3>
+      <h3 id="askTitle">Apply to compete</h3>
 
-      <div class="ask-choice">
-        <button type="button" class="pick" data-v="yes">Yes</button>
-        <button type="button" class="pick" data-v="maybe">Maybe</button>
-        <button type="button" class="pick" data-v="no">No</button>
+      <div class="ask-row">
+        <div class="ask-field" id="f-name">
+          <label class="ask-l" for="askName">Full name</label>
+          <input id="askName" type="text" autocomplete="name" placeholder="As it would appear on the record">
+          <p class="ask-field-err">Please enter your name.</p>
+        </div>
+        <div class="ask-field" id="f-email">
+          <label class="ask-l" for="askEmail">Email</label>
+          <input id="askEmail" type="email" autocomplete="email" placeholder="you@example.com">
+          <p class="ask-field-err">Please enter a valid email.</p>
+        </div>
       </div>
 
-      <label class="ask-l" for="askWhy">Why? One line is enough.</label>
-      <textarea id="askWhy" rows="3" placeholder="The honest answer is the useful one."></textarea>
+      <div class="ask-field" id="f-link">
+        <label class="ask-l" for="askLink">Public Myfxbook link</label>
+        <input id="askLink" type="url" placeholder="https://www.myfxbook.com/members/...">
+        <p class="ask-hint">
+          Must be public, with <strong>Track Record Verified</strong> and
+          <strong>Trading Privileges Verified</strong>.
+          <a href="https://www.myfxbook.com/help/" target="_blank" rel="noopener">How to connect it</a>
+        </p>
+        <p class="ask-field-err">That does not look like a Myfxbook link.</p>
+      </div>
 
-      <label class="ask-l" for="askWho">Your name or handle <span>(optional)</span></label>
-      <input id="askWho" type="text" placeholder="@handle">
+      <div class="ask-row">
+        <div class="ask-field" id="f-broker">
+          <label class="ask-l" for="askBroker">Broker</label>
+          <input id="askBroker" type="text" placeholder="e.g. IC Markets">
+          <p class="ask-field-err">Please name your broker.</p>
+        </div>
+        <div class="ask-field">
+          <label class="ask-l" for="askPlatform">Platform</label>
+          <select id="askPlatform">
+            <option value="MT5">MT5</option>
+            <option value="MT4">MT4</option>
+          </select>
+        </div>
+      </div>
 
-      <button class="btn btn-lime ask-send" id="askSend" type="button">Send</button>
+      <div class="ask-row">
+        <div class="ask-field">
+          <label class="ask-l" for="askWho">Social handle <em>(optional)</em></label>
+          <input id="askWho" type="text" placeholder="@yourhandle">
+        </div>
+        <div class="ask-field">
+          <label class="ask-l" for="askCity">City <em>(optional)</em></label>
+          <input id="askCity" type="text" placeholder="Casablanca">
+        </div>
+      </div>
+
+      <div class="ask-field">
+        <label class="ask-l" for="askWhy">Anything else <em>(optional)</em></label>
+        <textarea id="askWhy" rows="3" placeholder="How long you have been trading, what you trade — whatever you want us to know."></textarea>
+      </div>
+
+      <label class="ask-agree" for="askAgree">
+        <input id="askAgree" type="checkbox">
+        <span><b>I confirm this is my own live account</b> with at least $1,000 in it,
+        it is the only account I am entering, and I have read the rules.</span>
+      </label>
+
+      <button class="btn btn-lime ask-send" id="askSend" type="button">Send application</button>
       <p class="ask-err" id="askErr" hidden>Something went wrong. Try again in a moment.</p>
     </div>
 
     <div id="askDone" hidden>
       <div class="ask-tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.6 6.4l2.4 2.4L9.4 3.6"/></svg></div>
-      <h3>Thank you.</h3>
-      <p>That is genuinely useful — a no with a reason more than a yes.</p>
-    </div>
-  </div>
-</div>
-
-<div class="ask-back" id="askBack" hidden>
-  <div class="ask" role="dialog" aria-modal="true" aria-labelledby="askTitle">
-    <button class="ask-x" id="askClose" type="button" aria-label="Close">
-      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
-    </button>
-    <div id="askForm">
-      <p class="kicker">Edition One</p>
-      <h3 id="askTitle">Would you enter this?</h3>
-      <div class="ask-choice">
-        <button type="button" class="pick" data-v="yes">Yes</button>
-        <button type="button" class="pick" data-v="maybe">Maybe</button>
-        <button type="button" class="pick" data-v="no">No</button>
+      <h3>Reviewing your application.</h3>
+      <p>We're checking your Myfxbook profile now. We'll get back to you soon.</p>
+      <div class="ask-progress-wrap">
+        <div class="ask-progress"><i id="askProgressBar"></i></div>
+        <a id="askStatusLink" class="ask-status-link" href="status.html" target="_blank" rel="noopener">Check your status anytime &rarr;</a>
       </div>
-      <label class="ask-l" for="askWhy">Why? One line is enough.</label>
-      <textarea id="askWhy" rows="3" placeholder="The honest answer is the useful one."></textarea>
-      <label class="ask-l" for="askWho">Your name or handle <span>(optional)</span></label>
-      <input id="askWho" type="text" placeholder="@handle">
-      <button class="btn btn-lime ask-send" id="askSend" type="button">Send</button>
-      <p class="ask-err" id="askErr" hidden>Something went wrong. Try again in a moment.</p>
-    </div>
-    <div id="askDone" hidden>
-      <div class="ask-tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.6 6.4l2.4 2.4L9.4 3.6"/></svg></div>
-      <h3>Thank you.</h3>
-      <p>That is genuinely useful — a no with a reason more than a yes.</p>
     </div>
   </div>
 </div>
@@ -1134,32 +1192,93 @@
     });
   })();
 
-  /* ---------- ask modal -> supabase ---------- */
+  /* ---------- apply modal -> supabase ---------- */
   (function(){
-    const SUPABASE_URL = 'https://YOUR_PROJECT.supabase.co';
-    const SUPABASE_KEY = 'YOUR_ANON_KEY';
-    const TABLE = 'responses';
+    /* Project Settings -> API. The anon key is public by design;
+       the insert-only RLS policy is what protects the table. */
+    const SUPABASE_URL = 'https://ztpmxjxtxtplvbrptpjv.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp0cG14anh0eHRwbHZicnB0cGp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYxMjM2NDQsImV4cCI6MjEwMTY5OTY0NH0.aBlahSgt9fT0AANWcvAuMh6uFPw_KAbV0oy7OVaz8_s';
+    const TABLE = 'applications';
 
-    const back  = document.getElementById('askBack');
-    const open  = document.getElementById('openAsk');
-    const close = document.getElementById('askClose');
-    const send  = document.getElementById('askSend');
-    const err   = document.getElementById('askErr');
-    const form  = document.getElementById('askForm');
-    const done  = document.getElementById('askDone');
+    const $ = id => document.getElementById(id);
+    const back  = $('askBack');
+    const open  = $('openAsk');
+    const close = $('askClose');
+    const send  = $('askSend');
+    const err   = $('askErr');
+    const form  = $('askForm');
+    const done  = $('askDone');
+    const progressBar = $('askProgressBar');
+    const statusLink = $('askStatusLink');
     if(!back || !open) return;
 
-    let choice = '';
-    document.querySelectorAll('.pick').forEach(b => {
-      b.addEventListener('click', () => {
-        document.querySelectorAll('.pick').forEach(x => x.classList.remove('on'));
-        b.classList.add('on');
-        choice = b.dataset.v;
-      });
-    });
+    const AUTO_CLOSE_MS = 5200;
+    const PROGRESS_START_DELAY_MS = 560; /* matches .ask-progress-wrap's doneRise delay */
+    let autoCloseTimer = null;
+    let justSucceeded = false;
 
-    const show = () => { back.hidden = false; document.body.style.overflow = 'hidden'; };
-    const hide = () => { back.hidden = true;  document.body.style.overflow = ''; };
+    const rules = [
+      ['f-name',   () => $('askName').value.trim().length > 1],
+      ['f-email',  () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('askEmail').value.trim())],
+      ['f-link',   () => /myfxbook\.com\//i.test($('askLink').value.trim())],
+      ['f-broker', () => $('askBroker').value.trim().length > 1],
+    ];
+
+    function validate(){
+      let ok = true;
+      rules.forEach(([id, test]) => {
+        const bad = !test();
+        $(id).classList.toggle('bad', bad);
+        if(bad) ok = false;
+      });
+      if(!$('askAgree').checked){
+        ok = false;
+        $('askAgree').style.borderColor = 'var(--red)';
+      } else {
+        $('askAgree').style.borderColor = '';
+      }
+      return ok;
+    }
+
+    rules.forEach(([id]) => {
+      const input = $(id).querySelector('input');
+      input && input.addEventListener('input', () => $(id).classList.remove('bad'));
+    });
+    $('askAgree').addEventListener('change', () => { $('askAgree').style.borderColor = ''; });
+
+    function resetToForm(){
+      done.classList.remove('showing');
+      done.hidden = true;
+      form.hidden = false;
+      form.classList.remove('leaving');
+
+      form.querySelectorAll('input[type=text], input[type=email], input[type=url], textarea')
+        .forEach(el => el.value = '');
+      form.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false);
+      $('askPlatform').selectedIndex = 0;
+      $('askAgree').style.borderColor = '';
+      form.querySelectorAll('.ask-field.bad').forEach(el => el.classList.remove('bad'));
+
+      err.hidden = true;
+      send.disabled = false;
+      send.textContent = 'Send application';
+    }
+
+    const show = () => {
+      if(justSucceeded){ resetToForm(); justSucceeded = false; }
+      back.hidden = false;
+      document.body.style.overflow = 'hidden';
+    };
+
+    const hide = () => {
+      clearTimeout(autoCloseTimer);
+      back.classList.add('closing');
+      setTimeout(() => {
+        back.hidden = true;
+        back.classList.remove('closing');
+        document.body.style.overflow = '';
+      }, 300);
+    };
 
     open.addEventListener('click', show);
     close.addEventListener('click', hide);
@@ -1168,9 +1287,19 @@
 
     send.addEventListener('click', async () => {
       err.hidden = true;
+      if(!validate()){
+        const first = document.querySelector('.ask-field.bad input');
+        first && first.focus();
+        return;
+      }
+
       send.disabled = true;
       send.textContent = 'Sending…';
       try{
+        /* Generated client-side so we can build the status link without
+           asking Supabase to read the row back — the insert-only RLS
+           policy allows writing but not reading, even via return=representation. */
+        const newId = crypto.randomUUID();
         const r = await fetch(SUPABASE_URL + '/rest/v1/' + TABLE, {
           method:'POST',
           headers:{
@@ -1180,19 +1309,39 @@
             'Prefer':'return=minimal'
           },
           body: JSON.stringify({
-            answer: choice || 'not stated',
-            why:    document.getElementById('askWhy').value,
-            who:    document.getElementById('askWho').value,
-            referrer: document.referrer || null
+            id:       newId,
+            name:     $('askName').value.trim(),
+            email:    $('askEmail').value.trim(),
+            myfxbook: $('askLink').value.trim(),
+            broker:   $('askBroker').value.trim(),
+            platform: $('askPlatform').value,
+            handle:   $('askWho').value.trim() || null,
+            city:     $('askCity').value.trim() || null,
+            note:     $('askWhy').value.trim() || null,
+            status:   'new'
           })
         });
         if(!r.ok) throw new Error(await r.text());
-        form.hidden = true; done.hidden = false;
+        statusLink.href = 'status.html?id=' + encodeURIComponent(newId);
+
+        form.classList.add('leaving');
+        setTimeout(() => {
+          form.hidden = true;
+          done.hidden = false;
+          progressBar.style.animationDuration = (AUTO_CLOSE_MS - PROGRESS_START_DELAY_MS) + 'ms';
+          progressBar.style.animationDelay = PROGRESS_START_DELAY_MS + 'ms';
+          // restart the entrance animations even if this modal was shown before
+          done.classList.remove('showing');
+          void done.offsetWidth;
+          done.classList.add('showing');
+          justSucceeded = true;
+          autoCloseTimer = setTimeout(hide, AUTO_CLOSE_MS);
+        }, 250);
       }catch(e){
-        console.error('submit failed:', e);
+        console.error('application failed:', e);
         err.hidden = false;
         send.disabled = false;
-        send.textContent = 'Send';
+        send.textContent = 'Send application';
       }
     });
   })();

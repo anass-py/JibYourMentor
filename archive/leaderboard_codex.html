@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JYM Leaderboard — Edition One</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#050705;
+    --bg2:#0C100C;
+    --panel:#101510;
+    --panel2:#131913;
+    --line:#1F261E;
+    --line2:#2A3328;
+    --lime:#BFF549;
+    --lime-dim:#A5DC35;
+    --txt:#F2F5EF;
+    --mut:#8B948A;
+    --danger:#F03A3A;
+    --gold:#D8B35F;
+    --silver:#C6CCD0;
+    --bronze:#B97A4B;
+    --radius:8px;
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  html,body{overflow-x:hidden;}
+  body{
+    margin:0;
+    min-height:100svh;
+    background:
+      linear-gradient(rgba(191,245,73,.035) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(191,245,73,.03) 1px,transparent 1px),
+      radial-gradient(46rem 28rem at 74% 8%,rgba(191,245,73,.08),transparent 64%),
+      var(--bg);
+    background-size:72px 72px,72px 72px,auto,auto;
+    color:var(--txt);
+    font-family:Inter,system-ui,sans-serif;
+    font-size:1rem;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+  .wrap{width:min(76rem,100%);margin:0 auto;padding:0 2rem;}
+  .display{
+    font-family:"Archivo Black",Archivo,sans-serif;
+    font-weight:400;
+    text-transform:uppercase;
+    letter-spacing:0;
+    line-height:.96;
+  }
+  .mono{
+    font-family:"JetBrains Mono",monospace;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    font-size:.68rem;
+  }
+
+  .nav{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:rgba(5,7,5,.86);
+    backdrop-filter:saturate(140%) blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav .wrap{
+    min-height:4.25rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1.5rem;
+  }
+  .mark{
+    font-size:1.125rem;
+    font-weight:700;
+    text-decoration:none;
+    letter-spacing:0;
+  }
+  .mark b{color:var(--lime);}
+  .nav-right{display:flex;align-items:center;gap:1.25rem;}
+  .nav-right a{
+    color:var(--mut);
+    text-decoration:none;
+    transition:color .2s ease;
+  }
+  .nav-right a:hover{color:var(--txt);}
+  .live-chip{
+    display:inline-flex;
+    align-items:center;
+    gap:.55rem;
+    color:var(--lime);
+  }
+  .live-dot{
+    width:.5rem;
+    height:.5rem;
+    border-radius:50%;
+    background:var(--lime);
+    box-shadow:0 0 18px rgba(191,245,73,.65);
+  }
+
+  main{padding:5rem 0 4rem;}
+  .hero{
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:3rem;
+    align-items:end;
+  }
+  .kicker{
+    display:flex;
+    align-items:center;
+    gap:.85rem;
+    color:var(--lime);
+    margin:0 0 1.25rem;
+  }
+  .kicker:after{
+    content:"";
+    width:5rem;
+    height:1px;
+    background:var(--line2);
+  }
+  h1{
+    margin:0;
+    max-width:12ch;
+    font-size:4.25rem;
+  }
+  h1 span{color:var(--lime);}
+  .lead{
+    max-width:35rem;
+    margin:1.35rem 0 0;
+    color:var(--mut);
+    font-size:1.08rem;
+  }
+  .lead strong{color:var(--txt);font-weight:600;}
+
+  .scoreboard{
+    justify-self:end;
+    width:100%;
+    max-width:26rem;
+    min-width:0;
+    border:1px solid var(--line2);
+    background:linear-gradient(160deg,var(--panel2),var(--panel));
+    border-radius:var(--radius);
+    padding:1.4rem;
+    box-shadow:0 40px 90px -48px rgba(0,0,0,.95),0 0 70px -44px rgba(191,245,73,.7);
+  }
+  .scoreboard-head{
+    display:flex;
+    justify-content:space-between;
+    gap:1rem;
+    color:var(--mut);
+  }
+  .scoreboard .big{
+    margin:.95rem 0 .35rem;
+    font-family:"Archivo Black",sans-serif;
+    font-size:4rem;
+    line-height:.9;
+    color:var(--lime);
+    white-space:nowrap;
+  }
+  .scoreboard p{margin:0;color:var(--mut);}
+  .status-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:.65rem;
+    margin-top:1.2rem;
+  }
+  .stat{
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.02);
+    border-radius:var(--radius);
+    padding:.75rem .7rem;
+    min-width:0;
+  }
+  .stat small{
+    display:block;
+    color:var(--mut);
+    margin-bottom:.35rem;
+  }
+  .stat b{
+    display:block;
+    font-family:"JetBrains Mono",monospace;
+    font-size:.88rem;
+    color:var(--txt);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    gap:1.5rem;
+    align-items:end;
+    margin:4.5rem 0 1.25rem;
+  }
+  h2{
+    margin:0;
+    font-size:2rem;
+  }
+  .stamp{
+    color:var(--mut);
+    text-align:right;
+  }
+  .stamp b{color:var(--txt);font-weight:500;}
+
+  .podium{
+    display:grid;
+    grid-template-columns:1.08fr 1fr 1fr;
+    gap:1rem;
+  }
+  .rank-card{
+    position:relative;
+    min-height:17rem;
+    border:1px solid var(--line2);
+    border-radius:var(--radius);
+    background:#0A0F07;
+    overflow:hidden;
+    padding:1.35rem;
+    display:flex;
+    flex-direction:column;
+  }
+  .rank-card:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(130deg,rgba(191,245,73,.13),transparent 38%),
+      linear-gradient(180deg,rgba(255,255,255,.035),transparent);
+    pointer-events:none;
+  }
+  .rank-card>*{position:relative;}
+  .rank-card.first{
+    min-height:20rem;
+    border-color:rgba(191,245,73,.55);
+    box-shadow:0 34px 90px -52px rgba(191,245,73,.9);
+  }
+  .rank-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:1rem;
+  }
+  .rank{
+    font-family:"Archivo Black",sans-serif;
+    font-size:3.2rem;
+    line-height:.86;
+    color:var(--lime);
+  }
+  .rank-card:nth-child(2) .rank{color:var(--silver);}
+  .rank-card:nth-child(3) .rank{color:var(--bronze);}
+  .badge{
+    border:1px solid rgba(191,245,73,.35);
+    color:var(--lime);
+    border-radius:999px;
+    padding:.32rem .55rem;
+    white-space:nowrap;
+  }
+  .name{
+    margin:1.35rem 0 .4rem;
+    font-size:1.45rem;
+    line-height:1.05;
+    word-break:break-word;
+  }
+  .account-id{
+    color:var(--mut);
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .gain{
+    margin:auto 0 .75rem;
+    font-family:"Archivo Black",sans-serif;
+    font-size:3.4rem;
+    line-height:.92;
+    color:var(--lime);
+  }
+  .metrics{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    border-top:1px solid rgba(255,255,255,.09);
+    margin-top:1rem;
+    padding-top:1rem;
+  }
+  .metric + .metric{
+    border-left:1px solid rgba(255,255,255,.09);
+    padding-left:.85rem;
+  }
+  .metric small{
+    display:block;
+    color:var(--mut);
+    margin-bottom:.3rem;
+  }
+  .metric b{
+    font-family:"JetBrains Mono",monospace;
+    font-size:.95rem;
+  }
+
+  .table{
+    margin-top:1rem;
+    border-top:1px solid var(--line2);
+  }
+  .row{
+    display:grid;
+    grid-template-columns:4.5rem minmax(0,1fr) 9rem 9rem 8rem;
+    gap:1rem;
+    align-items:center;
+    min-height:4.75rem;
+    border-bottom:1px solid var(--line);
+    color:var(--txt);
+  }
+  .row.head{
+    min-height:2.65rem;
+    color:var(--mut);
+  }
+  .row .r{color:var(--lime);font-weight:700;}
+  .row .trader{
+    min-width:0;
+    font-weight:700;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .row .id{
+    margin-top:.15rem;
+    color:var(--mut);
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .row .num{
+    font-family:"JetBrains Mono",monospace;
+    font-weight:700;
+    min-width:0;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .row .num.g{color:var(--lime);}
+  .row .verified{
+    justify-self:start;
+    border:1px solid rgba(191,245,73,.3);
+    color:var(--lime);
+    border-radius:999px;
+    padding:.28rem .55rem;
+    white-space:nowrap;
+  }
+
+  .empty{
+    display:none;
+    border:1px dashed var(--line2);
+    border-radius:var(--radius);
+    padding:2rem;
+    color:var(--mut);
+  }
+  .empty.show{display:block;}
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:1.5rem 0 2rem;
+    color:var(--mut);
+  }
+  footer .wrap{
+    display:flex;
+    justify-content:space-between;
+    gap:1rem;
+    flex-wrap:wrap;
+  }
+
+  @media(max-width:62rem){
+    main{padding-top:3.75rem;}
+    .hero{grid-template-columns:1fr;align-items:start;}
+    .scoreboard{justify-self:stretch;max-width:100%;}
+    .podium{grid-template-columns:1fr;}
+    .rank-card,.rank-card.first{min-height:15rem;}
+    .row{grid-template-columns:3rem minmax(0,1fr) 6.5rem 6.5rem;}
+    .row .verified,.row.head .verified-col{display:none;}
+  }
+  @media(max-width:42rem){
+    .wrap{padding:0 1.2rem;}
+    .nav .wrap{min-height:3.85rem;}
+    .nav-right a{display:none;}
+    main{padding-top:3rem;}
+    h1{font-size:2.65rem;}
+    h2{font-size:1.5rem;}
+    .lead{font-size:1rem;}
+    .section-head{display:block;margin-top:3.25rem;}
+    .stamp{text-align:left;margin-top:.9rem;}
+    .status-grid{grid-template-columns:1fr;}
+    .row{
+      grid-template-columns:2.5rem minmax(0,1fr) 5.75rem;
+      gap:.75rem;
+      min-height:4.4rem;
+    }
+    .row .drawdown-col,.row .drawdown{display:none;}
+    .scoreboard .big{font-size:2.45rem;}
+    .gain{font-size:2.35rem;}
+    .row .num{font-size:.78rem;text-align:right;}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *{scroll-behavior:auto!important;transition:none!important;animation:none!important;}
+  }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="wrap">
+    <a class="mark" href="index.html">Jib<b>Your</b>Mentor</a>
+    <div class="nav-right">
+      <span class="live-chip mono"><i class="live-dot"></i>Updates hourly</span>
+      <a class="mono" href="index.html">Main site</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+    <section class="hero" aria-labelledby="pageTitle">
+      <div>
+        <p class="kicker mono">Edition One</p>
+        <h1 class="display" id="pageTitle">Top 5 <span>Leaderboard.</span></h1>
+        <p class="lead">
+          Ranked by <strong>gain</strong>. Drawdown stays visible. Data comes from watched Myfxbook accounts.
+        </p>
+      </div>
+
+      <aside class="scoreboard" aria-label="Leaderboard status">
+        <div class="scoreboard-head mono">
+          <span>Current record</span>
+          <span id="sourceLabel">Myfxbook</span>
+        </div>
+        <div class="big" id="leaderGain">--</div>
+        <p id="leaderName">Waiting for leaderboard data.</p>
+        <div class="status-grid">
+          <div class="stat">
+            <small class="mono">Traders</small>
+            <b id="totalTraders">--</b>
+          </div>
+          <div class="stat">
+            <small class="mono">Metric</small>
+            <b>Gain</b>
+          </div>
+          <div class="stat">
+            <small class="mono">Refresh</small>
+            <b>Hourly</b>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section aria-labelledby="podiumTitle">
+      <div class="section-head">
+        <div>
+          <p class="kicker mono">Top record</p>
+          <h2 class="display" id="podiumTitle">The five names that stay.</h2>
+        </div>
+        <p class="stamp mono">Last update<br><b id="updatedAt">--</b></p>
+      </div>
+
+      <div class="podium" id="podium"></div>
+      <div class="empty" id="emptyState">No leaderboard data found. Run the backend refresh script first.</div>
+    </section>
+
+    <section aria-labelledby="tableTitle">
+      <div class="section-head">
+        <div>
+          <p class="kicker mono">Ranked list</p>
+          <h2 class="display" id="tableTitle">Top five by gain.</h2>
+        </div>
+      </div>
+
+      <div class="table" id="table" aria-live="polite">
+        <div class="row head mono">
+          <div>Rank</div>
+          <div>Trader</div>
+          <div>Gain</div>
+          <div class="drawdown-col">Drawdown</div>
+          <div class="verified-col">Status</div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap mono">
+    <span>JYM Edition One</span>
+    <span>30 traders. One leaderboard.</span>
+  </div>
+</footer>
+
+<script>
+  const FALLBACK_DATA = {
+    updatedAt: null,
+    source: "local-fallback",
+    rankingMetric: "gain",
+    totalWatchedAccounts: 0,
+    eligibleAccounts: 0,
+    topFive: []
+  };
+
+  const els = {
+    podium: document.getElementById("podium"),
+    table: document.getElementById("table"),
+    empty: document.getElementById("emptyState"),
+    updatedAt: document.getElementById("updatedAt"),
+    leaderGain: document.getElementById("leaderGain"),
+    leaderName: document.getElementById("leaderName"),
+    totalTraders: document.getElementById("totalTraders"),
+    sourceLabel: document.getElementById("sourceLabel")
+  };
+
+  function fmtPercent(value){
+    const n = Number(value);
+    if(!Number.isFinite(n)) return "--";
+    return `${n >= 0 ? "+" : ""}${n.toFixed(2)}%`;
+  }
+
+  function fmtDrawdown(value){
+    const n = Number(value);
+    if(!Number.isFinite(n)) return "--";
+    return `${n.toFixed(2)}%`;
+  }
+
+  function fmtDate(value){
+    if(!value) return "--";
+    const date = new Date(value);
+    if(Number.isNaN(date.getTime())) return "--";
+    return new Intl.DateTimeFormat("en", {
+      month:"short",
+      day:"2-digit",
+      hour:"2-digit",
+      minute:"2-digit"
+    }).format(date);
+  }
+
+  function safeText(value){
+    return String(value ?? "");
+  }
+
+  function rankCard(account){
+    const article = document.createElement("article");
+    article.className = `rank-card ${account.rank === 1 ? "first" : ""}`;
+    article.innerHTML = `
+      <div class="rank-top">
+        <div class="rank">#${safeText(account.rank)}</div>
+        <div class="badge mono">Verified</div>
+      </div>
+      <h3 class="name display"></h3>
+      <div class="account-id mono"></div>
+      <div class="gain">${fmtPercent(account.gain)}</div>
+      <div class="metrics">
+        <div class="metric">
+          <small class="mono">Gain</small>
+          <b>${fmtPercent(account.gain)}</b>
+        </div>
+        <div class="metric">
+          <small class="mono">Drawdown</small>
+          <b>${fmtDrawdown(account.drawdown)}</b>
+        </div>
+      </div>
+    `;
+    article.querySelector(".name").textContent = safeText(account.name);
+    article.querySelector(".account-id").textContent = `MYFXBOOK ID ${safeText(account.id)}`;
+    return article;
+  }
+
+  function tableRow(account){
+    const row = document.createElement("div");
+    row.className = "row";
+    row.innerHTML = `
+      <div class="r mono">#${safeText(account.rank)}</div>
+      <div>
+        <div class="trader"></div>
+        <div class="id mono"></div>
+      </div>
+      <div class="num g">${fmtPercent(account.gain)}</div>
+      <div class="num drawdown">${fmtDrawdown(account.drawdown)}</div>
+      <div class="verified mono">Verified</div>
+    `;
+    row.querySelector(".trader").textContent = safeText(account.name);
+    row.querySelector(".id").textContent = `Myfxbook ${safeText(account.id)}`;
+    return row;
+  }
+
+  function render(data){
+    const accounts = Array.isArray(data.topFive) ? data.topFive.slice(0,5) : [];
+    accounts.sort((a,b) => Number(b.gain || 0) - Number(a.gain || 0));
+    accounts.forEach((account,index) => account.rank = index + 1);
+
+    els.podium.innerHTML = "";
+    els.table.querySelectorAll(".row:not(.head)").forEach(row => row.remove());
+    els.updatedAt.textContent = fmtDate(data.updatedAt);
+    els.totalTraders.textContent = data.eligibleAccounts || data.totalWatchedAccounts || accounts.length || "--";
+    els.sourceLabel.textContent = data.source === "myfxbook-watched-accounts" ? "Myfxbook" : "Local";
+
+    if(!accounts.length){
+      els.empty.classList.add("show");
+      els.leaderGain.textContent = "--";
+      els.leaderName.textContent = "Waiting for leaderboard data.";
+      return;
+    }
+
+    els.empty.classList.remove("show");
+    els.leaderGain.textContent = fmtPercent(accounts[0].gain);
+    els.leaderName.textContent = accounts[0].name;
+
+    accounts.slice(0,3).forEach(account => els.podium.appendChild(rankCard(account)));
+    accounts.forEach(account => els.table.appendChild(tableRow(account)));
+  }
+
+  /*async function loadLeaderboard(){
+    try{
+      const response = await fetch("leaderboard-data.json", {cache:"no-store"});
+      if(!response.ok) throw new Error(`HTTP ${response.status}`);
+      render(await response.json());
+    }catch(error){
+      render(FALLBACK_DATA);
+      console.warn("Leaderboard data not available:", error);
+    }
+  }*/
+  async function loadLeaderboard() {
+  try {
+    const response = await fetch("./leaderboard-data.json", {
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    console.log("LEADERBOARD DATA:", data);
+    console.log("TOP FIVE:", data.topFive);
+
+    render(data);
+
+  } catch (error) {
+    console.error("LEADERBOARD ERROR:", error);
+  }
+}
+  loadLeaderboard();
+</script>
+</body>
+</html>

@@ -2,3 +2,7 @@ node_modules/
 .DS_Store
 package-lock.json
 figma/
+.env
+**/.env
+__pycache__/
+*.pyc
