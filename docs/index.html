@@ -425,6 +425,14 @@
   .ask-l{display:block;font-family:"JetBrains Mono",monospace;font-size:.625rem;
     letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin:0 0 .5rem;}
   .ask-l em{font-style:normal;color:var(--line2);}
+  .ask-choice{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:1.5rem;}
+  .pick{font-family:Inter,sans-serif;font-weight:700;font-size:.9375rem;
+    padding:.8125rem .5rem;border-radius:10px;cursor:pointer;
+    background:transparent;border:1px solid var(--line2);color:var(--txt);
+    transition:background .2s,border-color .2s,color .2s,transform .15s;}
+  .pick:hover{border-color:var(--mut);}
+  .pick:active{transform:scale(.97);}
+  .pick.on{background:var(--lime);border-color:var(--lime);color:#0A0D08;}
   .ask-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
   @media(max-width:26rem){.ask-row{grid-template-columns:1fr;}}
   .ask-field{margin-bottom:1.25rem;}
@@ -714,7 +722,7 @@
       <a href="#board">The board</a>
       <a href="#faq">FAQ</a>
     </div>
-    <a class="btn btn-lime" href="#cta">Apply now</a>
+    <a class="btn btn-lime" href="#cta">Would you join?</a>
   </div>
 </nav>
 
@@ -734,7 +742,7 @@
         <span class="chip"><span class="c"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 5.3l2 2 3.6-4"/></svg></span>Top 5 published</span>
       </div>
       <div class="hero-ctas rise" data-d="260">
-        <a class="btn btn-lime" href="#cta">Apply now
+        <a class="btn btn-lime" href="#cta">Would you join?
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
         <a class="btn btn-ghost" href="#enter">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M6.5 5.5l4 2.5-4 2.5z"/></svg>
@@ -1040,15 +1048,15 @@
 <section id="cta" style="padding-top:0">
   <div class="wrap">
     <div class="cta-band">
-      <p class="kicker rise" style="margin-bottom:.75rem">Edition One</p>
-      <h2 class="display rise" data-d="40">Apply for one of<span style="color:var(--lime)"> thirty places.</span></h2>
+      <p class="kicker rise" style="margin-bottom:.75rem">Before we open</p>
+      <h2 class="display rise" data-d="40">Would you join<span style="color:var(--lime)">?</span></h2>
       <p class="sub rise" data-d="100">
-        We read your results from Myfxbook. You never send us a password.
-        Everything we ask for is public information or a way to reach you.
+        Edition One is not open yet. One thing matters right now: would traders like you
+        enter? Tell me yes or no, and why.
       </p>
-      <button class="btn btn-lime rise" data-d="160" id="openAsk" type="button">Apply now
+      <button class="btn btn-lime rise" data-d="160" id="openAsk" type="button">Answer in one minute
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
-      <p class="fine rise" data-d="220">No fee &middot; no payment details &middot; no password</p>
+      <p class="fine rise" data-d="220">Takes one minute &middot; no commitment</p>
     </div>
   </div>
 </section>
@@ -1069,80 +1077,34 @@
 
     <div id="askForm">
       <p class="kicker">Edition One</p>
-      <h3 id="askTitle">Apply to compete</h3>
+      <h3 id="askTitle">Would you enter this?</h3>
 
-      <div class="ask-row">
-        <div class="ask-field" id="f-name">
-          <label class="ask-l" for="askName">Full name</label>
-          <input id="askName" type="text" autocomplete="name" placeholder="As it would appear on the record">
-          <p class="ask-field-err">Please enter your name.</p>
-        </div>
-        <div class="ask-field" id="f-email">
-          <label class="ask-l" for="askEmail">Email</label>
-          <input id="askEmail" type="email" autocomplete="email" placeholder="you@example.com">
-          <p class="ask-field-err">Please enter a valid email.</p>
-        </div>
-      </div>
-
-      <div class="ask-field" id="f-link">
-        <label class="ask-l" for="askLink">Public Myfxbook link</label>
-        <input id="askLink" type="url" placeholder="https://www.myfxbook.com/members/...">
-        <p class="ask-hint">
-          Must be public, with <strong>Track Record Verified</strong> and
-          <strong>Trading Privileges Verified</strong>.
-          <a href="https://www.myfxbook.com/help/" target="_blank" rel="noopener">How to connect it</a>
-        </p>
-        <p class="ask-field-err">That does not look like a Myfxbook link.</p>
-      </div>
-
-      <div class="ask-row">
-        <div class="ask-field" id="f-broker">
-          <label class="ask-l" for="askBroker">Broker</label>
-          <input id="askBroker" type="text" placeholder="e.g. IC Markets">
-          <p class="ask-field-err">Please name your broker.</p>
-        </div>
-        <div class="ask-field">
-          <label class="ask-l" for="askPlatform">Platform</label>
-          <select id="askPlatform">
-            <option value="MT5">MT5</option>
-            <option value="MT4">MT4</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="ask-row">
-        <div class="ask-field">
-          <label class="ask-l" for="askWho">Social handle <em>(optional)</em></label>
-          <input id="askWho" type="text" placeholder="@yourhandle">
-        </div>
-        <div class="ask-field">
-          <label class="ask-l" for="askCity">City <em>(optional)</em></label>
-          <input id="askCity" type="text" placeholder="Casablanca">
-        </div>
+      <div class="ask-choice">
+        <button type="button" class="pick" data-v="yes">Yes</button>
+        <button type="button" class="pick" data-v="maybe">Maybe</button>
+        <button type="button" class="pick" data-v="no">No</button>
       </div>
 
       <div class="ask-field">
-        <label class="ask-l" for="askWhy">Anything else <em>(optional)</em></label>
-        <textarea id="askWhy" rows="3" placeholder="How long you have been trading, what you trade — whatever you want us to know."></textarea>
+        <label class="ask-l" for="askWhy">Why? One line is enough.</label>
+        <textarea id="askWhy" rows="3" placeholder="The honest answer is the useful one."></textarea>
       </div>
 
-      <label class="ask-agree" for="askAgree">
-        <input id="askAgree" type="checkbox">
-        <span><b>I confirm this is my own live account</b> with at least $500 in it,
-        it is the only account I am entering, and I have read the rules.</span>
-      </label>
+      <div class="ask-field">
+        <label class="ask-l" for="askWho">Your name or handle <em>(optional)</em></label>
+        <input id="askWho" type="text" placeholder="@handle">
+      </div>
 
-      <button class="btn btn-lime ask-send" id="askSend" type="button">Send application</button>
+      <button class="btn btn-lime ask-send" id="askSend" type="button">Send</button>
       <p class="ask-err" id="askErr" hidden>Something went wrong. Try again in a moment.</p>
     </div>
 
     <div id="askDone" hidden>
       <div class="ask-tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.6 6.4l2.4 2.4L9.4 3.6"/></svg></div>
-      <h3>Reviewing your application.</h3>
-      <p>We're checking your Myfxbook profile now. We'll get back to you soon.</p>
+      <h3>Thank you.</h3>
+      <p>That is genuinely useful &mdash; a no with a reason more than a yes.</p>
       <div class="ask-progress-wrap">
         <div class="ask-progress"><i id="askProgressBar"></i></div>
-        <a id="askStatusLink" class="ask-status-link" href="status.html" target="_blank" rel="noopener">Check your status anytime &rarr;</a>
       </div>
     </div>
   </div>
@@ -1352,13 +1314,13 @@
       });
   })();
 
-  /* ---------- apply modal -> supabase ---------- */
+  /* ---------- ask modal -> supabase ---------- */
   (function(){
     /* Project Settings -> API. The anon key is public by design;
        the insert-only RLS policy is what protects the table. */
     const SUPABASE_URL = 'https://ztpmxjxtxtplvbrptpjv.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp0cG14anh0eHRwbHZicnB0cGp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYxMjM2NDQsImV4cCI6MjEwMTY5OTY0NH0.aBlahSgt9fT0AANWcvAuMh6uFPw_KAbV0oy7OVaz8_s';
-    const TABLE = 'applications';
+    const TABLE = 'responses';
 
     const $ = id => document.getElementById(id);
     const back  = $('askBack');
@@ -1369,7 +1331,6 @@
     const form  = $('askForm');
     const done  = $('askDone');
     const progressBar = $('askProgressBar');
-    const statusLink = $('askStatusLink');
     if(!back || !open) return;
 
     const AUTO_CLOSE_MS = 5200;
@@ -1377,34 +1338,15 @@
     let autoCloseTimer = null;
     let justSucceeded = false;
 
-    const rules = [
-      ['f-name',   () => $('askName').value.trim().length > 1],
-      ['f-email',  () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('askEmail').value.trim())],
-      ['f-link',   () => /myfxbook\.com\//i.test($('askLink').value.trim())],
-      ['f-broker', () => $('askBroker').value.trim().length > 1],
-    ];
-
-    function validate(){
-      let ok = true;
-      rules.forEach(([id, test]) => {
-        const bad = !test();
-        $(id).classList.toggle('bad', bad);
-        if(bad) ok = false;
+    let choice = '';
+    const picks = document.querySelectorAll('.pick');
+    picks.forEach(b => {
+      b.addEventListener('click', () => {
+        picks.forEach(x => x.classList.remove('on'));
+        b.classList.add('on');
+        choice = b.dataset.v;
       });
-      if(!$('askAgree').checked){
-        ok = false;
-        $('askAgree').style.borderColor = 'var(--red)';
-      } else {
-        $('askAgree').style.borderColor = '';
-      }
-      return ok;
-    }
-
-    rules.forEach(([id]) => {
-      const input = $(id).querySelector('input');
-      input && input.addEventListener('input', () => $(id).classList.remove('bad'));
     });
-    $('askAgree').addEventListener('change', () => { $('askAgree').style.borderColor = ''; });
 
     function resetToForm(){
       done.classList.remove('showing');
@@ -1412,16 +1354,14 @@
       form.hidden = false;
       form.classList.remove('leaving');
 
-      form.querySelectorAll('input[type=text], input[type=email], input[type=url], textarea')
-        .forEach(el => el.value = '');
-      form.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false);
-      $('askPlatform').selectedIndex = 0;
-      $('askAgree').style.borderColor = '';
-      form.querySelectorAll('.ask-field.bad').forEach(el => el.classList.remove('bad'));
+      choice = '';
+      picks.forEach(x => x.classList.remove('on'));
+      $('askWhy').value = '';
+      $('askWho').value = '';
 
       err.hidden = true;
       send.disabled = false;
-      send.textContent = 'Send application';
+      send.textContent = 'Send';
     }
 
     const show = () => {
@@ -1447,19 +1387,9 @@
 
     send.addEventListener('click', async () => {
       err.hidden = true;
-      if(!validate()){
-        const first = document.querySelector('.ask-field.bad input');
-        first && first.focus();
-        return;
-      }
-
       send.disabled = true;
       send.textContent = 'Sending…';
       try{
-        /* Generated client-side so we can build the status link without
-           asking Supabase to read the row back — the insert-only RLS
-           policy allows writing but not reading, even via return=representation. */
-        const newId = crypto.randomUUID();
         const r = await fetch(SUPABASE_URL + '/rest/v1/' + TABLE, {
           method:'POST',
           headers:{
@@ -1469,20 +1399,13 @@
             'Prefer':'return=minimal'
           },
           body: JSON.stringify({
-            id:       newId,
-            name:     $('askName').value.trim(),
-            email:    $('askEmail').value.trim(),
-            myfxbook: $('askLink').value.trim(),
-            broker:   $('askBroker').value.trim(),
-            platform: $('askPlatform').value,
-            handle:   $('askWho').value.trim() || null,
-            city:     $('askCity').value.trim() || null,
-            note:     $('askWhy').value.trim() || null,
-            status:   'new'
+            answer:   choice || 'not stated',
+            why:      $('askWhy').value.trim() || null,
+            who:      $('askWho').value.trim() || null,
+            referrer: document.referrer || null
           })
         });
         if(!r.ok) throw new Error(await r.text());
-        statusLink.href = 'status.html?id=' + encodeURIComponent(newId);
 
         form.classList.add('leaving');
         setTimeout(() => {
@@ -1498,10 +1421,10 @@
           autoCloseTimer = setTimeout(hide, AUTO_CLOSE_MS);
         }, 250);
       }catch(e){
-        console.error('application failed:', e);
+        console.error('response failed:', e);
         err.hidden = false;
         send.disabled = false;
-        send.textContent = 'Send application';
+        send.textContent = 'Send';
       }
     });
   })();
