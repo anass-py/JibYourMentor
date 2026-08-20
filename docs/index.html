@@ -481,6 +481,12 @@
   #f-email input{transition:border-color .2s,box-shadow .3s;}
   #f-email.keen input{border-color:rgba(191,245,73,.45);
     box-shadow:0 0 0 3px rgba(191,245,73,.08);}
+  /* Must out-rank .keen above, or a bad address keeps the lime "all good"
+     border while the red error contradicts it. Same specificity, declared
+     later, so this wins. */
+  #f-email.bad input{border-color:var(--red);
+    box-shadow:0 0 0 3px rgba(240,58,58,.12);}
+  #f-email.bad .ask-mail-hint{display:none;}
 
   /* Most of this traffic arrives from a DM on a phone — keep the whole
      question reachable without a long scroll inside the modal. */
