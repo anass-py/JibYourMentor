@@ -586,68 +586,6 @@
     text-decoration:none;border-bottom:1px solid rgba(191,245,73,.35);transition:color .2s,border-color .2s;}
   .ask-status-link:hover{color:var(--lime-dim);border-color:rgba(191,245,73,.6);}
 
-  /* ---------- leaderboard ---------- */
-  .lb-head{display:flex;justify-content:space-between;align-items:flex-end;
-    gap:1.5rem;flex-wrap:wrap;margin-top:2.5rem;}
-  .lb-stamp{font-family:"JetBrains Mono",monospace;font-size:.625rem;
-    letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin:0;text-align:right;}
-  .lb-stamp b{display:block;color:var(--txt);font-weight:500;margin-top:.3125rem;}
-  .lb-live{display:inline-flex;align-items:center;gap:.5rem;color:var(--lime);}
-  .lb-dot{width:.4375rem;height:.4375rem;border-radius:50%;background:var(--lime);
-    box-shadow:0 0 12px rgba(191,245,73,.7);animation:lbPulse 2.4s ease-in-out infinite;}
-  @keyframes lbPulse{0%,100%{opacity:1;}50%{opacity:.3;}}
-  @media(max-width:38rem){.lb-stamp{text-align:left;}}
-
-  .lb{margin-top:1.75rem;border-top:1px solid var(--line2);}
-  .lb-row{display:grid;grid-template-columns:3.75rem minmax(0,1fr) 8rem 7rem 6.25rem;
-    gap:1rem;align-items:center;min-height:4.625rem;
-    border-bottom:1px solid var(--line);padding:0 .75rem;
-    transition:background .2s ease,border-color .2s ease;}
-  .lb-row.lb-h{min-height:2.625rem;font-family:"JetBrains Mono",monospace;
-    font-size:.625rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);}
-  .lb-row:not(.lb-h):hover{background:rgba(191,245,73,.035);}
-
-  .lb-rank{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:1rem;color:var(--mut);}
-  .lb-row[data-rank="1"] .lb-rank{color:var(--lime);font-size:1.25rem;}
-  .lb-row[data-rank="2"] .lb-rank{color:#C6CCD0;}
-  .lb-row[data-rank="3"] .lb-rank{color:#B97A4B;}
-  .lb-row[data-rank="1"]{background:rgba(191,245,73,.04);}
-
-  .lb-name{min-width:0;}
-  .lb-name b{display:block;font-weight:600;font-size:.9375rem;
-    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .lb-name span{display:block;font-family:"JetBrains Mono",monospace;font-size:.625rem;
-    letter-spacing:.1em;color:var(--mut);margin-top:.1875rem;
-    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .lb-num{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:.9375rem;
-    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .lb-num.up{color:var(--lime);}
-  .lb-dd{color:var(--mut);}
-  .lb-badge{justify-self:start;font-family:"JetBrains Mono",monospace;font-size:.5625rem;
-    letter-spacing:.14em;text-transform:uppercase;color:var(--lime);
-    border:1px solid rgba(191,245,73,.3);border-radius:999px;padding:.3125rem .5625rem;
-    white-space:nowrap;}
-
-  .lb-empty{display:none;border:1px dashed var(--line2);border-radius:var(--r);
-    padding:2rem;color:var(--mut);margin-top:1.75rem;font-size:.9375rem;}
-  .lb-empty.show{display:block;}
-  .lb-foot{display:flex;justify-content:space-between;align-items:center;
-    gap:1rem;flex-wrap:wrap;margin-top:1.5rem;}
-  .lb-link{font-family:"JetBrains Mono",monospace;font-size:.6875rem;
-    letter-spacing:.14em;text-transform:uppercase;color:var(--lime);text-decoration:none;
-    border-bottom:1px solid rgba(191,245,73,.35);transition:color .2s,border-color .2s;}
-  .lb-link:hover{color:var(--lime-dim);border-color:rgba(191,245,73,.6);}
-
-  @media(max-width:52rem){
-    .lb-row{grid-template-columns:3rem minmax(0,1fr) 7rem 6rem;padding:0 .5rem;}
-    .lb-badge,.lb-h .lb-badge-col{display:none;}
-  }
-  @media(max-width:38rem){
-    .lb-row{grid-template-columns:2.25rem minmax(0,1fr) 5.75rem;gap:.75rem;min-height:4.25rem;}
-    .lb-dd,.lb-h .lb-dd-col{display:none;}
-    .lb-num{font-size:.8125rem;text-align:right;}
-  }
-
   /* ============================================================
      MOTION
      ============================================================ */
@@ -792,7 +730,6 @@
       <a href="#what">What is JYM</a>
       <a href="#enter">Who can enter</a>
       <a href="#why">Why join</a>
-      <a href="#board">The board</a>
       <a href="#faq">FAQ</a>
     </div>
     <a class="btn btn-lime" href="#cta">Would you join?</a>
@@ -850,9 +787,10 @@
     <p class="kicker rise">What JYM is</p>
     <h2 class="display rise" data-d="40">A place. Nothing more<span style="color:var(--lime)">.</span></h2>
     <p class="sub rise" data-d="100" style="margin-top:1.375rem;color:var(--txt)">
-      JYM gathers Moroccan traders, reads results from Myfxbook, keeps a leaderboard.
-      Joining changes nothing about how you trade. Only difference: now other Moroccan
-      traders are trying to reach top five too.
+      For the first time, Morocco's traders compete in one place &mdash; everything verified,
+      nothing to fake. JYM gathers them, reads results from Myfxbook, keeps a leaderboard.
+      Joining changes nothing about how you trade. The only difference: now others are
+      racing you to the top five.
     </p>
 
     <div class="flow rise" data-d="180">
@@ -992,41 +930,6 @@
   </div>
 </section>
 
-<!-- ==================== THE BOARD ==================== -->
-<section id="board" style="padding-top:0">
-  <div class="wrap">
-    <p class="kicker rise">The board</p>
-    <h2 class="display rise" data-d="40">Top five<span style="color:var(--lime)">.</span> Live.</h2>
-
-    <div class="lb-head rise" data-d="90">
-      <p class="sub" style="margin:0">
-        Ranked by gain. Drawdown stays visible. Read straight from Myfxbook &mdash; nobody here can edit it.
-      </p>
-      <p class="lb-stamp">
-        <span class="lb-live"><i class="lb-dot"></i>Live</span>
-        <b id="lbUpdated">&mdash;</b>
-      </p>
-    </div>
-
-    <div class="lb rise" data-d="140" id="lbTable" aria-live="polite">
-      <div class="lb-row lb-h">
-        <div>Rank</div>
-        <div>Trader</div>
-        <div>Gain</div>
-        <div class="lb-dd-col">Drawdown</div>
-        <div class="lb-badge-col">Status</div>
-      </div>
-    </div>
-
-    <div class="lb-empty" id="lbEmpty">The board opens when Edition One starts.</div>
-
-    <div class="lb-foot rise" data-d="180">
-      <p class="fine" style="margin:0">Only the top five are ever published</p>
-      <a class="lb-link" href="leaderboard.html">Full leaderboard &rarr;</a>
-    </div>
-  </div>
-</section>
-
 <section class="integrity" id="integrity">
   <div class="wrap cost-grid">
     <div>
@@ -1071,7 +974,7 @@
       <details open>
         <summary>Why would I join?
           <span class="pm"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 1.5v7M1.5 5h7"/></svg></span></summary>
-        <div class="a">You can already tell people you are a good trader. JYM lets you prove it, so they don't have to believe you.<br><br>Trade your own account. Same rules as everyone else. The numbers are checked by someone outside JYM. Finish in the top five and your name goes on the record.</div>
+        <div class="a">You can already tell people you are a good trader. JYM lets you prove it, so they don't have to believe you.<br><br>Trade your own account. Same rules as everyone else. We read the public page, like everyone. Finish in the top five and your name goes on the record.</div>
       </details>
       <details>
         <summary>Do I have to wait three months to show anything?
@@ -1342,68 +1245,6 @@
     card.addEventListener('mouseleave', () => {
       card.style.setProperty('--rx','0deg'); card.style.setProperty('--ry','0deg');
     });
-  })();
-
-  /* ---------- leaderboard ---------- */
-  (function(){
-    const table = document.getElementById('lbTable');
-    const empty = document.getElementById('lbEmpty');
-    const stamp = document.getElementById('lbUpdated');
-    if(!table) return;
-
-    /* Big gains lose their decimals — "+423,946%" reads, "+423945.55%" doesn't. */
-    const pct = v => {
-      const n = Number(v);
-      if(!Number.isFinite(n)) return '—';
-      const abs = Math.abs(n);
-      const body = abs >= 1000
-        ? Math.round(abs).toLocaleString('en-US')
-        : abs.toFixed(2);
-      return (n < 0 ? '−' : '+') + body + '%';
-    };
-    const dd = v => {
-      const n = Number(v);
-      return Number.isFinite(n) ? n.toFixed(2) + '%' : '—';
-    };
-    const when = v => {
-      const d = new Date(v);
-      return Number.isNaN(d.getTime()) ? '—'
-        : new Intl.DateTimeFormat('en',{month:'short',day:'2-digit',hour:'2-digit',minute:'2-digit'}).format(d);
-    };
-
-    function row(account, rank){
-      const el = document.createElement('div');
-      el.className = 'lb-row';
-      el.dataset.rank = rank;
-      el.innerHTML =
-        '<div class="lb-rank">' + String(rank).padStart(2,'0') + '</div>' +
-        '<div class="lb-name"><b></b><span></span></div>' +
-        '<div class="lb-num up"></div>' +
-        '<div class="lb-num lb-dd"></div>' +
-        '<div class="lb-badge">Verified</div>';
-      el.querySelector('.lb-name b').textContent = account.name || 'Unnamed account';
-      el.querySelector('.lb-name span').textContent = 'Myfxbook ' + (account.id || '—');
-      el.querySelector('.lb-num.up').textContent = pct(account.gain);
-      el.querySelector('.lb-dd').textContent = dd(account.drawdown);
-      return el;
-    }
-
-    fetch('leaderboard-data.json', {cache:'no-store'})
-      .then(r => { if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-      .then(data => {
-        const top = Array.isArray(data.topFive) ? data.topFive.slice(0,5) : [];
-        top.sort((a,b) => Number(b.gain||0) - Number(a.gain||0));
-
-        if(stamp) stamp.textContent = when(data.updatedAt);
-        if(!top.length){ empty.classList.add('show'); return; }
-
-        empty.classList.remove('show');
-        top.forEach((account,i) => table.appendChild(row(account, i+1)));
-      })
-      .catch(e => {
-        console.error('leaderboard load failed:', e);
-        empty.classList.add('show');
-      });
   })();
 
   /* ---------- ask modal -> supabase ---------- */
