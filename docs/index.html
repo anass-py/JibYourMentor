@@ -470,6 +470,18 @@
     .ask-reasons,.chip-r{animation:none;opacity:1;}
   }
 
+  /* email hint — quiet by default, lights up once they say yes */
+  .ask-mail-hint{font-size:.78125rem;color:var(--mut);margin:.5rem 0 0;
+    transition:color .3s ease;}
+  .ask-mail-hint.lit{color:var(--lime);}
+  .ask-mail-hint.lit::before{content:"";display:inline-block;width:.375rem;height:.375rem;
+    border-radius:50%;background:var(--lime);margin-right:.4375rem;vertical-align:middle;
+    animation:hintDot .4s cubic-bezier(.2,1.6,.3,1);}
+  @keyframes hintDot{from{transform:scale(0);}to{transform:scale(1);}}
+  #f-email input{transition:border-color .2s,box-shadow .3s;}
+  #f-email.keen input{border-color:rgba(191,245,73,.45);
+    box-shadow:0 0 0 3px rgba(191,245,73,.08);}
+
   /* Most of this traffic arrives from a DM on a phone — keep the whole
      question reachable without a long scroll inside the modal. */
   @media(max-width:30rem){
@@ -527,13 +539,22 @@
   .ask-tick{width:3.25rem;height:3.25rem;border-radius:50%;background:var(--lime);
     color:#0A0D08;display:grid;place-items:center;margin-bottom:1.375rem;position:relative;
     transform:scale(0) rotate(-16deg);}
-  .ask-tick::after{content:"";position:absolute;inset:-7px;border-radius:50%;
-    border:1.5px solid var(--lime);opacity:0;pointer-events:none;}
+  .ask-tick::after,.ask-tick::before{content:"";position:absolute;inset:-7px;
+    border-radius:50%;border:1.5px solid var(--lime);opacity:0;pointer-events:none;}
   .ask-tick svg{width:1.375rem;height:1.375rem;position:relative;z-index:1;}
   .ask-tick svg path{stroke-dasharray:20;stroke-dashoffset:20;}
 
   #askDone.showing .ask-tick{animation:tickPop .5s cubic-bezier(.2,1.7,.3,1) .05s forwards;}
   #askDone.showing .ask-tick::after{animation:tickPing .85s ease-out .32s forwards;}
+  /* a "yes" earns a second ripple and a glow — the other answers stay calm */
+  #askDone.showing.is-yes .ask-tick::before{animation:tickPing 1.05s ease-out .58s forwards;}
+  #askDone.showing.is-yes .ask-tick{
+    animation:tickPop .5s cubic-bezier(.2,1.7,.3,1) .05s forwards,
+              tickGlow 1.6s ease-out .35s;}
+  @keyframes tickGlow{
+    0%{box-shadow:0 0 0 0 rgba(191,245,73,.45);}
+    100%{box-shadow:0 0 0 3.25rem rgba(191,245,73,0);}
+  }
   #askDone.showing .ask-tick svg path{animation:tickDraw .3s ease .38s forwards;}
   #askDone.showing h3{animation:doneRise .45s ease .3s forwards;}
   #askDone.showing p{animation:doneRise .45s ease .42s forwards;}
@@ -1159,6 +1180,13 @@
         <input id="askWho" type="text" placeholder="@handle">
       </div>
 
+      <div class="ask-field" id="f-email">
+        <label class="ask-l" for="askEmail">Email <em>(optional)</em></label>
+        <input id="askEmail" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com">
+        <p class="ask-mail-hint" id="askMailHint">Only used to tell you when Edition One opens.</p>
+        <p class="ask-field-err">That email doesn't look right.</p>
+      </div>
+
       <button class="btn btn-lime ask-send" id="askSend" type="button">Send</button>
       <p class="ask-err" id="askErr" hidden>Something went wrong. Try again in a moment.</p>
     </div>
@@ -1405,22 +1433,10 @@
     /* The thank-you has to answer what they actually said — telling someone
        who picked Yes that "a no beats a yes" reads as if nobody was listening. */
     const THANKS = {
-      yes: {
-        title: 'See you at the competition.',
-        body:  "Thank you — that's exactly what I needed to know. Edition One opens soon."
-      },
-      maybe: {
-        title: 'Thank you.',
-        body:  "A maybe with a reason is worth more than a yes without one. We'll keep working on the parts that aren't convincing yet."
-      },
-      no: {
-        title: 'Thank you.',
-        body:  "A no with a reason is the most useful answer we can get. We'll work harder on what's missing."
-      },
-      default: {
-        title: 'Thank you.',
-        body:  'That is genuinely useful. Every answer shapes Edition One.'
-      }
+      yes:     { title: 'See you at the competition.', body: 'Thank you.' },
+      maybe:   { title: 'Thank you.', body: "We'll work harder on what's missing." },
+      no:      { title: 'Thank you.', body: "We'll work harder on what's missing." },
+      default: { title: 'Thank you.', body: 'Every answer shapes Edition One.' }
     };
 
     let choice = '';
@@ -1428,11 +1444,23 @@
     const reasonsBox = $('askReasons');
     const chips = document.querySelectorAll('.chip-r');
 
-    /* Reasons only make sense for a hesitation — a "yes" has nothing to explain. */
-    function syncReasons(){
-      const show = choice === 'no' || choice === 'maybe';
-      reasonsBox.hidden = !show;
-      if(!show) chips.forEach(c => c.classList.remove('on'));
+    const mailHint = $('askMailHint');
+    const mailField = $('f-email');
+
+    /* Reasons only make sense for a hesitation — a "yes" has nothing to explain.
+       A yes is also the one answer we'd actually want to email later, so the
+       email row lights up at the same moment. */
+    function syncChoice(){
+      const hesitant = choice === 'no' || choice === 'maybe';
+      reasonsBox.hidden = !hesitant;
+      if(!hesitant) chips.forEach(c => c.classList.remove('on'));
+
+      const yes = choice === 'yes';
+      mailField.classList.toggle('keen', yes);
+      mailHint.classList.toggle('lit', yes);
+      mailHint.textContent = yes
+        ? "Leave it and we'll tell you the day Edition One opens."
+        : 'Only used to tell you when Edition One opens.';
     }
 
     picks.forEach(b => {
@@ -1440,7 +1468,7 @@
         picks.forEach(x => x.classList.remove('on'));
         b.classList.add('on');
         choice = b.dataset.v;
-        syncReasons();
+        syncChoice();
       });
     });
 
@@ -1463,11 +1491,22 @@
       reasonsBox.hidden = true;
       $('askWhy').value = '';
       $('askWho').value = '';
+      $('askEmail').value = '';
+      mailField.classList.remove('bad');
+      syncChoice();
 
+      done.classList.remove('is-yes');
       err.hidden = true;
       send.disabled = false;
       send.textContent = 'Send';
     }
+
+    /* Optional field — only complain if they typed something that isn't an email. */
+    const emailOk = () => {
+      const v = $('askEmail').value.trim();
+      return v === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    };
+    $('askEmail').addEventListener('input', () => mailField.classList.remove('bad'));
 
     const show = () => {
       if(justSucceeded){ resetToForm(); justSucceeded = false; }
@@ -1492,6 +1531,11 @@
 
     send.addEventListener('click', async () => {
       err.hidden = true;
+      if(!emailOk()){
+        mailField.classList.add('bad');
+        $('askEmail').focus();
+        return;
+      }
       send.disabled = true;
       send.textContent = 'Sending…';
       try{
@@ -1508,6 +1552,7 @@
             reasons:  selectedReasons(),
             why:      $('askWhy').value.trim() || null,
             who:      $('askWho').value.trim() || null,
+            email:    $('askEmail').value.trim() || null,
             referrer: document.referrer || null
           })
         });
@@ -1516,6 +1561,7 @@
         const thanks = THANKS[choice] || THANKS.default;
         $('askDoneTitle').textContent = thanks.title;
         $('askDoneBody').textContent = thanks.body;
+        done.classList.toggle('is-yes', choice === 'yes');
 
         form.classList.add('leaving');
         setTimeout(() => {
