@@ -1165,8 +1165,8 @@
 
     <div id="askDone" hidden>
       <div class="ask-tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.6 6.4l2.4 2.4L9.4 3.6"/></svg></div>
-      <h3>Thank you.</h3>
-      <p>That is genuinely useful &mdash; a no with a reason more than a yes.</p>
+      <h3 id="askDoneTitle">Thank you.</h3>
+      <p id="askDoneBody">That is genuinely useful.</p>
       <div class="ask-progress-wrap">
         <div class="ask-progress"><i id="askProgressBar"></i></div>
       </div>
@@ -1402,6 +1402,27 @@
     let autoCloseTimer = null;
     let justSucceeded = false;
 
+    /* The thank-you has to answer what they actually said — telling someone
+       who picked Yes that "a no beats a yes" reads as if nobody was listening. */
+    const THANKS = {
+      yes: {
+        title: 'See you at the competition.',
+        body:  "Thank you — that's exactly what I needed to know. Edition One opens soon."
+      },
+      maybe: {
+        title: 'Thank you.',
+        body:  "A maybe with a reason is worth more than a yes without one. We'll keep working on the parts that aren't convincing yet."
+      },
+      no: {
+        title: 'Thank you.',
+        body:  "A no with a reason is the most useful answer we can get. We'll work harder on what's missing."
+      },
+      default: {
+        title: 'Thank you.',
+        body:  'That is genuinely useful. Every answer shapes Edition One.'
+      }
+    };
+
     let choice = '';
     const picks = document.querySelectorAll('.pick');
     const reasonsBox = $('askReasons');
@@ -1491,6 +1512,10 @@
           })
         });
         if(!r.ok) throw new Error(await r.text());
+
+        const thanks = THANKS[choice] || THANKS.default;
+        $('askDoneTitle').textContent = thanks.title;
+        $('askDoneBody').textContent = thanks.body;
 
         form.classList.add('leaving');
         setTimeout(() => {
