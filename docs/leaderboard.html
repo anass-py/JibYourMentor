@@ -392,6 +392,8 @@
 
     } catch (error) {
       console.error("LEADERBOARD ERROR:", error);
+      // No data file yet — say so, rather than showing an empty table with no explanation.
+      els.empty.classList.add("show");
     }
   }
 
